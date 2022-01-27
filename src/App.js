@@ -1,11 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { GlobalStyles } from "./globals";
+import StyledNavbar from "./components/Navbar.jsx";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-     
-    </div>
+    <Router>
+      <GlobalStyles />
+      <div className="App">
+        <StyledNavbar />
+      </div>
+    </Router>
   );
 }
 
