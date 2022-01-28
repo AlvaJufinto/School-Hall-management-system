@@ -5,7 +5,7 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Varela Round', sans-serif;
+        /* font-family: 'Bebas Neue', cursive; */
     }
 `
 
@@ -19,8 +19,13 @@ export const GlobalColors = {
     red: "D00000"
 }
 
-export const GlobalMeasurement = {
-    navbarHeight: 164,
+export const GlobalMeasurements = {
+    navbarHeight: 100,
     containerWidth: 888,
+    navbarFontSize: 36,
+}
 
+export const GlobalFonts = {
+    primary: 'Bebas Neue',
+    secondary: 'Poppins',
 }

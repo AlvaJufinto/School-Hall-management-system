@@ -1,39 +1,54 @@
 import styled from 'styled-components';
 import { Navbar, Container, Nav } from 'react-bootstrap';
+import { GlobalMeasurements, GlobalFonts } from '../globals';
 import {
   Link
 } from "react-router-dom";
 
 const NavLink = styled(Link)`
-    color: black;
-    font-weight: 600 !important;
-    font-family: 'Varela Round';
+    color: white;
+    font-family: ${GlobalFonts.primary};
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
 
     &:hover {
-        color: black
+        color: white;
     }
+`
+
+const NavbarBrand = styled(Navbar.Brand)`
+    font-size: ${GlobalMeasurements.navbarFontSize}px !important;
 `
 
 const StyledNavbar = () => {
     return (
-        <Navbar bg="light" expand="lg" style={{
-            height: '164px',
-            fontSize: '48px !important'
+        <Navbar bg="dark" variant="dark" expand="lg" style={{
+            height: `${GlobalMeasurements.navbarHeight}px`, 
+            fontSize: `${GlobalMeasurements.navbarFontSize}px`,            
         }}>
             <Container>
                 <NavLink to="/">
-                    <Navbar.Brand>SEWA AULA</Navbar.Brand>
+                    <NavbarBrand>SEWA AULA</NavbarBrand>
                 </NavLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Nav className="me-auto">
-                        <Nav.Link>
+                        <Nav.Link style={{
+                            marginLeft: '40px'
+                        }}>
                             <NavLink to="/">HOME</NavLink>
                         </Nav.Link>
-                        <Nav.Link>
+                        <Nav.Link style={{
+                            marginLeft: '40px'
+                        }}>
                             <NavLink to="/about">ABOUT</NavLink>
                         </Nav.Link>
-                        <Nav.Link>
+                        <Nav.Link  style={{
+                            marginLeft: '40px'
+                         }}>
                             <NavLink to="/contact">CONTACT</NavLink>
                         </Nav.Link>
                     </Nav>
