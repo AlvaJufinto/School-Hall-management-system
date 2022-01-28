@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { GlobalMeasurements, GlobalFonts } from '../globals';
+import { GlobalMeasurements, GlobalFonts, GlobalColors } from '../globals';
 import {
   Link
 } from "react-router-dom";
 
 const NavLink = styled(Link)`
-    color: white;
+    color: ${GlobalColors.white};
     font-family: ${GlobalFonts.primary};
     text-decoration: none;
 
@@ -20,14 +20,14 @@ const NavLink = styled(Link)`
 `
 
 const NavbarBrand = styled(Navbar.Brand)`
-    font-size: ${GlobalMeasurements.navbarFontSize}px !important;
+    font-size: ${GlobalMeasurements.navbarFontSize}rem !important;
 `
 
 const StyledNavbar = () => {
     return (
         <Navbar bg="dark" variant="dark" expand="lg" style={{
-            height: `${GlobalMeasurements.navbarHeight}px`, 
-            fontSize: `${GlobalMeasurements.navbarFontSize}px`,            
+            minHeight: `${GlobalMeasurements.navbarHeight}px`, 
+            fontSize: `${GlobalMeasurements.navbarFontSize}rem`,            
         }}>
             <Container>
                 <NavLink to="/">
@@ -36,19 +36,13 @@ const StyledNavbar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Nav className="me-auto">
-                        <Nav.Link style={{
-                            marginLeft: '40px'
-                        }}>
+                        <Nav.Link className="mr-5">
                             <NavLink to="/">HOME</NavLink>
                         </Nav.Link>
-                        <Nav.Link style={{
-                            marginLeft: '40px'
-                        }}>
+                        <Nav.Link className="mr-5">
                             <NavLink to="/about">ABOUT</NavLink>
                         </Nav.Link>
-                        <Nav.Link  style={{
-                            marginLeft: '40px'
-                         }}>
+                        <Nav.Link>
                             <NavLink to="/contact">CONTACT</NavLink>
                         </Nav.Link>
                     </Nav>

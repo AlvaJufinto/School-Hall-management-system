@@ -16,13 +16,13 @@ export const GlobalColors = {
     lightGrey: "#C4C4C4",
     white: "#FFF",
     green: "#04B900",
-    red: "D00000"
+    red: "D00000",
 }
 
 export const GlobalMeasurements = {
     navbarHeight: 100,
     containerWidth: 888,
-    navbarFontSize: 36,
+    navbarFontSize: 1.75,
 }
 
 export const GlobalFonts = {
