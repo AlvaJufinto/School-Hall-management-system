@@ -1,5 +1,3 @@
-import { GlobalStyles } from "./globals";
-import StyledNavbar from "./components/Navbar.jsx";
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,12 +5,17 @@ import {
   Navigate
 } from "react-router-dom";
 
+import { GlobalStyles } from "./globals";
+  
+import Home from "./pages/Home";
+
 function App() {
   return (
     <Router>
       <GlobalStyles />
       <div className="App">
-        <StyledNavbar />
+        <Home />
+
       </div>
     </Router>
   );
