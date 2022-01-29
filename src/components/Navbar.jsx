@@ -18,8 +18,10 @@ const StyledNavbar = () => {
                     <NavbarBrand>SEWA AULA</NavbarBrand>
                 </StyledLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                    <Nav className="me-auto">
+                <Navbar.Collapse 
+                    id="basic-navbar-nav" 
+                    className=" justify-content-end">
+                    <Nav className="justify-content-end">
                         <Nav.Link className="mr-5">
                             <StyledLink to="/">HOME</StyledLink>
                         </Nav.Link>

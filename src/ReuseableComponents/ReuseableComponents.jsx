@@ -29,3 +29,10 @@ export const StyledButton = styled(Button)`
     font-size: ${props => props.fontSize ? props.fontSize : "1"}rem;
     border-radius: ${props => props.borderRadius ? props.border : "15"}px;
 `
+
+export const StyledTitle = styled.h1`
+    color: ${props => props.color ? props.color : 'black'};
+    font-size: ${props => props.fontSize ? props.fontSize : "3"}rem;
+    padding: ${props => props.marginY ? props.marginY : "50"}px 0px;
+    font-family: ${props => props.fontFamily ? props.fontFamily : GlobalFonts.primary};
+`
