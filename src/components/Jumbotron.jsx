@@ -15,7 +15,7 @@ const JumbotronDescription = styled.p`
     }
 `
 
-const StyledNavbar = () => {
+const Jumbotron = () => {
     return (
         <div class="container-fluid text-light" style={{
             backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 64%), rgba(196, 196, 196, 0%)), url(${JumbotronImg})`,
@@ -24,6 +24,9 @@ const StyledNavbar = () => {
             color: GlobalColors.white,
             display: 'flex',
             alignItems: 'center',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
         }}>
             <Container>
                 <h1 class="display-4 fw-bold">Lorem ipsum </h1>
@@ -34,11 +37,13 @@ const StyledNavbar = () => {
                         background={GlobalColors.violet}
                         height="65" 
                         width="205"
-                        fontSize="1.5" >Lorem</StyledButton>
+                        fontSize="1.5">
+                            Lorem
+                    </StyledButton>
                 </StyledLink>
             </Container>
         </div>
     )
 }
 
-export default StyledNavbar;
+export default Jumbotron;

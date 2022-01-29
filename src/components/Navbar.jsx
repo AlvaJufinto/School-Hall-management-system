@@ -10,7 +10,7 @@ const NavbarBrand = styled(Navbar.Brand)`
 const StyledNavbar = () => {
     return (
         <Navbar bg="dark" variant="dark" expand="lg" style={{
-            minHeight: `${GlobalMeasurements.navbarHeight}px`, 
+            padding: `30px`, 
             fontSize: `${GlobalMeasurements.navbarFontSize}rem`,            
         }}>
             <Container>
