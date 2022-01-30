@@ -16,7 +16,8 @@ export const GlobalColors = {
     lightGrey: "#C4C4C4",
     white: "#FFF",
     green: "#04B900",
-    red: "D00000",
+    red: "#D00000",
+    lightBack: "#F5F6FF",
 }
 
 export const GlobalMeasurements = {

@@ -4,7 +4,7 @@ import { Carousel } from 'react-bootstrap';
 
 import { StyledTitle } from "../ReuseableComponents/ReuseableComponents";
 
-import { GlobalMeasurements } from '../globals';
+import { GlobalMeasurements, GlobalColors } from '../globals';
 import PreviewImg from "../assets/img/preview-img.png";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -36,8 +36,16 @@ const PreviewSection = () => {
 
     return (
         <>  
-            <StyledTitle style={{display: 'flex', justifyContent: 'center'}}>Preview Aula</StyledTitle>
-            <Carousel activeIndex={index} onSelect={handleSelect}>
+            <StyledTitle style={{
+                margin: 'auto',
+                display: 'flex', 
+                justifyContent: 'center',
+                backgroundColor: GlobalColors.lightBack,
+                width: '90%',
+            }}>Preview Aula</StyledTitle>
+            <Carousel activeIndex={index} onSelect={handleSelect} style={{
+                margin: '-10px 0'
+            }}>
                 {data.map((slide, i) => {
                     return (
                     <Carousel.Item>        
