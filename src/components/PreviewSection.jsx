@@ -37,18 +37,22 @@ const PreviewSection = () => {
     return (
         <>  
             <StyledTitle style={{
-                margin: 'auto',
-                display: 'flex', 
-                justifyContent: 'center',
                 backgroundColor: GlobalColors.lightBack,
                 width: '90%',
+                maxWidth: `${GlobalMeasurements.containerWidth}px`,
             }}>Preview Aula</StyledTitle>
             <Carousel activeIndex={index} onSelect={handleSelect} style={{
-                margin: '-10px 0'
+                margin: '-10px 0',
+                maxHeight: '530px',
             }}>
                 {data.map((slide, i) => {
                     return (
-                    <Carousel.Item>        
+                    <Carousel.Item style={{
+                        maxHeight: '500px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>        
                         <img
                             className="d-block w-100"
                             src={slide.image}

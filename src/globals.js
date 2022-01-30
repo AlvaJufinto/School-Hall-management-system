@@ -22,7 +22,7 @@ export const GlobalColors = {
 
 export const GlobalMeasurements = {
     navbarHeight: 100,
-    containerWidth: 888,
+    containerWidth: 1300,
     navbarFontSize: 1.75,
 }
 
