@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import {
   Link
 } from "react-router-dom";
@@ -50,4 +50,8 @@ export const StyledSection = styled.div`
     background: ${props => props.backgroundColor ? props.backgroundColor : GlobalColors.lightBack};
     font-family: ${props => props.fontFamily ? props.fontFamily : GlobalFonts.primary};
     color: ${props => props.color ? props.color : GlobalColors.white};
+`
+
+export const StyledCard = styled(Card)`
+
 `

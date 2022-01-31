@@ -41,7 +41,7 @@ const FooterSection = styled.div`
 
         .RightSection {
             /* background: green; */
-            width: 28%;
+            width: 25%;
 
             ${StyledButton} {
                 text-align: left;
@@ -61,7 +61,7 @@ const Footer = () => {
                         <h2>SMK NEGERI 26 JAKARTA</h2>
                     </div>
                     <div className="BottomLeftSection">
-                        <h4><EmailOutlined /> Contact us</h4>
+                        <h4><EmailOutlined className="Icon" /> Contact us</h4>
                         <p>Jl. Balai Pustaka Baru I No.2, RW.7, Rawamangun, Kec. Pulo Gadung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13220</p>
                     </div>
                 </div>
@@ -74,10 +74,16 @@ const Footer = () => {
                         background={GlobalColors.green}
                         // width="200"
                         height="auto"
-                        >
+                        fontSize="1.5" 
+                        style={{
+                            padding: '15px'
+                        }}>
                         <img 
-                            src={WhatsappIcon} 
-                            className="Icon" /> Hubungi Admin
+                            src={WhatsappIcon}
+                            width="25"
+                            style={{
+                                margin: '0px 15px 0 0'
+                            }} /> Hubungi Admin
                     </StyledButton>
                 </div>
             </StyledSection>
