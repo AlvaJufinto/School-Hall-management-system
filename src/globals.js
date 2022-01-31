@@ -12,7 +12,8 @@ export const GlobalStyles = createGlobalStyle`
 export const GlobalColors = {
     blue: "#63DAFF",
     violet: "#6369FF",
-    grey: "E5E5E5",
+    hardGrey: "#393E46",
+    grey: "#E5E5E5",
     lightGrey: "#C4C4C4",
     white: "#FFF",
     green: "#04B900",

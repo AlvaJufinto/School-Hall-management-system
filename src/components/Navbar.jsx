@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { GlobalMeasurements } from '../globals';
+import { GlobalMeasurements, GlobalColors } from '../globals';
 import { StyledLink } from "../ReuseableComponents/ReuseableComponents";
 
 const NavbarBrand = styled(Navbar.Brand)`
@@ -9,9 +9,10 @@ const NavbarBrand = styled(Navbar.Brand)`
 
 const StyledNavbar = () => {
     return (
-        <Navbar bg="dark" variant="dark" expand="lg" style={{
+        <Navbar variant="dark" expand="lg" style={{
             padding: `30px`, 
-            fontSize: `${GlobalMeasurements.navbarFontSize}rem`,            
+            fontSize: `${GlobalMeasurements.navbarFontSize}rem`,
+            backgroundColor: GlobalColors.hardGrey,            
         }}>
             <Container>
                 <StyledLink to="/">

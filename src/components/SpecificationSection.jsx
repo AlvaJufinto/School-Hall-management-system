@@ -6,8 +6,14 @@ import { StyledSection, StyledTitle } from "../ReuseableComponents/ReuseableComp
 
 const TableStyled = styled(Table)`
     max-width: 500px;  
-    width: 760px;
+    width: 100%;
     margin: auto;
+    text-align: center;
+    font-family: ${GlobalFonts.secondary};
+    
+    td {
+        width: 50%;
+    }
 ` 
 
 const SpecificationSection = () => {
@@ -15,20 +21,35 @@ const SpecificationSection = () => {
         <StyledSection>
             <StyledTitle>Spesifikasi aula</StyledTitle>
             <TableStyled bordered>
-                <thead>
+                <thead style={{
+                    background: GlobalColors.violet,
+                    color: GlobalColors.white,
+                }}>
                     <tr>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <td>Aspek</td>
+                        <td>Keterangan</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>Luas</td>
+                        <td>150m2</td>
                     </tr>
                     <tr>
-                        <td>Thornton</td>
-                        <td>@fat</td>
+                        <td>Kapasitas</td>
+                        <td>300 Orang</td>
+                    </tr>
+                    <tr>
+                        <td>Sound System</td>
+                        <td>3D Stereo</td>
+                    </tr>
+                    <tr>
+                        <td>Proyektor</td>
+                        <td>2 Buah</td>
+                    </tr>
+                    <tr>
+                        <td>Harga</td>
+                        <td>Rp. 300.000,00/Jam</td>
                     </tr>
                 </tbody>
             </TableStyled>

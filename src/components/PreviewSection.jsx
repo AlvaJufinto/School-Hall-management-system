@@ -47,21 +47,21 @@ const PreviewSection = () => {
             }}>
                 {data.map((slide, i) => {
                     return (
-                    <Carousel.Item style={{
-                        maxHeight: '500px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>        
-                        <img
-                            className="d-block w-100"
-                            src={slide.image}
-                            alt="slider image"
-                            style={{
-                                filter: 'brightness(60%)',
-                            }}
-                        />
-                    </Carousel.Item>
+                        <Carousel.Item style={{
+                            maxHeight: '500px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>        
+                            <img
+                                className="d-block w-100"
+                                src={slide.image}
+                                alt="slider image"
+                                style={{
+                                    filter: 'brightness(60%)',
+                                }}
+                            />
+                        </Carousel.Item>
                     )
                 })}
             </Carousel>

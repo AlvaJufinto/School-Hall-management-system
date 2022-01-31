@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 import { GlobalMeasurements, GlobalFonts, GlobalColors } from '../globals';
 
-
 export const StyledLink = styled(Link)`
     color: ${GlobalColors.white};
     font-family: ${GlobalFonts.primary};
