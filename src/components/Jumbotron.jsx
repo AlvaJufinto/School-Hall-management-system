@@ -37,7 +37,8 @@ const Jumbotron = () => {
                         background={GlobalColors.violet}
                         height="65" 
                         width="205"
-                        fontSize="1.5">
+                        fontSize="1.5"
+                        borderRadius="15">
                             Lorem
                     </StyledButton>
                 </StyledLink>

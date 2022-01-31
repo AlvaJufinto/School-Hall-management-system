@@ -26,7 +26,11 @@ export const StyledButton = styled(Button)`
     width: ${props => props.width ? props.width : "100"}px;
     height: ${props => props.height ? props.height : "50"}px;
     font-size: ${props => props.fontSize ? props.fontSize : "1"}rem;
-    border-radius: ${props => props.borderRadius ? props.border : "15"}px;
+    border-radius: ${props => props.borderRadius ? props.border : "0"}px !important;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        background: ${props => props.backgroundInteract ? props.backgroundInteract : props.background };
+    }
 `
 
 export const StyledTitle = styled.h1`
@@ -44,4 +48,6 @@ export const StyledSection = styled.div`
     width: 90%;
     max-width: ${GlobalMeasurements.containerWidth}px;
     background: ${props => props.backgroundColor ? props.backgroundColor : GlobalColors.lightBack};
+    font-family: ${props => props.fontFamily ? props.fontFamily : GlobalFonts.primary};
+    color: ${props => props.color ? props.color : GlobalColors.white};
 `
