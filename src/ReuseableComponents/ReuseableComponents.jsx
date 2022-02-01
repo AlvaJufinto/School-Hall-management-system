@@ -51,7 +51,3 @@ export const StyledSection = styled.div`
     font-family: ${props => props.fontFamily ? props.fontFamily : GlobalFonts.primary};
     color: ${props => props.color ? props.color : GlobalColors.white};
 `
-
-export const StyledCard = styled(Card)`
-
-`
