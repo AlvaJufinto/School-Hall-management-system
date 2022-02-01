@@ -8,7 +8,7 @@ import PacketCards from "./../components/PacketCards";
 import Footer from "./../components/Footer";
 
 const HomeContainer = styled.div`
-    min-height: 200vh;
+    /* min-height: 200vh; */
 `
 
 const Home = () => {

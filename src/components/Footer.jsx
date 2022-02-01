@@ -22,13 +22,17 @@ const FooterSection = styled.div`
     p {
         font-size: 1.20rem;
     }
+    
+    span {
+        font-size: 0.75;
+    }
 
     ${StyledSection} {
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: red;
+        /* background: red; */
 
         .MobileView {
             display: none;
@@ -37,14 +41,14 @@ const FooterSection = styled.div`
         .LeftSection {
             height: 100%;
             width: 28%;
-            background: orange;
+            /* background: orange; */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
         .RightSection {
-            background: green;
+            /* background: green; */
             width: 25%;
 
             ${StyledButton} {
@@ -61,9 +65,36 @@ const FooterSection = styled.div`
                 flex-direction: column;
                 align-items: center;
                 width: 100%;
-                background: blue;
+                /* background: blue; */
 
+                .Icon {
+                    margin: 20px;
+                    font-size: 3rem;
+                }
 
+                .BottomSection {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .BottomLeftSection {
+                        width: 50%;
+
+                        p {
+                            font-size: 0.75rem;
+                        }
+                    }
+
+                    .BottomRightSection {
+                        width: 50%;
+                        /* background: salmon; */
+
+                        ${StyledButton} {
+                            width: 100%;
+                            font-size: 1rem;
+                        }
+                    }
+                }
             }
 
             .LeftSection {
@@ -95,15 +126,34 @@ const Footer = () => {
 
                     <div className="BottomSection">
                         <div className="BottomLeftSection">
-                            <h4><EmailOutlined className="Icon" /> Contact us</h4>
+                            <h4><EmailOutlined /> Contact us</h4>
                             <p>Jl. Balai Pustaka Baru I No.2, RW.7, Rawamangun, Kec. Pulo Gadung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13220</p>
+                        </div>
+
+                        <div className="BottomRightSection">
+                            <StyledButton 
+                            variant="success"
+                            background={GlobalColors.green}
+                            // width="200"
+                            height="auto"
+                            fontSize="1.5" 
+                            style={{
+                                padding: '15px'
+                            }}>
+                            <img 
+                                src={WhatsappIcon}
+                                width="25"
+                                style={{
+                                    margin: '0px 15px 0 0'
+                                }} /> Hubungi Admin
+                        </StyledButton>
                         </div>
                     </div>
                 </div>
 
                 <div className="LeftSection">
                     <div className="TopLeftSection">
-                        <p>belajar, bekerja, membangun</p>
+                        <span>belajar, bekerja, membangun</span>
                         <h2>SMK NEGERI 26 JAKARTA</h2>
                     </div>
                     <div className="BottomLeftSection">
