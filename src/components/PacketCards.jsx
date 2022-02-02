@@ -5,39 +5,49 @@ import CardComponent from "./Card";
 import { StyledLink, StyledSection, StyledTitle, StyledButton } from "../ReuseableComponents/ReuseableComponents";
 
 const CardsContainer = styled.div`
+    padding: 0 0 100px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
 `
 
 const PacketCards = () => {
     const data = [
         {
             image: require('./../assets/img/dummy-img-1.png'), 
-            title: "Packet 1",
+            title: "Paket 1",
             packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
-            price: "Description 1 Here",
+            price: "Rp 20.000/orang",
         },
         {
             image: require('./../assets/img/dummy-img-1.png'), 
-            title: "Packet 2",
+            title: "Paket 2",
             packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
-            price: "Description 1 Here",
+            price: "Rp 20.000/orang",
         },
         {
             image: require('./../assets/img/dummy-img-1.png'), 
-            title: "Packet 3",
+            title: "Paket 3",
             packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
-            price: "Description 1 Here",
-        }
+            price: "Rp 20.000/orang",
+        },
     ];
 
     return (
-        <StyledSection style={{
-            padding: '0 50px 100px 50px'
-        }} >
+        <StyledSection>
             <StyledTitle>Pilih paket</StyledTitle>
             <CardsContainer>
-                <StyledLink to="order/:packetId/">
-                    <CardComponent />
-                </StyledLink>
+                {data.map(data =>(
+                    <StyledLink to="order/:packetId/">
+                        <CardComponent 
+                            image={data.image} 
+                            title={data.title}
+                            packet={data.packet}
+                            price={data.price}
+                    />
+                    </StyledLink>
+                ))}
             </CardsContainer>
         </StyledSection>
     )

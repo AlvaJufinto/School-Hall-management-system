@@ -32,18 +32,18 @@ const CardTitle = styled(Card.Title)`
     font-size: 2rem;
 `
 
-const CardComponent = () => {
+const CardComponent = ({ image, title, packet, price }) => {
     return (
         <StyledCard>
-            <Card.Img variant="top" src={DummyImg} />
+            <Card.Img variant="top" src={image} />
             <div className="CardBody">
-                <CardTitle>Paket A</CardTitle>
+                <CardTitle>{title}</CardTitle>
                 <Card.Text>
-                    <p>Nasi Ayam</p>
-                    <p>Lawar</p>
-                    <p>Air Mineral</p>
+                    {packet.map(packet => (
+                        <p>{packet}</p>
+                    ))}
                 </Card.Text>
-                <h2>Rp 20.000/orang </h2>
+                <h2>{price}</h2>
             </div>
         </StyledCard>
     )
