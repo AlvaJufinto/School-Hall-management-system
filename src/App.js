@@ -8,14 +8,18 @@ import {
 import { GlobalStyles } from "./globals";
   
 import Home from "./pages/Home";
+import FormOrder from "./pages/FormOrder";
 
 function App() {
+
   return (
     <Router>
       <GlobalStyles />
       <div className="App">
-        <Home />
-
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/form-order/:packetId" element={<FormOrder />} />
+        </Routes>
       </div>
     </Router>
   );

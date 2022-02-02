@@ -11,24 +11,34 @@ const StyledCard = styled(Card)`
     padding: 18px;
     width: 300px;
     
-    ${Card.Text} {
-        font-size: 1rem;
-
-        p {
-            margin: -3px 0;
-            font-family: ${GlobalFonts.secondary};
+    .CardBody {
+        flex: 0 0 100%;
+        margin: 20px 0 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        
+        ${Card.Text} {
+            font-size: 1rem;
+    
+            p {
+                margin: -3px 0;
+                font-family: ${GlobalFonts.secondary};
+            }
+        }
+    
+        h2 {
+            /* margin: 30px 0 0 0; */
+            font-size: 2rem;
+            color: ${GlobalColors.green};
         }
     }
 
-    h2 {
-        margin: 30px 0 0 0;
-        font-size: 2rem;
-        color: ${GlobalColors.green};
-    }
 `
 
 const CardTitle = styled(Card.Title)`
-    margin: 20px 0;
+    /* margin: 20px 0; */
     font-size: 2rem;
 `
 

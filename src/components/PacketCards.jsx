@@ -21,16 +21,16 @@ const PacketCards = () => {
             price: "Rp 20.000/orang",
         },
         {
-            image: require('./../assets/img/dummy-img-1.png'), 
+            image: require('./../assets/img/dummy-img-2.png'), 
             title: "Paket 2",
-            packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
-            price: "Rp 20.000/orang",
+            packet: ['Nasi', 'Ayam Kentucky', 'Air Mineral'],
+            price: "Rp 15.000/orang",
         },
         {
-            image: require('./../assets/img/dummy-img-1.png'), 
-            title: "Paket 3",
-            packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
-            price: "Rp 20.000/orang",
+            image: require('./../assets/img/dummy-img-3.png'), 
+            title: "No katering",
+            packet: ['Hanya Memesan Aula'],
+            price: "Rp 0",
         },
     ];
 
@@ -39,13 +39,13 @@ const PacketCards = () => {
             <StyledTitle>Pilih paket</StyledTitle>
             <CardsContainer>
                 {data.map(data =>(
-                    <StyledLink to="order/:packetId/">
+                    <StyledLink to="/form-order/:packetId">
                         <CardComponent 
                             image={data.image} 
                             title={data.title}
                             packet={data.packet}
                             price={data.price}
-                    />
+                        />
                     </StyledLink>
                 ))}
             </CardsContainer>
