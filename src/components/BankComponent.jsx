@@ -6,12 +6,12 @@ import BcaLogo from "./../assets/img/bca-logo.png";
 import BriLogo from "./../assets/img/bri-logo.png";
 
 const BankGroup = styled.div`
-    
-
     color: black;
     font-family: ${GlobalFonts.secondary};
 
-    
+    .AdminName, .BankNumber {
+        margin: 5px 0;
+    }
 `
 
 const BankComponent = () => {

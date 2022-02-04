@@ -1,18 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyles = createGlobalStyle`
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        /* font-family: 'Bebas Neue', cursive; */
-    }
-
-    .warning {
-        color: ${GlobalColors.red}
-    }
-`
-
 export const GlobalColors = {
     blue: "#63DAFF",
     violet: "#6369FF",
@@ -35,3 +22,16 @@ export const GlobalFonts = {
     primary: 'Bebas Neue',
     secondary: 'Poppins',
 }
+
+export const GlobalStyles = createGlobalStyle`
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        /* font-family: 'Bebas Neue', cursive; */
+    }
+
+    .warning {
+        color: ${GlobalColors.red}
+    }
+`

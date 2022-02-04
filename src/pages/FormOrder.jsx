@@ -3,14 +3,13 @@ import { Form } from "react-bootstrap";
 
 import StyledNavbar from "../components/Navbar";
 import CardComponent from "../components/Card";
-import BankComponent from "../components/BankGroup";
+import BankComponent from "../components/BankComponent";
 import Footer from "../components/Footer";
 
 import { StyledSection, StyledTitle } from '../ReuseableComponents/ReuseableComponents';
 import { GlobalFonts, GlobalColors } from '../globals';
 
 const StyledForm = styled.form`
-
     .FormGroups {
         color: black;
         font-family: ${GlobalFonts.secondary};
