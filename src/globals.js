@@ -7,6 +7,10 @@ export const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
         /* font-family: 'Bebas Neue', cursive; */
     }
+
+    .warning {
+        color: ${GlobalColors.red}
+    }
 `
 
 export const GlobalColors = {

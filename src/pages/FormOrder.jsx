@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 
 import StyledNavbar from "../components/Navbar";
 import CardComponent from "../components/Card";
+import BankComponent from "../components/BankGroup";
 import Footer from "../components/Footer";
 
 import { StyledSection, StyledTitle } from '../ReuseableComponents/ReuseableComponents';
@@ -69,7 +70,7 @@ const FormOrder = () => {
                                 <Form.Control type="date" />
                             </Form.Group>
                         </div>
-                        
+                        <BankComponent />
                     </div>
                 </StyledForm>
                 
