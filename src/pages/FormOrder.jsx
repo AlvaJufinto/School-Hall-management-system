@@ -5,17 +5,23 @@ import StyledNavbar from "../components/Navbar";
 import CardComponent from "../components/Card";
 import BankComponent from "../components/BankComponent";
 import Footer from "../components/Footer";
-import { StyledSection, StyledTitle, StyledButton } from '../ReuseableComponents/ReuseableComponents';
+import { StyledSection, StyledTitle, StyledButton, StyledLink } from '../ReuseableComponents/ReuseableComponents';
 import { GlobalFonts, GlobalColors } from '../globals';
 
+const StyledCardComponent = styled(CardComponent)`
+    @media (max-width: 768px) {
+
+    }
+`
+
 const StyledForm = styled.form`
-    padding: 0px 20px;
+    padding: 0px 20px 100px 20px;
 
     .TopForm {
-        background: violet;
+        /* background: violet; */
         display: flex;
         gap: 50px;
-        /* justify-content: center; */
+        justify-content: center;
         align-items: flex-start;
 
         .FormGroups {
@@ -29,21 +35,24 @@ const StyledForm = styled.form`
     }
     
     .BottomForm {
-        background: salmon;
+        /* background: salmon; */
+        margin: 50px 0 0 0;
         color: black;
-        height: 200px;
+        width: 100%;
+        min-height: 200px;
         display: flex;
         justify-content: center;
-        /* align-items: center; */
         gap: 50px;
 
         .Buttons {
+            max-width: 300px;
+            width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             gap: 20px;
-            background: lightgreen;
+            /* background: lightgreen; */
 
             ${StyledButton} {
                 
@@ -51,13 +60,14 @@ const StyledForm = styled.form`
         }
 
         .Details {
-            background: lightblue;
+            /* background: lightblue; */
             display: flex;
             flex-direction: column;
+            max-width: 650px;
             flex: 1;
 
             .Detail {
-                background: red;
+                /* background: red; */
                 display: flex;
                 justify-content: space-between;
                 font-size: 1.5rem;
@@ -74,6 +84,23 @@ const StyledForm = styled.form`
             flex-direction: column;
             align-items: center;
         } 
+
+        .BottomForm {
+            justify-content: flex-end;
+            align-items: center;
+            flex-direction: column-reverse;
+            gap: 20px;
+            
+            .Buttons {
+                max-width: 300px;
+                width: 100%;
+            }
+
+            .Details {
+                margin: 20px 0px;
+                width: 100%;
+            }
+        }
     }
 
 `
@@ -90,16 +117,16 @@ const FormOrder = () => {
     return (
         <>
             <StyledNavbar />
-            <StyledSection>
+            <StyledSection >
                 <StyledTitle style={{
                     textDecoration: 'underline',
                     textAlign: 'center',
-                    margin: '0 10px',
+                    margin: '0 0 70px 0',
                 }} >Formulir pemesanan aula</StyledTitle>
                 <StyledForm>
                     <div 
                         className="TopForm">
-                        <CardComponent 
+                        <StyledCardComponent 
                             image={data.image} 
                             title={data.title}
                             packet={data.packet}
@@ -119,7 +146,7 @@ const FormOrder = () => {
                                 <Form.Control type="email" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupPassword">
-                                <Form.Label>No Whatsapp</Form.Label>
+                                <Form.Label>No. Whatsapp</Form.Label>
                                 <Form.Control type="number" min="0" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -130,33 +157,33 @@ const FormOrder = () => {
                                 <Form.Label>Pilih tanggal</Form.Label>
                                 <Form.Control type="date" />
                             </Form.Group>
-                            <p class="warning">*Pastikan formulir diisi dengan benar </p>
+                            <p className="text-danger fw-bolder">*Pastikan formulir diisi dengan benar </p>
                         </div>
                         <BankComponent />
                     </div>
-                    <div className="BottomForm" style={{
-                        // width: parentWidth,
-                    }}>
-                        <div className="Buttons" style={{
-                            width: 300,  
-                        }}>
+                    <div className="BottomForm">
+                        <div className="Buttons">
                             <StyledButton 
                                 color={GlobalColors.white}
                                 background={GlobalColors.violet}
-                                // height="150" 
                                 fontSize="1.5"
-                                borderRadius="15">
+                                borderRadius="15"
+                                type="submit">
                                     Buat Pesanan
                             </StyledButton>
-                            <StyledButton 
-                                variant="outline-secondary"
-                                color={GlobalColors.hardGrey}
-                                border={`2px solid ${GlobalColors.hardGrey}`}
-                                // height="150" 
-                                fontSize="1.5"
-                                borderRadius="15">
-                                    Kembali
-                            </StyledButton>
+                            
+                            <StyledLink to="/">
+                                <StyledButton 
+                                    variant="outline-secondary"
+                                    color={GlobalColors.hardGrey}
+                                    border={`2px solid ${GlobalColors.hardGrey}`}
+                                    fontSize="1.5"
+                                    borderRadius="15" style={{
+                                        width: "100%",
+                                    }}>
+                                        Kembali
+                                </StyledButton>
+                            </StyledLink>
                         </div>
                         <div className="Details">
                             <h1>Detail Pembayaran</h1>

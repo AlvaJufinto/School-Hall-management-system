@@ -7,11 +7,6 @@ export const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
         /* font-family: 'Bebas Neue', cursive; */
     }
-    
-    .warning {
-        color: #D00000;
-        font-weight: 500;
-    }
 `
 
 export const GlobalColors = {
