@@ -51,8 +51,7 @@ const SmallCard = styled(DefaultCard)`
 
 const WideCard = styled(DefaultCard)`
     width: 100%;
-
-    
+    flex-direction: row;
 `
 
 const CardComponent = ({ image, title, packet, price, cardVariant }) => {

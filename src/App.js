@@ -9,6 +9,7 @@ import { GlobalStyles } from "./globals";
   
 import Home from "./pages/Home";
 import FormOrder from "./pages/FormOrder";
+import Receipt from "./pages/Receipt";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/form-order/:packetId" element={<FormOrder />} />
+          <Route path="/receipt/:receiptId" element={<Receipt />} />
         </Routes>
       </div>
     </Router>
