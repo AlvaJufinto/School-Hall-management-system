@@ -23,11 +23,11 @@ export const StyledButton = styled(Button)`
     color: ${props => props.color ? props.color : 'white'};
     background: ${props => props.background ? props.background : 'none'};
     border: ${props => props.border ? props.border : "none"};
-    width: ${props => props.width ? props.width : "100"}px;
-    height: ${props => props.height ? props.height : "50"}px;
+    /* width: ${props => props.width ? props.width : "auto"}px; */
+    height: ${props => props.height ? props.height : "65"}px;
     font-size: ${props => props.fontSize ? props.fontSize : "1"}rem;
     border-radius: ${props => props.borderRadius ? props.border : "0"}px !important;
-
+    
     &:focus, &:hover, &:visited, &:link, &:active {
         background: ${props => props.backgroundInteract ? props.backgroundInteract : props.background };
     }
