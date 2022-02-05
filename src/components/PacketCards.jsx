@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { GlobalMeasurements, GlobalColors } from '../globals';
-import CardComponent from "./Card";
+import CardComponent from "./Cards";
 import { StyledLink, StyledSection, StyledTitle, StyledButton } from "../ReuseableComponents/ReuseableComponents";
 
 const CardsContainer = styled.div`
@@ -45,6 +45,7 @@ const PacketCards = () => {
                             title={data.title}
                             packet={data.packet}
                             price={data.price}
+                            cardVariant="small"
                         />
                     </StyledLink>
                 ))}

@@ -9,9 +9,14 @@ const BankGroup = styled.div`
     color: black;
     font-family: ${GlobalFonts.secondary};
 
-    .AdminName, .BankNumber {
-        margin: 5px 0;
+    .Bank {
+        margin: 0 0 50px 0;
+
+        .AdminName, .BankNumber {
+            margin: 5px 0;
+        }
     }
+
 `
 
 const BankComponent = () => {
@@ -40,7 +45,7 @@ const BankComponent = () => {
                 <div class="Bank">
                     <img src={bank.image} alt="Bank Logo" />
                     <p class="AdminName">{bank.name}</p>
-                    <p class="Bank Number">{bank.number}</p>
+                    <p class="Bank Number fw-bolder">{bank.number}</p>
                 </div>
             ))}
             <p class="text-danger fw-bolder" >*Harap catat nomor rekening di atas</p>

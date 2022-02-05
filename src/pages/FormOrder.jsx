@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Form } from "react-bootstrap";
 
 import StyledNavbar from "../components/Navbar";
-import CardComponent from "../components/Card";
+import CardComponent from "../components/Cards";
 import BankComponent from "../components/BankComponent";
 import Footer from "../components/Footer";
 
@@ -44,7 +44,7 @@ const StyledForm = styled.form`
 
         .Buttons {
             max-width: 300px;
-            width: 100%;
+            width: 30%;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -135,6 +135,7 @@ const FormOrder = () => {
         packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
         price: "Rp 20.000/orang",
     }
+    
     return (
         <>
             <StyledNavbar />
@@ -151,6 +152,7 @@ const FormOrder = () => {
                             title={data.title}
                             packet={data.packet}
                             price={data.price}
+                            cardVariant="small"
                         />
                         <div className="FormGroups">
                             <Form.Group className="mb-3" controlId="validationCustom01">
