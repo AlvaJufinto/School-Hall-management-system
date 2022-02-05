@@ -34,7 +34,6 @@ const StyledCard = styled(Card)`
             color: ${GlobalColors.green};
         }
     }
-
 `
 
 const CardTitle = styled(Card.Title)`

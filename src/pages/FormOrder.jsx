@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from 'styled-components';
 import { Form } from "react-bootstrap";
 
@@ -5,14 +6,11 @@ import StyledNavbar from "../components/Navbar";
 import CardComponent from "../components/Card";
 import BankComponent from "../components/BankComponent";
 import Footer from "../components/Footer";
+
 import { StyledSection, StyledTitle, StyledButton, StyledLink } from '../ReuseableComponents/ReuseableComponents';
 import { GlobalFonts, GlobalColors } from '../globals';
 
-const StyledCardComponent = styled(CardComponent)`
-    @media (max-width: 768px) {
-
-    }
-`
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const StyledForm = styled.form`
     padding: 0px 20px 100px 20px;
@@ -106,14 +104,37 @@ const StyledForm = styled.form`
 `
 
 const FormOrder = () => {
-    
+    const [validated, setValidated] = useState(false);
+
+    const [roomPrice, setRoomPrice] = useState(300000);
+    const [onePortion, setOnePortion] = useState(20000);
+    const [portion, setPortion] = useState(0);
+    const [portionPrice, setPortionPrice] = useState(0);
+    const [discount, setDiscount] = useState(0)
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    const handleOrder = (e) => {
+        const form = e.currentTarget;
+        e.preventDefault();
+        
+        if (form.checkValidity() === false) {
+            e.stopPropagation();
+        }
+
+        setValidated(true);
+    }
+
+    useEffect(() => {
+        setPortionPrice(portion * onePortion);
+        setTotalPrice(roomPrice + portionPrice - discount)
+    }, [portion, portionPrice, totalPrice])
+        
     const data = {
         image: require('./../assets/img/dummy-img-1.png'), 
         title: "Paket 1",
         packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
         price: "Rp 20.000/orang",
     }
-
     return (
         <>
             <StyledNavbar />
@@ -123,39 +144,54 @@ const FormOrder = () => {
                     textAlign: 'center',
                     margin: '0 0 70px 0',
                 }} >Formulir pemesanan aula</StyledTitle>
-                <StyledForm>
-                    <div 
-                        className="TopForm">
-                        <StyledCardComponent 
+                <StyledForm onSubmit={handleOrder} >
+                    <div className="TopForm">
+                        <CardComponent 
                             image={data.image} 
                             title={data.title}
                             packet={data.packet}
                             price={data.price}
                         />
                         <div className="FormGroups">
-                            <Form.Group className="mb-3" controlId="formGroupEmail">
+                            <Form.Group className="mb-3" controlId="validationCustom01">
                                 <Form.Label>Atas Nama</Form.Label>
-                                <Form.Control type="text" />
+                                <Form.Control 
+                                    type="text" 
+                                    required />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupPassword">
                                 <Form.Label>Nama Acara</Form.Label>
-                                <Form.Control type="text" />
+                                <Form.Control 
+                                    type="text"
+                                    required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupEmail">
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" />
+                                <Form.Control 
+                                    type="email"
+                                    required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupPassword">
                                 <Form.Label>No. Whatsapp</Form.Label>
-                                <Form.Control type="number" min="0" />
+                                <Form.Control 
+                                    type="number" min="0"
+                                    required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupEmail">
                                 <Form.Label>Jumlah porsi</Form.Label>
-                                <Form.Control type="number" min="0" />
+                                <Form.Control 
+                                    type="number" 
+                                    min="0"
+                                    value={portion}
+                                    onChange={e => setPortion(e.currentTarget.value)}
+                                    required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupPassword">
                                 <Form.Label>Pilih tanggal</Form.Label>
-                                <Form.Control type="date" />
+                                <Form.Control 
+                                    type="date"
+                                    required />
                             </Form.Group>
                             <p className="text-danger fw-bolder">*Pastikan formulir diisi dengan benar </p>
                         </div>
@@ -189,19 +225,19 @@ const FormOrder = () => {
                             <h1>Detail Pembayaran</h1>
                             <div className="Detail">
                                 <p>Harga Sewa Aula</p>
-                                <p>Rp. 300.000</p>
+                                <p>Rp. {roomPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
                             </div>
                             <div className="Detail">
                                 <p>Harga Paket Katering</p>
-                                <p>Rp. 600.000</p>
+                                <p>Rp. {portionPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
                             </div>
                             <div className="Detail">
                                 <p>Diskon</p>
-                                <p>Rp. 0</p>
+                                <p>Rp. {discount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
                             </div>
                             <div className="Detail">
                                 <p>Total Transfer</p>
-                                <p className="Total" >Rp. 900.000</p>
+                                <p className="Total" >Rp. {totalPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} </p>
                             </div>
                         </div>
                     </div>
