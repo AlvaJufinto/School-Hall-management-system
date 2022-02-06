@@ -1,5 +1,5 @@
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Routes,
   Route,
   Navigate
@@ -14,11 +14,11 @@ import Receipt from "./pages/Receipt";
 function App() {
 
   return (
-    <Router>
+    <Router forceRefresh={true}>
       <GlobalStyles />
       <div className="App">
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/form-order/:packetId" element={<FormOrder />} />
           <Route path="/receipt/:receiptId" element={<Receipt />} />
         </Routes>
