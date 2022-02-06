@@ -41,11 +41,11 @@ const BankComponent = () => {
     return (
         <BankGroup>
             <p className="fw-bolder">Pembayaran transfer melalui</p>
-            {banks.map(bank =>(
-                <div class="Bank">
+            {banks.map((bank, i) =>(
+                <div key={i} className="Bank">
                     <img src={bank.image} alt="Bank Logo" />
-                    <p class="AdminName">{bank.name}</p>
-                    <p class="Bank Number fw-bolder">{bank.number}</p>
+                    <p className="AdminName">{bank.name}</p>
+                    <p className="Bank Number fw-bolder">{bank.number}</p>
                 </div>
             ))}
             <p class="text-danger fw-bolder" >*Harap catat nomor rekening di atas</p>
