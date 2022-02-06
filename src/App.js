@@ -14,7 +14,7 @@ import Receipt from "./pages/Receipt";
 function App() {
 
   return (
-    <Router forceRefresh={true}>
+    <Router>
       <GlobalStyles />
       <div className="App">
         <Routes>
