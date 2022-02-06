@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Card } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import {
   Link
 } from "react-router-dom";
@@ -44,7 +44,7 @@ export const StyledTitle = styled.h1`
 `
 
 export const StyledSection = styled.div`
-    margin: auto;
+    margin: 0 auto;
     width: 90%;
     max-width: ${GlobalMeasurements.containerWidth}px;
     background: ${props => props.backgroundColor ? props.backgroundColor : GlobalColors.lightBack};
