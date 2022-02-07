@@ -25,7 +25,9 @@ const DefaultCard = styled(Card)`
     }
 
     h2 {
-        font-size: 2rem;
+        text-align: left;
+        min-width: 150px;
+        font-size: 1.5rem;
         color: ${GlobalColors.green};
     }    
 `
@@ -60,6 +62,7 @@ const WideCard = styled(DefaultCard)`
         }
 
     }
+
     h2 {
         align-self: center;
     }

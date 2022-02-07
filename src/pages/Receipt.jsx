@@ -28,11 +28,15 @@ const ReceiptInformation = styled.div`
     }
 `
 
+export const CenterCard = styled.div`
+    
+`
+
 export const Details = styled.div`
     margin: 50px 0 30px 0;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     gap: 20px;
 
     .DetailsSection {
@@ -53,10 +57,24 @@ export const Details = styled.div`
         height: 250px;
         background: ${GlobalColors.hardGrey};
     }
+
+    @media (max-width: 768px) {
+        .DetailsSection {
+            font-size: 1.20rem;
+        }
+    }
+
+    @media (max-width: 1023px) {
+        flex-direction: column;
+
+        .VerticalLine {
+            display: none;
+        }
+    }
 `
 
 export const Buttons = styled.div`
-    padding: 60px 0 100px 0;
+    padding: 60px 20px 100px 20px;
     width: 100%;
     display: flex;
     gap: 80px;
@@ -67,6 +85,13 @@ export const Buttons = styled.div`
 
     ${StyledButton} {
         width: 100%;
+        padding: 0 20px;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 20px;
+        padding: 60px 20px 100px 20px;
     }
 `
 
@@ -96,22 +121,26 @@ const FormOrder = () => {
     return (
         <>
             <StyledNavbar />
-            <StyledSection style={{
-                padding: '0 50px',
-            }} >
+            <StyledSection>
                 <ReceiptInformation className="text-dark">
                     <img src={CircleSvg} alt="CircleSvg" />
                     <p>Pesanan berhasil dibuat</p>
                     <p>Id pesanan : 00021329384</p>
                     <p>Silahkan mengirim bukti transfer ke whatsapp admin</p>
                 </ReceiptInformation>
-                <CardComponent 
-                    image={data.image} 
-                    title={data.title}
-                    packet={data.packet}
-                    price={data.price}
-                    cardVariant={ windowWidth < 768 ? "small" : "wide" }
-                />
+                <div style={{
+                    display: windowWidth < 768 ?  'flex' : "",
+                    justifyContent: windowWidth < 768 ? 'center' : '',
+                    padding: windowWidth < 768 ? '' : ' 0 20px',
+                }}>
+                    <CardComponent 
+                        image={data.image} 
+                        title={data.title}
+                        packet={data.packet}
+                        price={data.price}
+                        cardVariant={ windowWidth < 768 ? "small" : "wide" }
+                    />
+                </div>
                 <Details className="text-dark" >
                     <div className="DetailsSection">
                         <div className="Detail">
@@ -138,8 +167,9 @@ const FormOrder = () => {
                     <div className="VerticalLine"></div>
                     <div className="DetailsSection">
                         <div className="Detail">
-                            <p>Detail pembayaran</p>
-                            <p></p>
+                            <p style={{
+                                color: GlobalColors.hardGrey,
+                            }} >Detail pembayaran</p>
                         </div>
                         <div className="Detail">
                             <p>Harga Sewa aula</p>
@@ -171,12 +201,12 @@ const FormOrder = () => {
                             background={GlobalColors.green}
                             borderRadius="15"
                             height="95"
-                            fontSize="2.5">
+                            fontSize="2">
                             <img 
                                 src={WhatsappIcon}
                                 width="40"
                                 style={{
-                                    margin: '0px 15px 0 0'
+                                    margin: '0px 10px 0 0'
                                 }} /> Chat Admin
                         </StyledButton>
                     </a>
@@ -186,12 +216,12 @@ const FormOrder = () => {
                             variant="outline-secondary"
                             color={GlobalColors.hardGrey}
                             border={`2px solid ${GlobalColors.hardGrey}`}
-                            fontSize="2.5"
+                            fontSize="2"
                             height="95"
                             borderRadius="15" style={{
                                 width: "100%",
                             }}>
-                                Kembali
+                                Kembali ke home
                         </StyledButton>
                     </StyledLink>
                 </Buttons>
