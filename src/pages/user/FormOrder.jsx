@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import styled from 'styled-components';
 import { Form } from "react-bootstrap";
 
-import StyledNavbar from "../components/Navbar";
-import CardComponent from "../components/Cards";
-import BankComponent from "../components/BankComponent";
-import Footer from "../components/Footer";
+import StyledNavbar from "../../components/Navbar";
+import CardComponent from "../../components/Cards";
+import BankComponent from "../../components/BankComponent";
+import Footer from "../../components/Footer";
 
-import { StyledSection, StyledTitle, StyledButton, StyledLink } from '../ReuseableComponents/ReuseableComponents';
-import { GlobalFonts, GlobalColors } from '../globals';
+import { StyledSection, StyledTitle, StyledButton, StyledLink } from '../../ReuseableComponents/ReuseableComponents';
+import { GlobalFonts, GlobalColors } from '../../globals';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -134,7 +134,7 @@ const FormOrder = () => {
     }, [portion, portionPrice, totalPrice])
         
     const data = {
-        image: require('./../assets/img/dummy-img-1.png'), 
+        image: require('./../../assets/img/dummy-img-1.png'), 
         title: "Paket 1",
         packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
         price: "Rp 20.000/orang",

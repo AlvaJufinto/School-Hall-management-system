@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import useWindowDimensions from "./../hooks/useWindowDimensions";
+import useWindowDimensions from "./../../hooks/useWindowDimensions";
 import styled from 'styled-components';
 
-import StyledNavbar from "../components/Navbar";
-import CardComponent from "../components/Cards";
-import Footer from "../components/Footer";
+import StyledNavbar from "../../components/Navbar";
+import CardComponent from "../../components/Cards";
+import Footer from "../../components/Footer";
 
-import { StyledSection, StyledButton, StyledLink } from '../ReuseableComponents/ReuseableComponents';
-import { GlobalFonts, GlobalColors } from '../globals';
+import { StyledSection, StyledButton, StyledLink } from '../../ReuseableComponents/ReuseableComponents';
+import { GlobalFonts, GlobalColors } from '../../globals';
 
-import DummyImg from "../assets/img/dummy-img-1.png";
-import CircleSvg from "../assets/svg/check-circle.svg";
-import WhatsappIcon from "../assets/svg/Whatsapp-icon.svg";
+import CircleSvg from "../../assets/svg/check-circle.svg";
+import WhatsappIcon from "../../assets/svg/Whatsapp-icon.svg";
 
 const ReceiptInformation = styled.div`
     padding: 40px 0;
@@ -112,7 +111,7 @@ const FormOrder = () => {
     }, [portion, portionPrice, totalPrice])
         
     const data = {
-        image: require('./../assets/img/dummy-img-1.png'), 
+        image: require('./../../assets/img/dummy-img-1.png'), 
         title: "Paket 1",
         packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
         price: "Rp 20.000/orang",

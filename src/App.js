@@ -6,13 +6,16 @@ import {
 } from "react-router-dom";
 
 import { GlobalStyles } from "./globals";
-  
-import Home from "./pages/Home";
-import FormOrder from "./pages/FormOrder";
-import Receipt from "./pages/Receipt";
+
+// User
+import Home from "./pages/user/Home";
+import FormOrder from "./pages/user/FormOrder";
+import Receipt from "./pages/user/Receipt";
+
+// Admin
+import Login from "./pages/admin/Login"
 
 function App() {
-
   return (
     <Router>
       <GlobalStyles />
@@ -21,6 +24,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/form-order/:packetId" element={<FormOrder />} />
           <Route path="/receipt/:receiptId" element={<Receipt />} />
+          <Route path="/admin/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
