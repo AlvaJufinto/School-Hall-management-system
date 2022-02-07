@@ -46,6 +46,7 @@ const PacketCards = () => {
                             packet={data.packet}
                             price={data.price}
                             cardVariant="small"
+                            className="h-100"
                         />
                     </StyledLink>
                 ))}

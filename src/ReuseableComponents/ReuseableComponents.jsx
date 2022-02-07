@@ -27,7 +27,7 @@ export const StyledButton = styled(Button)`
     height: ${props => props.height ? props.height : "65"}px;
     font-size: ${props => props.fontSize ? props.fontSize : "1"}rem;
     border-radius: ${props => props.borderRadius ? props.borderRadius : "0"}px !important;
-    
+
     &:focus, &:hover, &:visited, &:link, &:active {
         background: ${props => props.backgroundInteract ? props.backgroundInteract : props.background };
     }

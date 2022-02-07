@@ -58,7 +58,7 @@ const FooterSection = styled.div`
         }
     }
 
-    @media (max-width: 880px) {
+    @media (max-width: 768px) {
         ${StyledSection} {
             .MobileView {
                 display: flex;
@@ -132,19 +132,15 @@ const Footer = () => {
 
                         <div className="BottomRightSection">
                             <StyledButton 
-                            variant="success"
-                            background={GlobalColors.green}
-                            // width="200"
-                            height="auto"
-                            fontSize="1.5" 
-                            style={{
-                                padding: '15px'
-                            }}>
+                                variant="success"
+                                background={GlobalColors.green}
+                                height="auto"
+                                fontSize="1.5">
                             <img 
                                 src={WhatsappIcon}
-                                width="25"
                                 style={{
-                                    margin: '0px 15px 0 0'
+                                    margin: '0px 15px 0 0',
+                                    width: '50px',
                                 }} /> Hubungi Admin
                         </StyledButton>
                         </div>

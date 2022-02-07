@@ -29,7 +29,7 @@ const Jumbotron = () => {
             backgroundRepeat: 'no-repeat',
         }}>
             <Container>
-                <h1 class="display-4 fw-bold">Lorem ipsum </h1>
+                <h1 class="display-4">Lorem ipsum </h1>
                 <JumbotronDescription class="py-2">Dolor sit amet, consectetur adipiscing elit. Diam proin ut orci sem nunc. Fermentum pulvinar urna malesuada amet ornare. Enim erat sit maecenas diam auctor viverra vitae sed. </JumbotronDescription>
                 <StyledLink to="/" >
                     <StyledButton 
