@@ -46,7 +46,7 @@ const SmallCard = styled(DefaultCard)`
 
 const WideCard = styled(DefaultCard)`
     padding: 15px;
-    height: 200px;
+    height: 150px;
     flex-direction: row;
     justify-content: space-between;
     

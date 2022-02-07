@@ -108,7 +108,7 @@ const FormOrder = () => {
 
     const [roomPrice, setRoomPrice] = useState(300000);
     const [onePortion, setOnePortion] = useState(20000);
-    const [portion, setPortion] = useState(0);
+    const [portion, setPortion] = useState(1);
     const [portionPrice, setPortionPrice] = useState(0);
     const [discount, setDiscount] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0);
@@ -125,6 +125,10 @@ const FormOrder = () => {
     }
 
     useEffect(() => {
+        if(portion < 1) {
+            setPortion(1);
+        }
+
         setPortionPrice(portion * onePortion);
         setTotalPrice(roomPrice + portionPrice - discount)
     }, [portion, portionPrice, totalPrice])
@@ -177,16 +181,19 @@ const FormOrder = () => {
                             <Form.Group className="mb-3" controlId="formGroupPassword">
                                 <Form.Label>No. Whatsapp</Form.Label>
                                 <Form.Control 
-                                    type="number" min="0"
+                                    type="number" 
+                                    min="1"
+                                    value="+62"
+                                    pattern="/^+91(7\d|8\d|9\d)\d{9}$/"
                                     required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupEmail">
                                 <Form.Label>Jumlah porsi</Form.Label>
                                 <Form.Control 
                                     type="number" 
-                                    min="0"
                                     value={portion}
                                     onChange={e => setPortion(e.currentTarget.value)}
+                                    pattern="[0-9]"
                                     required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupPassword">
