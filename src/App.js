@@ -13,7 +13,8 @@ import FormOrder from "./pages/user/FormOrder";
 import Receipt from "./pages/user/Receipt";
 
 // Admin
-import Login from "./pages/admin/Login"
+import Login from "./pages/admin/Login";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/form-order/:packetId" element={<FormOrder />} />
           <Route path="/receipt/:receiptId" element={<Receipt />} />
           <Route path="/admin/login" element={<Login />} />
+          <Route path="*" element={<NotFound />}  />
         </Routes>
       </div>
     </Router>
