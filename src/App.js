@@ -26,7 +26,8 @@ function App() {
           <Route path="/form-order/:packetId" element={<FormOrder />} />
           <Route path="/receipt/:receiptId" element={<Receipt />} />
           <Route path="/admin/login" element={<Login />} />
-          <Route path="*" element={<NotFound />}  />
+          <Route path="/admin/dashboard" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
