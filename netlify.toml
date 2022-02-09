@@ -1,5 +1,5 @@
-/api/* https://sewa-aula-server.herokuapp.com/:splat 200
 [[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200
+/api/* https://sewa-aula-server.herokuapp.com/:splat 200
