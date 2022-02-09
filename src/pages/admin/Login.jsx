@@ -1,8 +1,13 @@
+import { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Form } from "react-bootstrap";
 
 import { StyledButton } from '../../ReuseableComponents/ReuseableComponents';
 import { GlobalColors, GlobalFonts } from "../../globals";
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { AuthContext } from "./../../context/Auth/AuthContext";
+import api from "./../../api/auth";
 
 const LoginContainer = styled.div`
     height: 100vh;
@@ -50,26 +55,91 @@ const StyledForm = styled.form`
 `;
 
 const Login = () => {
-    const LoginHandler = (e) => {
+    const { display, isLoading, dispatch, errorMessage, user } = useContext(AuthContext);
+    
+    const [formState, setFormState] = useState({
+        username: "",
+        password: "",
+        display: "show",
+    });
 
+    const handleChange = (e) => {
+        setFormState({ ...formState, [e.target.name]: e.target.value });
+    };
+
+        useEffect(() => {
+            (async () => {
+            //   setAppState({ ...appState, loading: true });
+                // let accessToken = localStorage.getItem("accessToken");
+                // dispatch({ type: "LOGIN_START" });
+                let refreshToken = localStorage.getItem("refreshToken");
+                if (refreshToken) {
+                    try {
+                        const res = await api.loggedIn({ refreshToken: refreshToken});
+                        console.log(res.data);
+                        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+                        // console.log(user)
+                    } catch (err) {
+                        console.error(err);
+                    }
+                    console.log(refreshToken);
+                }
+                })();
+        }, []);
+
+    const LoginHandler =  async (e) => {
+        e.preventDefault();
+        dispatch({ type: "LOGIN_START" });
+        try {
+            const { username, password } = formState;
+            // switch (e.target.name) {
+            //     case "Login":
+            //         res = await api.login({ username, password });
+            //         break;
+            //     case "Signup":
+            //         res = await api.signup({ username, password });
+            //         break;
+            // }
+            let res = await api.login({ username, password });
+            let { accessToken, refreshToken } = res.data;
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
+            
+            let getUserCredentials = await api.loggedIn({ refreshToken: refreshToken });
+            console.log(getUserCredentials);
+            dispatch({ type: "LOGIN_SUCCESS", payload: getUserCredentials });
+            
+            window.location.reload();
+        } catch (err) {
+            console.log(err.response);
+            // setAppState({ ...appState, loading: false });
+            dispatch({ type: "LOGIN_FAILURE", payload: err.response.data.message });
+        }
     }
 
     return (
         <LoginContainer>
-            <StyledForm className="StyledForm" >
+            <StyledForm className="StyledForm" onSubmit={(e) => LoginHandler(e)} >
                 <h2>Sewa Aula</h2>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Control 
-                        variant="dark"
                         type="text" 
+                        name="username"
                         placeholder="Username"
-                        className="FormText" />
+                        className="FormText" 
+                        value={formState.username}
+                        onChange={e => handleChange(e)}
+                        autoComplete="on" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Control 
                         type="password" 
+                        name="password"
                         placeholder="Password"
-                        className="FormText" />
+                        className="FormText" 
+                        value={formState.password}
+                        onChange={e => handleChange(e)}
+                        autoComplete="on" />
                 </Form.Group>
                 
                 <StyledButton 
@@ -78,8 +148,11 @@ const Login = () => {
                     fontSize="1.25"
                     borderRadius="5"
                     type="submit">
-                        Login
+                        {isLoading ? <CircularProgress color="inherit" /> : "Login"}
                 </StyledButton>
+                <p className="text-danger text-center mt-3" style={{
+                    textTransform: 'capitalize',
+                }}>{ errorMessage && errorMessage }</p>
             </StyledForm>
         </LoginContainer>
     )
