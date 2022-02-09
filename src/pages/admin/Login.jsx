@@ -69,9 +69,6 @@ const Login = () => {
 
         useEffect(() => {
             (async () => {
-            //   setAppState({ ...appState, loading: true });
-                // let accessToken = localStorage.getItem("accessToken");
-                // dispatch({ type: "LOGIN_START" });
                 let refreshToken = localStorage.getItem("refreshToken");
                 if (refreshToken) {
                     try {
@@ -92,14 +89,7 @@ const Login = () => {
         dispatch({ type: "LOGIN_START" });
         try {
             const { username, password } = formState;
-            // switch (e.target.name) {
-            //     case "Login":
-            //         res = await api.login({ username, password });
-            //         break;
-            //     case "Signup":
-            //         res = await api.signup({ username, password });
-            //         break;
-            // }
+
             let res = await api.login({ username, password });
             let { accessToken, refreshToken } = res.data;
             localStorage.setItem("accessToken", accessToken);
@@ -112,7 +102,6 @@ const Login = () => {
             window.location.reload();
         } catch (err) {
             console.log(err.response);
-            // setAppState({ ...appState, loading: false });
             dispatch({ type: "LOGIN_FAILURE", payload: err.response.data.message });
         }
     }
