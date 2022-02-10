@@ -67,23 +67,6 @@ const Login = () => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
     };
 
-        useEffect(() => {
-            (async () => {
-                let refreshToken = localStorage.getItem("refreshToken");
-                if (refreshToken) {
-                    try {
-                        const res = await api.loggedIn({ refreshToken: refreshToken});
-                        console.log(res.data);
-                        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-                        // console.log(user)
-                    } catch (err) {
-                        console.error(err);
-                    }
-                    console.log(refreshToken);
-                }
-                })();
-        }, []);
-
     const LoginHandler =  async (e) => {
         e.preventDefault();
         dispatch({ type: "LOGIN_START" });
@@ -96,12 +79,9 @@ const Login = () => {
             localStorage.setItem("refreshToken", refreshToken);
             
             let getUserCredentials = await api.loggedIn({ refreshToken: refreshToken });
-            console.log(getUserCredentials);
             dispatch({ type: "LOGIN_SUCCESS", payload: getUserCredentials });
-            
-            window.location.reload();
+        
         } catch (err) {
-            console.log(err.response);
             dispatch({ type: "LOGIN_FAILURE", payload: err.response.data.message });
         }
     }

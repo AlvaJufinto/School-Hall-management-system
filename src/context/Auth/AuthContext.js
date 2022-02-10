@@ -14,7 +14,23 @@ export const AuthContext = createContext(INITIAL_STATE);
 
 export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
+    
+    useEffect(() => {
+        (async () => {
+            let refreshToken = localStorage.getItem("refreshToken");
+            if (refreshToken) {
+                try {
+                    const res = await api.loggedIn({ refreshToken: refreshToken});
+                    dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
 
+                    console.log(res.data)
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+            })();
+    }, []);
+    
     return (
         <AuthContext.Provider
             value={{

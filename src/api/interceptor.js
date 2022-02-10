@@ -1,5 +1,7 @@
 import axios from "axios";
 
+export const baseUrl = "https://sewa-aula-server.herokuapp.com"; 
+
 //request interceptor to add the auth token header to requests
 axios.interceptors.request.use(
     (config) => {
@@ -30,7 +32,7 @@ axios.interceptors.request.use(
                 ) {
                     originalRequest._retry = true;
                     return axios
-        .post(`/auth/refreshToken`, { refreshToken: refreshToken })
+        .post(`${baseUrl}/auth/refreshToken`, { refreshToken: refreshToken })
         .then((res) => {
             if (res.status === 200) {
                 localStorage.setItem("accessToken", res.data.accessToken);
