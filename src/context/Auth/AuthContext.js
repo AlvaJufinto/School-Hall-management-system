@@ -14,10 +14,10 @@ export const AuthContext = createContext(INITIAL_STATE);
 
 export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
-    
+    let refreshToken = localStorage.getItem("refreshToken");
+
     useEffect(() => {
         (async () => {
-            let refreshToken = localStorage.getItem("refreshToken");
             if (refreshToken) {
                 try {
                     const res = await api.loggedIn({ refreshToken: refreshToken});
@@ -29,7 +29,7 @@ export const AuthContextProvider = ({ children }) => {
                 }
             }
             })();
-    }, []);
+    }, [refreshToken]);
     
     return (
         <AuthContext.Provider

@@ -49,7 +49,7 @@ const SpecificationSection = () => {
                     </tr>
                     <tr>
                         <td>Harga</td>
-                        <td>Rp. 300.000,00/Jam</td>
+                        <td>Rp. 300.000,00/Hari</td>
                     </tr>
                 </tbody>
             </TableStyled>
