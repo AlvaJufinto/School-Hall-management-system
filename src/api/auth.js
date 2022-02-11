@@ -1,9 +1,7 @@
 import axios from "axios";
-
 import { baseUrl } from "./interceptor";
 
-//functions to make auth calls
-const api = {
+const authApi = {
   // signup: (body) => {
   //   return axios.post(`/auth/signup`, body);
   // },
@@ -21,4 +19,4 @@ const api = {
   },
 };
 
-export default api;
+export default authApi;

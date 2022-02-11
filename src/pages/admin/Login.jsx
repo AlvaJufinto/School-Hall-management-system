@@ -7,7 +7,7 @@ import { GlobalColors, GlobalFonts } from "../../globals";
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { AuthContext } from "./../../context/Auth/AuthContext";
-import api from "./../../api/auth";
+import authApi from "./../../api/auth";
 
 const LoginContainer = styled.div`
     height: 100vh;
@@ -73,12 +73,12 @@ const Login = () => {
         try {
             const { username, password } = formState;
 
-            let res = await api.login({ username, password });
+            let res = await authApi.login({ username, password });
             let { accessToken, refreshToken } = res.data;
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
             
-            let getUserCredentials = await api.loggedIn({ refreshToken: refreshToken });
+            let getUserCredentials = await authApi.loggedIn({ refreshToken: refreshToken });
             dispatch({ type: "LOGIN_SUCCESS", payload: getUserCredentials });
         
         } catch (err) {

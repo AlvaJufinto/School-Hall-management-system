@@ -25,7 +25,7 @@ import api from "./api/auth";
 
 function App() {
   const { display, isLoggedIn, isLoading, dispatch, isError, errorMessage } = useContext(AuthContext);
-
+  
   return (
     <Router>
       <GlobalStyles />
@@ -35,12 +35,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/form-order/:packetId" element={<FormOrder />} />
           <Route path="/receipt/:receiptId" element={<Receipt />} />
-          
+            
           {/* Admin */}
           <Route path="/admin/login" element={isLoggedIn ? <Navigate to="/admin/dashboard" /> : <Login />} />
           <Route path="/admin/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/admin/login" /> } />
-          <Route path="/admin/order-queue" element={isLoggedIn ? <OrderQueue /> : <Navigate to="/admin/orderlogin" /> } />
-          {/* <Route path="/admin/dashboard" element={<Dashboard />} /> */}
+          <Route path="/admin/order-queue" element={isLoggedIn ? <OrderQueue /> : <Navigate to="/admin/login" /> } />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
+import DummmyImg from "./../../assets/img/dummy-img-2.png" 
 
 import { AuthContext } from "./../../context/Auth/AuthContext";
 
@@ -14,6 +15,10 @@ const OrderQueueContainer = styled.div`
 
 export const DetailPreview = styled.div`
     margin: 0 0 50px 0;
+
+    .DetailPreview {
+        margin: 50px 0 0 0;
+    }
 `
 
 const OrderQueue = () => {
@@ -34,6 +39,7 @@ const OrderQueue = () => {
                 <DetailPreview>
                     <h3 className="fw-bolder">/Order-Antrean</h3>
                     <div className="DetailPreview">
+                        ASDASD
                     </div>
                 </DetailPreview>
             </AdminStyledSection>

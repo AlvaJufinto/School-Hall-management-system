@@ -9,7 +9,7 @@ import { GlobalMeasurements, GlobalColors, GlobalFonts } from '../../globals';
 
 import { StyledLink, StyledButton } from "../../ReuseableComponents/ReuseableComponents";
 import { AuthContext } from "./../../context/Auth/AuthContext";
-import api from "./../../api/auth";
+import authApi from "./../../api/auth";
 
 import Chad from "./../../assets/img/chad.png";
 
@@ -108,7 +108,7 @@ const StyledNavbarAdmin = () => {
 
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
-            await api.logout(refreshToken);
+            await authApi.logout(refreshToken);
             dispatch({ type: "LOGOUT_SUCCESS" });
         } catch (err) {
             console.error(err);
