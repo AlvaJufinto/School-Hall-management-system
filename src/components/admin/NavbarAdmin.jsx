@@ -68,8 +68,8 @@ const NavbarAdmin = styled.nav`
     .NavbarLinkContainer {
         display: flex;
         flex-direction: column;
-        gap: 50px;
-        font-size: 1.5rem;
+        gap: 20px;
+        font-size: 1.25rem;
         width: 100%;
     }
 
@@ -84,7 +84,7 @@ const NavbarAdmin = styled.nav`
 
 const ProfileContainer = styled.div`
     text-align: center;
-
+    
     p {
         font-size: 20px;
         color: white;

@@ -5,7 +5,7 @@ import useDraggableScroll from 'use-draggable-scroll';
 
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import { GlobalColors, GlobalFonts } from "../../globals";
-import { AdminStyledSection, StyledLink, StyledButton } from '../../ReuseableComponents/ReuseableComponents';
+import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 
 import { AuthContext } from "./../../context/Auth/AuthContext";
 import api from "./../../api/auth";
@@ -17,7 +17,8 @@ const DashboardContainer = styled.div`
 `;
 
 export const DetailPreview = styled.div`
-    
+    margin: 0 0 50px 0;
+
     .DetailPreview {
         margin: 20px 0 0 0;
         width: 100%;
@@ -93,6 +94,9 @@ const Dashboard = () => {
                             value="5"
                             route="order-cancel" />
                     </div>
+                </DetailPreview>
+                <DetailPreview>
+                    <h3 className="fw-bolder">/Active</h3>
                 </DetailPreview>
             </AdminStyledSection>
         </DashboardContainer>

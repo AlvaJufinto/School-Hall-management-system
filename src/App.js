@@ -16,6 +16,7 @@ import Receipt from "./pages/user/Receipt";
 // Admin
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
+import OrderQueue from "./pages/admin/OrderQueue";
 
 import NotFound from "./pages/NotFound";
 
@@ -38,6 +39,7 @@ function App() {
           {/* Admin */}
           <Route path="/admin/login" element={isLoggedIn ? <Navigate to="/admin/dashboard" /> : <Login />} />
           <Route path="/admin/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/admin/login" /> } />
+          <Route path="/admin/order-queue" element={isLoggedIn ? <OrderQueue /> : <Navigate to="/admin/orderlogin" /> } />
           {/* <Route path="/admin/dashboard" element={<Dashboard />} /> */}
           
           <Route path="*" element={<NotFound />} />
