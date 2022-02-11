@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { GlobalMeasurements, GlobalFonts, GlobalColors } from '../globals';
 
+
 export const StyledLink = styled(Link)`
     color: ${GlobalColors.white};
     font-family: ${GlobalFonts.primary};
@@ -54,5 +55,10 @@ export const StyledSection = styled.div`
 
 export const AdminStyledSection = styled.div`
     min-height: 100vh;
-    padding: 180px 20px 0 220px;
+    padding: 50px 20px 0 220px;
+
+    @media (max-width: 768px) {
+        padding: 180px 20px 0 20px;
+
+    }
 `

@@ -15,25 +15,27 @@ import Chad from "./../../assets/img/chad.png";
 
 const StyledNavbar = styled.div`
     position: fixed;
+    width: 100%;
+    height: 120px;
     top: 0;
     left: 0;
     z-index: 10;
-    width: 100%;
-    height: 150px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: ${GlobalColors.hardGrey};
+    padding: 20px 6vw;
+
     h2 {
         font-size: 2rem;
     }
     
     p {
+        margin: 0;
         font-size: 1.5rem;
         text-align: center;
         color: ${GlobalColors.green};
     }
-
 `
 
 
@@ -46,13 +48,13 @@ const NavbarAdmin = styled.nav`
     top: 0;
     left: 0;
     overflow-x: hidden;
-    padding: 50px 0;
+    padding: 50px 30px;
     background: ${GlobalColors.hardGrey};
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-
+    
     h2 {
         font-size: 2rem;
     }
@@ -68,6 +70,15 @@ const NavbarAdmin = styled.nav`
         flex-direction: column;
         gap: 50px;
         font-size: 1.5rem;
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        width: 50%;
+        align-items: flex-start;
+        padding: 120px 0 20px 5%;
+        transform: ${props => props.isHidden ? "translateX(-100%)" : "translateX(0%)"};
+        transition: 0.5s;
     }
 `
 
@@ -87,6 +98,7 @@ const ProfileContainer = styled.div`
 const StyledNavbarAdmin = () => {
     const { width: windowWidth } = useWindowDimensions();
     const { isLoading, dispatch, user } = useContext(AuthContext);
+    const [isHidden, setIsHidden] = useState(true);
 
     const handleLogout = async (e) => {
         e.preventDefault();
@@ -105,22 +117,29 @@ const StyledNavbarAdmin = () => {
 
     return (
         <>
-            { windowWidth < 768 &&
+            { windowWidth < 769  &&
                 <StyledNavbar bg="dark" variant="dark">
                     {/* <Container> */}
-                    <Menu />
+                    <Menu style={{ 
+                        fontSize: 35, 
+                        cursor: "pointer", 
+                        color: 'white' 
+                    }} onClick={() => setIsHidden(!isHidden)} />
                     <StyledLink to="/admin/dashboard">
                         <h2>SEWA AULA</h2>
                         <p>ADMIN</p>
                     </StyledLink>
+                    <div></div>
                     {/* </Container> */}
                 </StyledNavbar>
             }
-            <NavbarAdmin>
-                <StyledLink to="/admin/dashboard">
-                    <h2>SEWA AULA</h2>
-                    <p>ADMIN</p>
-                </StyledLink>
+            <NavbarAdmin isHidden={isHidden} >
+                { windowWidth > 768 &&
+                    <StyledLink to="/admin/dashboard">
+                        <h2>SEWA AULA</h2>
+                        <p>ADMIN</p>
+                    </StyledLink>
+                }
                 <div className="NavbarLinkContainer">
                     <Nav.Link>
                         <StyledLink to="/admin/dashboard">Dashboard</StyledLink>
