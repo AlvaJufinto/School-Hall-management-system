@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CreateOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
 
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
-import { GlobalMeasurements, GlobalColors, GlobalFonts } from '../globals';
+import { GlobalMeasurements, GlobalColors, GlobalFonts } from './../../globals';
 
 const OrderCard = styled.div`
     border-radius: 20px;
@@ -16,14 +16,6 @@ const OrderCard = styled.div`
         border-radius: 20px;
     }
 
-    ${OrderCard.Text} {
-        font-size: 1rem;
-        
-        p {
-            margin: -3px 0;
-            font-family: ${GlobalFonts.secondary};
-        }
-    }
 
     h2 {
         text-align: left;
@@ -38,7 +30,7 @@ const OrderCardTitle = styled.div`
     font-family: ${GlobalFonts.primary};
 `
 
-const OrderCardComponent = ({ title, name, packet, price }) => {
+const OrderCardComponent = ({ title, name, packet, price, date }) => {
 
     return (
         <OrderCard>

@@ -20,7 +20,7 @@ import OrderQueue from "./pages/admin/OrderQueue";
 
 import NotFound from "./pages/NotFound";
 
-import { AuthContext } from "./context/Auth/AuthContext";
+import { AuthContext } from "./context/AuthContext";
 import api from "./api/auth";
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/form-order/:packetId" element={<FormOrder />} />
           <Route path="/receipt/:receiptId" element={<Receipt />} />
-            
+
           {/* Admin */}
           <Route path="/admin/login" element={isLoggedIn ? <Navigate to="/admin/dashboard" /> : <Login />} />
           <Route path="/admin/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/admin/login" /> } />

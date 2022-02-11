@@ -7,7 +7,7 @@ import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 
-import { AuthContext } from "./../../context/Auth/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import authApi from "./../../api/auth";
 import Icon from "./../../assets/svg/icon.svg"
 

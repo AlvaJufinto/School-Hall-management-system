@@ -2,11 +2,13 @@ import { useContext, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
+import OrderCardComponent from '../../components/admin/OrderCardAdmin';
+
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 import DummmyImg from "./../../assets/img/dummy-img-2.png" 
 
-import { AuthContext } from "./../../context/Auth/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const OrderQueueContainer = styled.div`
     height: 100vh;
@@ -39,7 +41,9 @@ const OrderQueue = () => {
                 <DetailPreview>
                     <h3 className="fw-bolder">/Order-Antrean</h3>
                     <div className="DetailPreview">
-                        ASDASD
+                        <StyledLink to="/order-queue/:orderQueueId">
+                            <OrderCardComponent />
+                        </StyledLink>
                     </div>
                 </DetailPreview>
             </AdminStyledSection>

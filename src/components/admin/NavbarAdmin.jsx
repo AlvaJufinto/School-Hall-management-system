@@ -8,7 +8,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import { GlobalMeasurements, GlobalColors, GlobalFonts } from '../../globals';
 
 import { StyledLink, StyledButton } from "../../ReuseableComponents/ReuseableComponents";
-import { AuthContext } from "./../../context/Auth/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import authApi from "./../../api/auth";
 
 import Chad from "./../../assets/img/chad.png";

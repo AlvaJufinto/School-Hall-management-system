@@ -6,7 +6,7 @@ import { StyledButton } from '../../ReuseableComponents/ReuseableComponents';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { AuthContext } from "./../../context/Auth/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import authApi from "./../../api/auth";
 
 const LoginContainer = styled.div`
