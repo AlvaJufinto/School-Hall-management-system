@@ -51,3 +51,8 @@ export const StyledSection = styled.div`
     font-family: ${props => props.fontFamily ? props.fontFamily : GlobalFonts.primary};
     color: ${props => props.color ? props.color : GlobalColors.white};
 `
+
+export const AdminStyledSection = styled.div`
+    min-height: 100vh;
+    padding: 180px 20px 0 220px;
+`

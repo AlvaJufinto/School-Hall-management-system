@@ -38,6 +38,7 @@ function App() {
           {/* Admin */}
           <Route path="/admin/login" element={isLoggedIn ? <Navigate to="/admin/dashboard" /> : <Login />} />
           <Route path="/admin/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/admin/login" /> } />
+          {/* <Route path="/admin/dashboard" element={<Dashboard />} /> */}
           
           <Route path="*" element={<NotFound />} />
         </Routes>

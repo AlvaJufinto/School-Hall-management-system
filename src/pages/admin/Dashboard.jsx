@@ -1,55 +1,100 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
+import useDraggableScroll from 'use-draggable-scroll';
 
-import { StyledButton } from '../../ReuseableComponents/ReuseableComponents';
+import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import { GlobalColors, GlobalFonts } from "../../globals";
+import { AdminStyledSection, StyledLink, StyledButton } from '../../ReuseableComponents/ReuseableComponents';
 
 import { AuthContext } from "./../../context/Auth/AuthContext";
 import api from "./../../api/auth";
+import Icon from "./../../assets/svg/icon.svg"
 
 const DashboardContainer = styled.div`
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: ${GlobalColors.grey};
     font-family: ${GlobalFonts.secondary};
 `;
 
-const Dashboard = () => {
-    const { display, isLoading, dispatch, errorMessage, user } = useContext(AuthContext);
+export const DetailPreview = styled.div`
+    
+    .DetailPreview {
+        margin: 20px 0 0 0;
+        width: 100%;
+        height: '200px';
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 50px;
+        overflow-x: auto;
 
-    const handleLogout = async (e) => {
-        e.preventDefault();
-        dispatch({ type: "LOGOUT_START", payload: user });
-        try {
-            let refreshToken = localStorage.getItem("refreshToken");
-
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
-            await api.logout(refreshToken);
-            dispatch({ type: "LOGOUT_SUCCESS" });
-        } catch (err) {
-            console.error(err);
+        ::-webkit-scrollbar {
+            display: none;
         }
+    }
+`
+
+const Dashboard = () => {
+    const horizontalElement = useRef(null);
+    const { onMouseDown } = useDraggableScroll(horizontalElement);
+    const { isLoading, dispatch, user } = useContext(AuthContext);
+    
+    const PreviewCard = ({ color, text, value, route }) => {
+        return (
+            <StyledLink to={`/admin/${route}`} >
+                <div style={{
+                    background: color,
+                    width: '300px',
+                    height: '200px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    borderRadius: '20px',
+                    padding: '20px',
+                    fontFamily: GlobalFonts.secondary,
+                    overflow: 'hidden'
+                }}>
+                    <h3>{text}</h3>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        height: '50px',
+                    }}>
+                        <span style={{
+                            fontSize: '4rem',
+                        }}>{value}</span>
+                        <img src={Icon} alt="Icon" />
+                    </div>
+                </div>
+            </StyledLink>
+        )
     }
 
     return (
         <DashboardContainer>
-            <p>ini dashboard bang awkoakwoawk</p>
-            <p>yang lagi login sekarang ni <b>{user && user.username}</b></p>
-            <StyledButton 
-                variant="danger"
-                color={GlobalColors.white}
-                background={GlobalColors.red}
-                fontSize="1"
-                borderRadius="15"
-                type="submit"
-                onClick={handleLogout}>
-                    {isLoading ? <CircularProgress color="inherit" /> : "Logout Ngab"}
-            </StyledButton>
+            <StyledNavbarAdmin />
+            <AdminStyledSection>
+                <DetailPreview>
+                    <h3 className="fw-bolder" >/Detail</h3>
+                    <div className="DetailPreview" ref={horizontalElement} onMouseDown={onMouseDown} >
+                        <PreviewCard 
+                            color={GlobalColors.violet} 
+                            text="Jumlah Orderan"
+                            value="10" 
+                            route="order-queue" />
+                        <PreviewCard 
+                            color={GlobalColors.green}
+                            text="Orderan Selesai"
+                            value="4"
+                            route="order-done" />
+                        <PreviewCard 
+                            color={GlobalColors.red}
+                            text="Orderan Dibatalkan"
+                            value="5"
+                            route="order-cancel" />
+                    </div>
+                </DetailPreview>
+            </AdminStyledSection>
         </DashboardContainer>
     )
 }
