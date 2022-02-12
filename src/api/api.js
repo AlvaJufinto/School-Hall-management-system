@@ -1,7 +1,13 @@
 import axios from "axios";
 import { baseUrl } from "./interceptor";
 
-const authApi = {
+export const clientDataApi = {
+  all: () => {
+    return axios.get(`${baseUrl}/client/getalldata`);
+  },
+};
+
+export const authApi = {
   // signup: (body) => {
   //   return axios.post(`/auth/signup`, body);
   // },
@@ -19,4 +25,4 @@ const authApi = {
   },
 };
 
-export default authApi;
+;

@@ -7,9 +7,9 @@ import { GlobalMeasurements, GlobalColors, GlobalFonts } from './../../globals';
 
 const OrderCard = styled.div`
     border-radius: 20px;
-    background: ${GlobalColors.hardGrey};
     padding: 18px;
     max-width: 100%;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); 
     
     img {
         object-fit: cover;
@@ -41,7 +41,7 @@ const OrderCardComponent = ({ title, name, packet, price, date }) => {
             </div>
             <div className="Information">
                 <p>ORDER ANTREAN</p>
-                <StyledLink>Informasi lainnya...</StyledLink>
+                <StyledLink to="/admin/order-queue/:orderQueueId" >Informasi lainnya...</StyledLink>
             </div>
             <div className="Buttons">
                 <StyledLink to="/admin/order-queue/:orderQueueId" >

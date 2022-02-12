@@ -26,24 +26,14 @@ export const DetailPreview = styled.div`
 const OrderQueue = () => {
     const { isLoading, dispatch, user } = useContext(AuthContext);
     
-    const PreviewCard = () => {
-        return (
-            <StyledLink to="/" >
-                
-            </StyledLink>
-        )
-    }
-
     return (
         <OrderQueueContainer>
             <StyledNavbarAdmin />
             <AdminStyledSection>
                 <DetailPreview>
-                    <h3 className="fw-bolder">/Order-Antrean</h3>
+                    <h3 className="fw-bolder">/Order Antrean</h3>
                     <div className="DetailPreview">
-                        <StyledLink to="/order-queue/:orderQueueId">
-                            <OrderCardComponent />
-                        </StyledLink>
+                        <OrderCardComponent />
                     </div>
                 </DetailPreview>
             </AdminStyledSection>

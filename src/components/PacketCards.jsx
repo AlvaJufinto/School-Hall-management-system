@@ -1,8 +1,14 @@
+import { useContext, useEffect, useState } from "react"
 import styled from 'styled-components';
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { clientDataApi } from "./../api/api";
+import CardComponent from "./Cards";
 
 import { GlobalMeasurements, GlobalColors } from '../globals';
-import CardComponent from "./Cards";
 import { StyledLink, StyledSection, StyledTitle, StyledButton } from "../ReuseableComponents/ReuseableComponents";
+
+import DummyImg from "./../assets/img/dummy-img-1.png";
 
 const CardsContainer = styled.div`
     padding: 0 0 100px 0;
@@ -13,38 +19,35 @@ const CardsContainer = styled.div`
 `
 
 const PacketCards = () => {
-    const data = [
-        {
-            image: require('./../assets/img/dummy-img-1.png'), 
-            title: "Paket 1",
-            packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
-            price: "Rp 20.000/orang",
-        },
-        {
-            image: require('./../assets/img/dummy-img-2.png'), 
-            title: "Paket 2",
-            packet: ['Nasi', 'Ayam Kentucky', 'Air Mineral'],
-            price: "Rp 15.000/orang",
-        },
-        {
-            image: require('./../assets/img/dummy-img-3.png'), 
-            title: "No katering",
-            packet: ['Hanya Memesan Aula'],
-            price: "Rp 0",
-        },
-    ];
+    const [packet, setPacket]  = useState();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await clientDataApi.all();
+                setPacket(res.data.data.paket)
+                setIsLoading(!isLoading);
+            } catch (err) {
+                console.log(err);
+                setIsLoading(!isLoading);
+            }
+        })();
+    }, []);
 
     return (
         <StyledSection>
             <StyledTitle>Pilih paket</StyledTitle>
             <CardsContainer>
-                {data.map(data =>(
-                    <StyledLink to="/form-order/:packetId">
+                {isLoading && <CircularProgress /> }
+                {packet && packet.map((packet, i) =>(
+                    <StyledLink to={`/form-order/${packet._id}`}>
                         <CardComponent 
-                            image={data.image} 
-                            title={data.title}
-                            packet={data.packet}
-                            price={data.price}
+                            packetPlain={packet.paketPlain}
+                            image={DummyImg} 
+                            title={packet.namaPaket}
+                            packet={packet.detailCatering && packet.detailCatering.detailPaketCatering}
+                            price={packet.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
                             cardVariant="small"
                             className="h-100"
                         />

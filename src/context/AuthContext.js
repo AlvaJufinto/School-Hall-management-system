@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
-import authApi from "./../api/auth";
+import { authApi } from "./../api/api";
 
 const INITIAL_STATE = {
     user: null,
@@ -68,7 +68,7 @@ export const AuthContextProvider = ({ children }) => {
                     console.error(err);
                 }
             }
-            })();
+        })();
     }, [refreshToken]);
     
     return (

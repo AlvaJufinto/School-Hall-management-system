@@ -7,7 +7,7 @@ import { GlobalColors, GlobalFonts } from "../../globals";
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { AuthContext } from "../../context/AuthContext";
-import authApi from "./../../api/auth";
+import { authApi } from "./../../api/api";
 
 const LoginContainer = styled.div`
     height: 100vh;

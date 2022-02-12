@@ -21,7 +21,7 @@ import OrderQueue from "./pages/admin/OrderQueue";
 import NotFound from "./pages/NotFound";
 
 import { AuthContext } from "./context/AuthContext";
-import api from "./api/auth";
+import api from "./api/api";
 
 function App() {
   const { display, isLoggedIn, isLoading, dispatch, isError, errorMessage } = useContext(AuthContext);

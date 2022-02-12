@@ -8,7 +8,7 @@ import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 
 import { AuthContext } from "../../context/AuthContext";
-import authApi from "./../../api/auth";
+import { authApi } from "./../../api/api";
 import Icon from "./../../assets/svg/icon.svg"
 
 const DashboardContainer = styled.div`
@@ -96,7 +96,7 @@ const Dashboard = () => {
                     </div>
                 </DetailPreview>
                 <DetailPreview>
-                    <h3 className="fw-bolder">/Active</h3>
+                    <h3 className="fw-bolder">/Sedang Berlangsung</h3>
                 </DetailPreview>
             </AdminStyledSection>
         </DashboardContainer>

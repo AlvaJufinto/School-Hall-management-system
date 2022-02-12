@@ -9,7 +9,7 @@ import { GlobalMeasurements, GlobalColors, GlobalFonts } from '../../globals';
 
 import { StyledLink, StyledButton } from "../../ReuseableComponents/ReuseableComponents";
 import { AuthContext } from "../../context/AuthContext";
-import authApi from "./../../api/auth";
+import { authApi } from "./../../api/api";
 
 import Chad from "./../../assets/img/chad.png";
 

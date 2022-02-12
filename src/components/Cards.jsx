@@ -21,6 +21,7 @@ const DefaultCard = styled(Card)`
         p {
             margin: -3px 0;
             font-family: ${GlobalFonts.secondary};
+            text-transform: capitalize;
         }
     }
 
@@ -74,7 +75,7 @@ const CardTitle = styled(Card.Title)`
     font-family: ${GlobalFonts.primary};
 `
 
-const CardComponent = ({ image, title, packet, price, cardVariant }) => {
+const CardComponent = ({ packetPlain, image, title, packet, price, cardVariant }) => {
     const SmallCardComponent = () => {
         return (
             <SmallCard>
@@ -82,11 +83,11 @@ const CardComponent = ({ image, title, packet, price, cardVariant }) => {
                 <div className="CardBody">
                     <CardTitle>{title}</CardTitle>
                     <Card.Text>
-                        {packet.map((packet, i) => (
+                        {packetPlain ? 'paket yang menyediakan aula saja dengan fasilitasnya' : packet.map((packet, i) => (
                             <p key={i}>{packet}</p>
                         ))}
                     </Card.Text>
-                    <h2>{price}</h2>
+                    <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {price == 0 ? '' : '/orang'} </h2>
                 </div>
             </SmallCard>
         )
