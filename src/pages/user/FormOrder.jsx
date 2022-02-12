@@ -118,17 +118,21 @@ const FormOrder = () => {
     const [portionPrice, setPortionPrice] = useState(0);
     const [discount, setDiscount] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0);
-    
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     useEffect(() => {
         (async () => {
             try {
                 const res = await clientDataApi.packet({ params: packetId.packetId });
                 
                 setPacket(res.data.data) 
-                setOnePortion(packet && packet?.paketPlain ? 0 : packet?.detailCatering?.hargaPerBuah)
-                setRoomPrice(packet && packet?.hargaAula);
+                setOnePortion(packet?.paketPlain ? 0 : packet?.detailCatering?.hargaPerBuah)
+                setRoomPrice(packet?.hargaAula);
             } catch (err) {
-                console.log(err);
+                // console.log(err);
                 setError(err);
             }
         })();
@@ -149,13 +153,6 @@ const FormOrder = () => {
         setTotalPrice(roomPrice + portionPrice - discount)
     }, [portion, onePortion, roomPrice, portionPrice, discount])
     
-    const data = {
-        image: require('./../../assets/img/dummy-img-1.png'), 
-        title: "Paket 1",
-        packet: ['Nasi Ayam', 'Lawar', 'Air Mineral'],
-        price: "Rp 20.000/orang",
-    }
-    
     return (
         <>
             <StyledNavbar />
@@ -169,11 +166,11 @@ const FormOrder = () => {
                     <div className="TopForm">
                         {!packet && <CircularProgress /> }                        
                         {packet && <CardComponent 
-                            packetPlain={packet.paketPlain}
+                            packetPlain={packet?.paketPlain}
                             image={DummyImg} 
-                            title={packet.namaPaket}
-                            packet={packet.detailCatering && packet.detailCatering.detailPaketCatering}
-                            price={packet.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
+                            title={packet?.namaPaket}
+                            packet={!packet.paketPlain && packet.detailCatering.detailPaketCatering}
+                            price={!packet.paketPlain ? packet.detailCatering.hargaPerBuah : '0'}
                             cardVariant="small"
                             className="h-100"
                         />}

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import StyledNavbar from "./../../components/Navbar";
@@ -12,6 +13,10 @@ const HomeContainer = styled.div`
 `
 
 const Home = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         <HomeContainer>
             <StyledNavbar />
