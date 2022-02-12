@@ -25,7 +25,7 @@ const PacketCards = () => {
     useEffect(() => {
         (async () => {
             try {
-                const res = await clientDataApi.all();
+                const res = await clientDataApi.allPackets();
                 setPackets(res.data.data.paket)
                 setIsLoading(!isLoading);
             } catch (err) {

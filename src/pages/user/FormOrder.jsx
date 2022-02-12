@@ -120,10 +120,6 @@ const FormOrder = () => {
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
-
-    useEffect(() => {
         (async () => {
             try {
                 const res = await clientDataApi.packet({ params: packetId.packetId });

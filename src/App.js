@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate
+  Navigate,
+  useLocation 
 } from "react-router-dom";
 
 import { GlobalStyles } from "./globals";
@@ -26,6 +27,10 @@ import api from "./api/api";
 function App() {
   const { display, isLoggedIn, isLoading, dispatch, isError, errorMessage } = useContext(AuthContext);
   
+  function scrollTop(){
+    window.scrollTo(0, 0);
+  }
+  
   return (
     <Router>
       <GlobalStyles />
@@ -33,8 +38,8 @@ function App() {
         <Routes>
           {/* User */}
           <Route path="/" element={<Home />} />
-          <Route path="/form-order/:packetId" element={<FormOrder />} />
-          <Route path="/receipt/:receiptId" element={<Receipt />} />
+          <Route path="/form-order/:packetId" element={<FormOrder />} preload={scrollTop} />
+          <Route path="/receipt/:receiptId" element={<Receipt />} preload={scrollTop} />
 
           {/* Admin */}
           <Route path="/admin/login" element={isLoggedIn ? <Navigate to="/admin/dashboard" /> : <Login />} />

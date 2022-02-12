@@ -101,10 +101,6 @@ const FormOrder = () => {
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
-
-    useEffect(() => {
         setPortionPrice(portion * onePortion);
         setTotalPrice(roomPrice + portionPrice - discount)
     }, [portion, portionPrice, totalPrice])
