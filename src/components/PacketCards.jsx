@@ -19,14 +19,14 @@ const CardsContainer = styled.div`
 `
 
 const PacketCards = () => {
-    const [packet, setPacket]  = useState();
+    const [packets, setPackets]  = useState();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         (async () => {
             try {
                 const res = await clientDataApi.all();
-                setPacket(res.data.data.paket)
+                setPackets(res.data.data.paket)
                 setIsLoading(!isLoading);
             } catch (err) {
                 console.log(err);
@@ -40,7 +40,7 @@ const PacketCards = () => {
             <StyledTitle>Pilih paket</StyledTitle>
             <CardsContainer>
                 {isLoading && <CircularProgress /> }
-                {packet && packet.map((packet, i) =>(
+                {packets && packets.map((packet, i) =>(
                     <StyledLink to={`/form-order/${packet._id}`}>
                         <CardComponent 
                             packetPlain={packet.paketPlain}

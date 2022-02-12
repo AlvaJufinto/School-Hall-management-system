@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react"
 import styled from 'styled-components';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Form } from "react-bootstrap";
+import { useParams } from 'react-router';
 
+import { clientDataApi } from "./../../api/api";
 import StyledNavbar from "../../components/Navbar";
 import CardComponent from "../../components/Cards";
 import BankComponent from "../../components/BankComponent";
 import Footer from "../../components/Footer";
 
+import DummyImg from "./../../assets/img/dummy-img-1.png";
 import { StyledSection, StyledTitle, StyledButton, StyledLink } from '../../ReuseableComponents/ReuseableComponents';
 import { GlobalFonts, GlobalColors } from '../../globals';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const StyledForm = styled.form`
@@ -104,24 +107,37 @@ const StyledForm = styled.form`
 `
 
 const FormOrder = () => {
+    const packetId = useParams();
+    const [packet, setPacket]  = useState();
+    const [error, setError] = useState(null) 
+    
     const [validated, setValidated] = useState(false);
-
-    const [roomPrice, setRoomPrice] = useState(300000);
-    const [onePortion, setOnePortion] = useState(20000);
+    const [roomPrice, setRoomPrice] = useState(0);
+    const [onePortion, setOnePortion] = useState(0);
     const [portion, setPortion] = useState(1);
     const [portionPrice, setPortionPrice] = useState(0);
     const [discount, setDiscount] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0);
+    
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await clientDataApi.packet({ params: packetId.packetId });
+                
+                setPacket(res.data.data) 
+                setOnePortion(packet && packet?.paketPlain ? 0 : packet?.detailCatering?.hargaPerBuah)
+                setRoomPrice(packet && packet?.hargaAula);
+            } catch (err) {
+                console.log(err);
+                setError(err);
+            }
+        })();
+    }, [onePortion, roomPrice, totalPrice]);
 
     const handleOrder = (e) => {
         const form = e.currentTarget;
         e.preventDefault();
-        
-        if (form.checkValidity() === false) {
-            e.stopPropagation();
-        }
 
-        setValidated(true);
     }
 
     useEffect(() => {
@@ -131,8 +147,8 @@ const FormOrder = () => {
 
         setPortionPrice(portion * onePortion);
         setTotalPrice(roomPrice + portionPrice - discount)
-    }, [portion, portionPrice, totalPrice])
-        
+    }, [portion, onePortion, roomPrice, portionPrice, discount])
+    
     const data = {
         image: require('./../../assets/img/dummy-img-1.png'), 
         title: "Paket 1",
@@ -151,13 +167,16 @@ const FormOrder = () => {
                 }} >Formulir pemesanan aula</StyledTitle>
                 <StyledForm onSubmit={handleOrder} >
                     <div className="TopForm">
-                        <CardComponent 
-                            image={data.image} 
-                            title={data.title}
-                            packet={data.packet}
-                            price={data.price}
+                        {!packet && <CircularProgress /> }                        
+                        {packet && <CardComponent 
+                            packetPlain={packet.paketPlain}
+                            image={DummyImg} 
+                            title={packet.namaPaket}
+                            packet={packet.detailCatering && packet.detailCatering.detailPaketCatering}
+                            price={packet.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
                             cardVariant="small"
-                        />
+                            className="h-100"
+                        />}
                         <div className="FormGroups">
                             <Form.Group className="mb-3" controlId="validationCustom01">
                                 <Form.Label>Atas Nama</Form.Label>
@@ -183,11 +202,10 @@ const FormOrder = () => {
                                 <Form.Control 
                                     type="number" 
                                     min="1"
-                                    value="+62"
                                     pattern="/^+91(7\d|8\d|9\d)\d{9}$/"
                                     required />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formGroupEmail">
+                            {packet && !packet.paketPlain && <Form.Group className="mb-3">
                                 <Form.Label>Jumlah porsi</Form.Label>
                                 <Form.Control 
                                     type="number" 
@@ -195,8 +213,8 @@ const FormOrder = () => {
                                     onChange={e => setPortion(e.currentTarget.value)}
                                     pattern="[0-9]"
                                     required />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formGroupPassword">
+                            </Form.Group> }
+                            <Form.Group className="mb-3" >
                                 <Form.Label>Pilih tanggal</Form.Label>
                                 <Form.Control 
                                     type="date"
@@ -234,19 +252,19 @@ const FormOrder = () => {
                             <h1>Detail Pembayaran</h1>
                             <div className="Detail">
                                 <p>Harga Sewa Aula</p>
-                                <p>Rp. {roomPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+                                <p>Rp. {isNaN(roomPrice) ? 0 : roomPrice?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
                             </div>
                             <div className="Detail">
                                 <p>Harga Paket Katering</p>
-                                <p>Rp. {portionPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+                                <p>Rp. {isNaN(portionPrice) ? 0 : portionPrice?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
                             </div>
                             <div className="Detail">
                                 <p>Diskon</p>
-                                <p>Rp. {discount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+                                <p>Rp. {isNaN(discount) ? 0 : discount?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
                             </div>
                             <div className="Detail">
                                 <p>Total Transfer</p>
-                                <p className="Total" >Rp. {totalPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} </p>
+                                <p className="Total" >Rp. {isNaN(totalPrice) ? 0 : totalPrice?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} </p>
                             </div>
                         </div>
                     </div>

@@ -5,6 +5,9 @@ export const clientDataApi = {
   all: () => {
     return axios.get(`${baseUrl}/client/getalldata`);
   },
+  packet: ({ params }) => {
+    return axios.get(`${baseUrl}/client/getpaket/${params}`);
+  }
 };
 
 export const authApi = {
