@@ -8,6 +8,9 @@ export const clientDataApi = {
   packet: ({ params }) => {
     return axios.get(`${baseUrl}/client/getpaket/${params}`);
   },
+  order: ({ params }) => {
+    return axios.get(`${baseUrl}/client/getorder/${params}`);
+  },
   addOrder: ({ params }, detail) => {
     return axios.post(`${baseUrl}/client/order/${params}`, detail);
   }

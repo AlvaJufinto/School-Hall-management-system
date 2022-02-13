@@ -11,12 +11,13 @@ import CardComponent from "../../components/Cards";
 import BankComponent from "../../components/BankComponent";
 import Footer from "../../components/Footer";
 
-import DummyImg from "./../../assets/img/dummy-img-1.png";
 import { StyledSection, StyledTitle, StyledButton, StyledLink } from '../../ReuseableComponents/ReuseableComponents';
 import { GlobalFonts, GlobalColors } from '../../globals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import "react-datepicker/dist/react-datepicker.css";
+
+import DummyImg from "./../../assets/img/dummy-img-1.png";
+import DummyImgPlain from "./../../assets/img/dummy-img-3.png";
 
 const StyledForm = styled.form`
     padding: 0px 20px 100px 20px;
@@ -190,7 +191,7 @@ const FormOrder = () => {
                         {!packet && <CircularProgress /> }                        
                         {packet && <CardComponent 
                             packetPlain={packet?.paketPlain}
-                            image={DummyImg} 
+                            image={packet?.paketPlain ? DummyImgPlain : DummyImg} 
                             title={packet?.namaPaket}
                             packet={!packet.paketPlain && packet.detailCatering.detailPaketCatering}
                             price={!packet.paketPlain ? packet.detailCatering.hargaPerBuah : '0'}
@@ -248,14 +249,6 @@ const FormOrder = () => {
                             </Form.Group> }
                             <Form.Group className="mb-3" >
                                 <Form.Label>Pilih tanggal</Form.Label>
-                                {/* <Form.Control 
-                                    type="date"
-                                    name="tanggal"
-                                    selected={startDate}
-                                    onChange={date => {
-                                        setStartDate(date);
-                                    }} 
-                                    required /> */}
                                 <DatePicker 
                                     type="date"
                                     name="tanggal"
@@ -291,8 +284,8 @@ const FormOrder = () => {
                                     borderRadius="15" style={{
                                         width: "100%",
                                     }}
-                                        Kembali
                                     disabled={isLoading}>
+                                        Kembali
                                 </StyledButton>
                             </StyledLink>
                         </div>

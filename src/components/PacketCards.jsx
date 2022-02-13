@@ -9,6 +9,8 @@ import { GlobalMeasurements, GlobalColors } from '../globals';
 import { StyledLink, StyledSection, StyledTitle, StyledButton } from "../ReuseableComponents/ReuseableComponents";
 
 import DummyImg from "./../assets/img/dummy-img-1.png";
+import DummyImgPlain from "./../assets/img/dummy-img-3.png";
+
 
 const CardsContainer = styled.div`
     padding: 0 0 100px 0;
@@ -44,10 +46,10 @@ const PacketCards = () => {
                     <StyledLink to={`/form-order/${packet._id}`}>
                         <CardComponent 
                             packetPlain={packet.paketPlain}
-                            image={DummyImg} 
-                            title={packet.namaPaket}
-                            packet={packet.detailCatering && packet.detailCatering.detailPaketCatering}
-                            price={packet.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
+                            image={packet?.paketPlain ? DummyImgPlain : DummyImg} 
+                            title={packet?.namaPaket}
+                            packet={packet?.detailCatering && packet?.detailCatering?.detailPaketCatering}
+                            price={packet?.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
                             cardVariant="small"
                             className="h-100"
                         />

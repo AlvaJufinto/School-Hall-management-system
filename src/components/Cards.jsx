@@ -58,6 +58,7 @@ const WideCard = styled(DefaultCard)`
         gap: 20px;
 
         p {
+            font-size: 1.5rem;
             align-self: center;
             font-size: 1.25rem;
         }
@@ -65,6 +66,7 @@ const WideCard = styled(DefaultCard)`
     }
 
     h2 {
+        text-align: right;
         align-self: center;
     }
 
@@ -87,7 +89,7 @@ const CardComponent = ({ packetPlain, image, title, packet, price, cardVariant }
                             <p key={i}>{packet}</p>
                         ))}
                     </Card.Text>
-                    <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {price == 0 ? '' : '/orang'} </h2>
+                    <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {price == 0 ? '' : '/orang'}</h2>
                 </div>
             </SmallCard>
         )
@@ -107,7 +109,7 @@ const CardComponent = ({ packetPlain, image, title, packet, price, cardVariant }
                         </Card.Text>
                     </Card.Text>
                 </div>
-                <h2>{price}</h2>
+                <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {price == 0 ? '' : '/orang'}</h2>
             </WideCard>
         )
     }
