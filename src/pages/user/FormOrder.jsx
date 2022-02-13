@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react"
+import DatePicker from "react-datepicker";
 import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Form } from "react-bootstrap";
@@ -14,6 +15,9 @@ import DummyImg from "./../../assets/img/dummy-img-1.png";
 import { StyledSection, StyledTitle, StyledButton, StyledLink } from '../../ReuseableComponents/ReuseableComponents';
 import { GlobalFonts, GlobalColors } from '../../globals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const StyledForm = styled.form`
     padding: 0px 20px 100px 20px;
@@ -109,15 +113,18 @@ const StyledForm = styled.form`
 const FormOrder = () => {
     const packetId = useParams();
     const [packet, setPacket]  = useState();
-    const [error, setError] = useState(null) 
-    
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [startDate, setStartDate] = useState(new Date());
+
     const [validated, setValidated] = useState(false);
     const [roomPrice, setRoomPrice] = useState(0);
     const [onePortion, setOnePortion] = useState(0);
-    const [portion, setPortion] = useState(1);
+    const [portion, setPortion] = useState(30);
     const [portionPrice, setPortionPrice] = useState(0);
     const [discount, setDiscount] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0);
+
 
     useEffect(() => {
         (async () => {
@@ -128,21 +135,39 @@ const FormOrder = () => {
                 setOnePortion(packet?.paketPlain ? 0 : packet?.detailCatering?.hargaPerBuah)
                 setRoomPrice(packet?.hargaAula);
             } catch (err) {
-                // console.log(err);
-                setError(err);
+                console.log(err);
             }
         })();
     }, [onePortion, roomPrice, totalPrice]);
+    
+    const [detail, setdetail] = useState({
+        atasNama: "",
+        email: "",
+        whatsapp: null,
+        tanggal: startDate,
+        jumlahPorsi: portion,
+    });
 
-    const handleOrder = (e) => {
-        const form = e.currentTarget;
+    const handleChange = e => {
+        setdetail({ ...detail, [e.target.name]: e.target.value, tanggal: startDate, jumlahPorsi: portion });
+    }
+    
+    const orderHandler = async (e) => {
         e.preventDefault();
-
+        console.log(packetId.packetId);
+        console.log(detail);
+        // setIsLoading(!isLoading);
+        try {
+            const res = await clientDataApi.addOrder({ params: packetId.packetId}, detail);
+            console.log(res);
+        } catch (err) {
+            console.log(err.response);
+        }
     }
 
     useEffect(() => {
-        if(portion < 1) {
-            setPortion(1);
+        if(portion < 30) {
+            setPortion(30);
         }
 
         setPortionPrice(portion * onePortion);
@@ -158,7 +183,7 @@ const FormOrder = () => {
                     textAlign: 'center',
                     margin: '0 0 70px 0',
                 }} >Formulir pemesanan aula</StyledTitle>
-                <StyledForm onSubmit={handleOrder} >
+                <StyledForm onSubmit={orderHandler} >
                     <div className="TopForm">
                         {!packet && <CircularProgress /> }                        
                         {packet && <CardComponent 
@@ -174,44 +199,73 @@ const FormOrder = () => {
                             <Form.Group className="mb-3" controlId="validationCustom01">
                                 <Form.Label>Atas Nama</Form.Label>
                                 <Form.Control 
-                                    type="text" 
+                                    type="text"
+                                    name="atasNama"
+                                    value={detail.atasNama}
+                                    onChange={e => handleChange(e)} 
                                     required />
                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formGroupPassword">
+                            <Form.Group className="mb-3">
                                 <Form.Label>Nama Acara</Form.Label>
                                 <Form.Control 
                                     type="text"
+                                    name="namaAcara"
+                                    value={detail.namaAcara}
+                                    onChange={e => handleChange(e)} 
                                     required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupEmail">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control 
                                     type="email"
+                                    name="email"
+                                    value={detail.email}
+                                    onChange={e => handleChange(e)} 
                                     required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupPassword">
                                 <Form.Label>No. Whatsapp</Form.Label>
                                 <Form.Control 
                                     type="number" 
-                                    min="1"
+                                    min="30"
+                                    name="whatsapp"
+                                    value={detail.whatsapp}
+                                    onChange={e => handleChange(e)} 
                                     pattern="/^+91(7\d|8\d|9\d)\d{9}$/"
                                     required />
                             </Form.Group>
-                            {packet && !packet.paketPlain && <Form.Group className="mb-3">
+                            {!packet?.paketPlain && <Form.Group className="mb-3">
                                 <Form.Label>Jumlah porsi</Form.Label>
                                 <Form.Control 
-                                    type="number" 
+                                    type="number"
+                                    name="porsi" 
                                     value={portion}
-                                    onChange={e => setPortion(e.currentTarget.value)}
+                                    onChange={e => {
+                                        setPortion(e.currentTarget.value);
+                                        handleChange(e);
+                                    }}
                                     pattern="[0-9]"
                                     required />
                             </Form.Group> }
                             <Form.Group className="mb-3" >
                                 <Form.Label>Pilih tanggal</Form.Label>
-                                <Form.Control 
+                                {/* <Form.Control 
                                     type="date"
-                                    required />
+                                    // name="tanggal"
+                                    selected={startDate}
+                                    onChange={(date) => setStartDate(date)} 
+                                    required /> */}
+                                <DatePicker 
+                                    type="date"
+                                    selected={startDate}
+                                    onChange={(date, e) => {
+                                        setStartDate(date)
+                                        handleChange(e);
+                                    }}
+                                    style={{
+                                        height: '200px',
+                                    }} />
                             </Form.Group>
                             <p className="text-danger fw-bolder">*Pastikan formulir diisi dengan benar </p>
                         </div>
