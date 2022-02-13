@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, useRef } from "react"
 import DatePicker from "react-datepicker";
 import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Form } from "react-bootstrap";
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 
 import { clientDataApi } from "./../../api/api";
 import StyledNavbar from "../../components/Navbar";
@@ -17,7 +17,6 @@ import { GlobalFonts, GlobalColors } from '../../globals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "react-datepicker/dist/react-datepicker.css";
-
 
 const StyledForm = styled.form`
     padding: 0px 20px 100px 20px;
@@ -112,6 +111,7 @@ const StyledForm = styled.form`
 
 const FormOrder = () => {
     const packetId = useParams();
+    let navigate = useNavigate();
     const [packet, setPacket]  = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -124,6 +124,11 @@ const FormOrder = () => {
     const [portionPrice, setPortionPrice] = useState(0);
     const [discount, setDiscount] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0);
+
+    const atasNama = useRef();
+    const namaAcara = useRef();
+    const email = useRef();
+    const whatsapp = useRef();
 
 
     useEffect(() => {
@@ -140,28 +145,25 @@ const FormOrder = () => {
         })();
     }, [onePortion, roomPrice, totalPrice]);
     
-    const [detail, setdetail] = useState({
-        atasNama: "",
-        email: "",
-        whatsapp: null,
-        tanggal: startDate,
-        jumlahPorsi: portion,
-    });
-
-    const handleChange = e => {
-        setdetail({ ...detail, [e.target.name]: e.target.value, tanggal: startDate, jumlahPorsi: portion });
-    }
-    
     const orderHandler = async (e) => {
         e.preventDefault();
-        console.log(packetId.packetId);
-        console.log(detail);
-        // setIsLoading(!isLoading);
         try {
+            setIsLoading(!isLoading);
+            const detail = {
+                atasNama: atasNama.current.value, 
+                namaAcara: namaAcara.current.value, 
+                email: email.current.value, 
+                whatsapp: whatsapp.current.value, 
+                jumlahPorsi: portion, 
+                tanggal: startDate,
+            }
             const res = await clientDataApi.addOrder({ params: packetId.packetId}, detail);
-            console.log(res);
+            console.log(res.data.detailPesanan._id);
+            navigate(`/receipt/${res.data.detailPesanan._id}`, { replace: true });
+            
         } catch (err) {
-            console.log(err.response);
+            setIsLoading(!isLoading)
+            console.log(err);
         }
     }
 
@@ -201,8 +203,7 @@ const FormOrder = () => {
                                 <Form.Control 
                                     type="text"
                                     name="atasNama"
-                                    value={detail.atasNama}
-                                    onChange={e => handleChange(e)} 
+                                    ref={atasNama}
                                     required />
                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
@@ -211,8 +212,7 @@ const FormOrder = () => {
                                 <Form.Control 
                                     type="text"
                                     name="namaAcara"
-                                    value={detail.namaAcara}
-                                    onChange={e => handleChange(e)} 
+                                    ref={namaAcara}
                                     required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -220,8 +220,7 @@ const FormOrder = () => {
                                 <Form.Control 
                                     type="email"
                                     name="email"
-                                    value={detail.email}
-                                    onChange={e => handleChange(e)} 
+                                    ref={email} 
                                     required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formGroupPassword">
@@ -230,8 +229,7 @@ const FormOrder = () => {
                                     type="number" 
                                     min="30"
                                     name="whatsapp"
-                                    value={detail.whatsapp}
-                                    onChange={e => handleChange(e)} 
+                                    ref={whatsapp} 
                                     pattern="/^+91(7\d|8\d|9\d)\d{9}$/"
                                     required />
                             </Form.Group>
@@ -239,11 +237,11 @@ const FormOrder = () => {
                                 <Form.Label>Jumlah porsi</Form.Label>
                                 <Form.Control 
                                     type="number"
-                                    name="porsi" 
+                                    name="jumlahPorsi"
+                                    // ref={jumlahPorsi} 
                                     value={portion}
                                     onChange={e => {
                                         setPortion(e.currentTarget.value);
-                                        handleChange(e);
                                     }}
                                     pattern="[0-9]"
                                     required />
@@ -252,19 +250,18 @@ const FormOrder = () => {
                                 <Form.Label>Pilih tanggal</Form.Label>
                                 {/* <Form.Control 
                                     type="date"
-                                    // name="tanggal"
+                                    name="tanggal"
                                     selected={startDate}
-                                    onChange={(date) => setStartDate(date)} 
+                                    onChange={date => {
+                                        setStartDate(date);
+                                    }} 
                                     required /> */}
                                 <DatePicker 
                                     type="date"
+                                    name="tanggal"
                                     selected={startDate}
                                     onChange={(date, e) => {
-                                        setStartDate(date)
-                                        handleChange(e);
-                                    }}
-                                    style={{
-                                        height: '200px',
+                                        setStartDate(date);
                                     }} />
                             </Form.Group>
                             <p className="text-danger fw-bolder">*Pastikan formulir diisi dengan benar </p>
@@ -278,8 +275,11 @@ const FormOrder = () => {
                                 background={GlobalColors.violet}
                                 fontSize="1.5"
                                 borderRadius="15"
-                                type="submit">
-                                    Buat Pesanan
+                                type="submit" 
+                                disabled={isLoading}>
+                                    {isLoading ? <CircularProgress style={{
+                                        color: 'white',
+                                    }} /> : "Buat Pesanan"}
                             </StyledButton>
                             
                             <StyledLink to="/">
@@ -290,8 +290,9 @@ const FormOrder = () => {
                                     fontSize="1.5"
                                     borderRadius="15" style={{
                                         width: "100%",
-                                    }}>
+                                    }}
                                         Kembali
+                                    disabled={isLoading}>
                                 </StyledButton>
                             </StyledLink>
                         </div>
