@@ -56,7 +56,7 @@ const Dashboard = () => {
                 try {
                     const res = await adminDataApi.allData({ accessToken: accessToken });
                     console.log(res.data.data.active);
-                    console.log(res.data.data.paket);
+                    console.log(res.data.data.order);
                     setActiveOrder(res.data.data.active);
                     setOrders(res.data.data.order);
                     setPackets(res.data.data.paket);
@@ -77,7 +77,7 @@ const Dashboard = () => {
         }
     }, [activeOrder, orders, packets, activePacket])
 
-    const PreviewCard = ({ color, text, value, route }) => {
+    const PreviewCard = ({ color, text, value, route, data }) => {
         return (
             <StyledLink to={`/admin/${route}`} >
                 <div style={{
@@ -101,7 +101,7 @@ const Dashboard = () => {
                     }}>
                         <span style={{
                             fontSize: '4rem',
-                        }}>{value}</span>
+                        }}>{data}</span>
                         <img src={Icon} alt="Icon" />
                     </div>
                 </div>
@@ -119,18 +119,18 @@ const Dashboard = () => {
                         <PreviewCard 
                             color={GlobalColors.violet} 
                             text="Jumlah Orderan"
-                            value="10" 
-                            route="order-queue" />
+                            route="order-queue"
+                            data={orders?.length} />
                         <PreviewCard 
                             color={GlobalColors.green}
                             text="Orderan Selesai"
-                            value="4"
-                            route="order-done" />
+                            route="order-done"
+                            data={0} />
                         <PreviewCard 
                             color={GlobalColors.red}
                             text="Orderan Dibatalkan"
-                            value="5"
-                            route="order-cancel" />
+                            route="order-cancel"
+                            data={0} />
                     </div>
                 </DetailPreview>
                 <DetailPreview>
