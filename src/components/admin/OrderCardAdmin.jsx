@@ -10,7 +10,7 @@ const OrderCard = styled.div`
     color: white;
     background-color: ${GlobalColors.hardGrey};
     max-width: 400px;
-    flex: 1;
+    width: 100%;
     overflow: hidden;
 
     .Details {

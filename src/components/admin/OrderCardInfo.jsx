@@ -37,17 +37,13 @@ const OrderCard = styled.div`
         gap: 20px;
         margin: 0 0 20px 0;
         font-size: 1.25rem;
-        overflow-x: auto;
+        word-break: break-all;
+        white-space: normal;
     }
 
     a ${StyledButton} {
         width: 100%;   
     }
-`
-
-const OrderCardTitle = styled.div`
-    font-size: 2rem;
-    font-family: ${GlobalFonts.primary};
 `
 
 const OrderCardComponent = ({ title, name, packet, price, date }) => {

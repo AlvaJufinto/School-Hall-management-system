@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Menu } from '@mui/icons-material';
@@ -48,7 +49,7 @@ const NavbarAdmin = styled.nav`
     top: 0;
     left: 0;
     overflow-x: hidden;
-    padding: 50px 30px;
+    padding: 50px 0px;
     background: ${GlobalColors.hardGrey};
     display: flex;
     flex-direction: column;
@@ -68,37 +69,52 @@ const NavbarAdmin = styled.nav`
     .NavbarLinkContainer {
         display: flex;
         flex-direction: column;
-        gap: 20px;
         font-size: 1.25rem;
-        width: 100%;
+        width: 100%; 
+
+        ${StyledLink} {
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+        }
     }
 
     @media (max-width: 768px) {
         width: 50%;
-        align-items: flex-start;
-        padding: 120px 0 20px 5%;
+        /* align-items: flex-start; */
+        padding: 120px 0 20px 0;
         transform: ${props => props.isHidden ? "translateX(-100%)" : "translateX(0%)"};
         transition: 0.5s;
     }
 `
 
 const ProfileContainer = styled.div`
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     
     p {
         font-size: 20px;
         color: white;
         margin: 5px 0 20px 0;
         font-family: ${GlobalFonts.secondary};
+        word-break: break-all;
+        white-space: normal;
     }
 `
 
-
-
 const StyledNavbarAdmin = () => {
+    const location = useLocation();
     const { width: windowWidth } = useWindowDimensions();
     const { isLoading, dispatch, user } = useContext(AuthContext);
     const [isHidden, setIsHidden] = useState(true);
+
+    useEffect(() => {
+        if(location.pathname.includes('/admin/')) {
+            setIsHidden(false);
+        }
+    }, [location])
 
     const handleLogout = async (e) => {
         e.preventDefault();
@@ -141,21 +157,26 @@ const StyledNavbarAdmin = () => {
                     </StyledLink>
                 }
                 <div className="NavbarLinkContainer">
-                    <Nav.Link>
-                        <StyledLink to="/admin/dashboard">Dashboard</StyledLink>
-                    </Nav.Link>
-                    <Nav.Link>
-                        <StyledLink to="/admin/order-queue">Order Antrean</StyledLink>
-                    </Nav.Link>
-                    <Nav.Link>
-                        <StyledLink to="/admin/order-done">Order Selesai</StyledLink>
-                    </Nav.Link>
-                    <Nav.Link>
-                        <StyledLink to="/admin/order-cancel">Order Batal</StyledLink>
-                    </Nav.Link>
-                    <Nav.Link>
-                        <StyledLink to="/admin/packet">Paket</StyledLink>
-                    </Nav.Link>
+                    <StyledLink to="/admin/dashboard" 
+                        style={{ 
+                            backgroundColor: location.pathname == '/admin/dashboard' ? GlobalColors.violet : '', 
+                        }}>Dashboard</StyledLink>
+                    <StyledLink to="/admin/order-queue"
+                         style={{ 
+                            backgroundColor: location.pathname == '/admin/order-queue' ? GlobalColors.violet : '', 
+                        }}>Order Antrean</StyledLink>
+                    <StyledLink to="/admin/order-done"
+                         style={{ 
+                            backgroundColor: location.pathname == '/admin/order-done' ? GlobalColors.violet : '', 
+                        }}>Order Selesai</StyledLink>
+                    <StyledLink to="/admin/order-cancel"
+                         style={{ 
+                            backgroundColor: location.pathname == '/admin/order-done' ? GlobalColors.violet : '', 
+                        }}>Order Batal</StyledLink>
+                    <StyledLink to="/admin/packet"
+                         style={{ 
+                            backgroundColor: location.pathname == '/admin/order-done' ? GlobalColors.violet : '', 
+                        }}>Paket</StyledLink>
                 </div>
                 <ProfileContainer>
                     <img src={Chad} alt="" />

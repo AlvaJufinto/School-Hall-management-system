@@ -135,7 +135,6 @@ const FormOrder = () => {
     const email = useRef();
     const whatsapp = useRef();
 
-
     useEffect(() => {
         (async () => {
             try {
