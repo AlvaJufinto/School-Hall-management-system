@@ -25,11 +25,7 @@ import { AuthContext } from "./context/AuthContext";
 import api from "./api/api";
 
 function App() {
-  const { display, isLoggedIn, isLoading, dispatch, isError, errorMessage } = useContext(AuthContext);
-  
-  function scrollTop(){
-    window.scrollTo(0, 0);
-  }
+  const { isLoggedIn, dispatch } = useContext(AuthContext);
   
   return (
     <Router>
@@ -38,8 +34,8 @@ function App() {
         <Routes>
           {/* User */}
           <Route path="/" element={<Home />} />
-          <Route path="/form-order/:packetId" element={<FormOrder />} preload={scrollTop} />
-          <Route path="/receipt/:receiptId" element={<Receipt />} preload={scrollTop} />
+          <Route path="/form-order/:packetId" element={<FormOrder />} />
+          <Route path="/receipt/:receiptId" element={<Receipt />} />
 
           {/* Admin */}
           <Route path="/admin/login" element={isLoggedIn ? <Navigate to="/admin/dashboard" /> : <Login />} />

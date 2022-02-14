@@ -4,6 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import useDraggableScroll from 'use-draggable-scroll';
 
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
+import OrderCardInfo from "../../components/admin/OrderCardInfo"; 
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 
@@ -96,7 +97,8 @@ const Dashboard = () => {
                     </div>
                 </DetailPreview>
                 <DetailPreview>
-                    <h3 className="fw-bolder">/Sedang Berlangsung</h3>
+                    <h3 className="fw-bolder mb-4">/Sedang Berlangsung</h3>
+                    <OrderCardInfo />
                 </DetailPreview>
             </AdminStyledSection>
         </DashboardContainer>

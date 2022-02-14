@@ -111,6 +111,10 @@ const StyledForm = styled.form`
 `
 
 const FormOrder = () => {
+    useEffect(()=>  {
+        window.scrollTo(0, 0);
+    }, []);
+
     const packetId = useParams();
     let navigate = useNavigate();
     const [packet, setPacket]  = useState();

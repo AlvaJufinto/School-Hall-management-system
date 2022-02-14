@@ -96,6 +96,10 @@ export const Buttons = styled.div`
 `
 
 const FormOrder = () => {
+    useEffect(()=>  {
+        window.scrollTo(0, 0);
+    }, []);
+
     const receiptId = useParams();
     const { height: windowHeight, width: windowWidth } = useWindowDimensions();
     const [validated, setValidated] = useState(false);
