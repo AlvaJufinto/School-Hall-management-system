@@ -33,7 +33,7 @@ const SpecificationSection = () => {
                 <tbody>
                     <tr>
                         <td>Luas</td>
-                        <td>150m2</td>
+                        <td>150m<sup>2</sup></td>
                     </tr>
                     <tr>
                         <td>Kapasitas</td>

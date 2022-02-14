@@ -1,10 +1,12 @@
 import { useContext, useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
 import useDraggableScroll from 'use-draggable-scroll';
 
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import OrderCardInfo from "../../components/admin/OrderCardInfo"; 
+import { adminDataApi } from './../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 
@@ -38,8 +40,43 @@ export const DetailPreview = styled.div`
 const Dashboard = () => {
     const horizontalElement = useRef(null);
     const { onMouseDown } = useDraggableScroll(horizontalElement);
-    const { isLoading, dispatch, user } = useContext(AuthContext);
+    const { dispatch, user } = useContext(AuthContext);
+    const [isAdminDataLoading, setIsAdminDataLoading] = useState(true);
+    const [activeOrder, setActiveOrder] = useState(null); 
+    const [packets, setPackets] = useState(null);
+    const [orders, setOrders] = useState(null);
+    const [activePacket, setActivePacket] = useState(null);
+
+    let accessToken = localStorage.getItem("accessToken");
+    let refreshToken = localStorage.getItem("refreshToken");
+
+    useEffect(() => {
+        if(accessToken) {
+            (async () => {
+                try {
+                    const res = await adminDataApi.allData({ accessToken: accessToken });
+                    console.log(res.data.data.active);
+                    console.log(res.data.data.paket);
+                    setActiveOrder(res.data.data.active);
+                    setOrders(res.data.data.order);
+                    setPackets(res.data.data.paket);
+                    setIsAdminDataLoading(!isAdminDataLoading);
+                } catch (err) {
+                    console.error(err.response);
+                    setIsAdminDataLoading(!isAdminDataLoading);
+                }
+            })();
+        }
+    }, [accessToken, refreshToken]);
     
+    useEffect(() => {
+        for (let i=0; i < packets?.length; i++) {
+            if (packets[i]?._id === activeOrder[0]?.paketId) {
+                setActivePacket(packets[i])
+            }
+        }
+    }, [activeOrder, orders, packets, activePacket])
+
     const PreviewCard = ({ color, text, value, route }) => {
         return (
             <StyledLink to={`/admin/${route}`} >
@@ -98,7 +135,22 @@ const Dashboard = () => {
                 </DetailPreview>
                 <DetailPreview>
                     <h3 className="fw-bolder mb-4">/Sedang Berlangsung</h3>
-                    <OrderCardInfo />
+                    {isAdminDataLoading && <CircularProgress /> }                    
+                    {activeOrder && activeOrder.map((order) =>(
+                        <OrderCardInfo 
+                            atasNama={order.atasNama} 
+                            namaAcara={order.namaAcara} 
+                            orderId={order._id}
+                            tanggal={order.tanggal}
+                            tipeOrder={order.tipeOrderan}
+                            namaPaket={activePacket?.namaPaket}
+                            jumlahPorsi={order.tipeOrderan === 'plain' ? '' : order.jumlahPorsi}
+                            harga={order.tipeOrderan === 'plain' ? activePacket?.hargaAula : (order.jumlahPorsi *  order.detailCatering.hargaPerBuah) + activePacket?.hargaAula}
+                            status={order.status}
+                            email={order.email}
+                            whatsapp={order.whatsapp}
+                        />
+                    ))}
                 </DetailPreview>
             </AdminStyledSection>
         </DashboardContainer>

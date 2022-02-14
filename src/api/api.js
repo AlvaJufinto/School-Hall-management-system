@@ -16,6 +16,17 @@ export const clientDataApi = {
   }
 };
 
+export const adminDataApi = {
+  allData: ({ accessToken }) => {
+    return axios.get(`${baseUrl}/admin/getalldata`, 
+    {
+      headers: {
+        'jwt': accessToken ,
+      }
+    });
+  }
+}
+
 export const authApi = {
   login: (body) => {
     return axios.post(`${baseUrl}/auth/login`, body);

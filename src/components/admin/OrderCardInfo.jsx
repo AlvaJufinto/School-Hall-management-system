@@ -28,6 +28,10 @@ const OrderCard = styled.div`
             .info:nth-child(2) {
                 text-align: right;
             }
+
+            p {
+                text-transform: capitalize;
+            }
         }
     }
 
@@ -46,13 +50,13 @@ const OrderCard = styled.div`
     }
 `
 
-const OrderCardComponent = ({ title, name, packet, price, date }) => {
+const OrderCardComponent = ({ atasNama, namaAcara, orderId, tanggal, tipeOrder, namaPaket, jumlahPorsi, harga, status, email, whatsapp }) => {
 
     return (
         <OrderCard>
             <div className="Details">
-                <p>PT. Anti Nyimeng Sedunia</p>
-                <h2>Sosialisasi Bahaya Nyimeng Bagi Anak Lanjut Usia</h2>
+                <p>{atasNama}</p>
+                <h2>{namaAcara}</h2>
             </div>
             <div className="Informations">
                 <h5>Detail Pesanan : </h5>
@@ -62,15 +66,19 @@ const OrderCardComponent = ({ title, name, packet, price, date }) => {
                         <p>Id Pesanan :</p>
                         <p>Tanggal : </p>
                         <p>Paket : </p>
-                        <p>Jumlah Porsi : </p>
+                        {jumlahPorsi !== '' && <p>Jumlah Porsi : </p>}
                         <p>Harga :</p>
+                        <p>Status : </p>
                     </div>
                     <div className="info">
-                        <p>0832198</p>
-                        <p>32/13/2100</p>
-                        <p>Paket B</p>
-                        <p>30</p>
-                        <p>RP.300.000.000,00</p>
+                        <p>{orderId}</p>
+                        <p>{tanggal?.toString().slice(0, 10).split("-").reverse().join("-")}</p>
+                        <p>{namaPaket}</p>
+                        <p>{jumlahPorsi}</p>
+                        <p>Rp. {harga?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+                        <p style={{
+                            color: status === 'paid' ? GlobalColors.green : GlobalColors.red
+                        }}><b>{status === 'paid' ? 'LUNAS' : 'BELUM LUNAS' }</b></p>
                     </div>
                 </div>
             </div>
@@ -78,9 +86,9 @@ const OrderCardComponent = ({ title, name, packet, price, date }) => {
                 <MailOutlineRounded style={{ 
                     fontSize: '3rem',
                 }} />
-                anti.nyimeng@gmail.com
+                {email}
             </div>
-            <a className="w-100 buttonWrapper" target="_blank" href="https://api.whatsapp.com/send?phone=89601943530&text=Saya%20ingin%20tanya%20tentang%20penyewaan%20aula" >
+            <a className="w-100 buttonWrapper" target="_blank" href={`https://api.whatsapp.com/send?phone=${whatsapp}&text=Saya%20mau%20tanya%20tentang%20PKI?`}>
                 <StyledButton 
                     variant="success"
                     background={GlobalColors.green}

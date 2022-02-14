@@ -242,7 +242,6 @@ const FormOrder = () => {
                                 <Form.Control 
                                     type="number"
                                     name="jumlahPorsi"
-                                    // ref={jumlahPorsi} 
                                     value={portion}
                                     onChange={e => {
                                         setPortion(e.currentTarget.value);
@@ -256,9 +255,11 @@ const FormOrder = () => {
                                     type="date"
                                     name="tanggal"
                                     selected={startDate}
-                                    onChange={(date, e) => {
+                                    minDate={new Date()}
+                                    onChange={(date) => {
                                         setStartDate(date);
-                                    }} />
+                                    }} 
+                                    required/>
                             </Form.Group>
                             <p className="text-danger fw-bolder">*Pastikan formulir diisi dengan benar </p>
                         </div>
