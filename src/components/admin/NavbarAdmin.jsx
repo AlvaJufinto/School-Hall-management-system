@@ -108,7 +108,7 @@ const StyledNavbarAdmin = () => {
     const location = useLocation();
     const { width: windowWidth } = useWindowDimensions();
     const { isLoading, dispatch, user } = useContext(AuthContext);
-    const [isHidden, setIsHidden] = useState(true);
+    const [isHidden, setIsHidden] = useState(false);
 
     useEffect(() => {
         if(location.pathname.includes('/admin/')) {
@@ -145,7 +145,7 @@ const StyledNavbarAdmin = () => {
                         <h2>SEWA AULA</h2>
                         <p>ADMIN</p>
                     </StyledLink>
-                    <div></div>
+                    <div style={{ width: '35px', }}></div>
                     {/* </Container> */}
                 </StyledNavbar>
             }
