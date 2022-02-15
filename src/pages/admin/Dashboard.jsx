@@ -145,7 +145,7 @@ const Dashboard = () => {
                             tipeOrder={order.tipeOrderan}
                             namaPaket={activePacket?.namaPaket}
                             jumlahPorsi={order.tipeOrderan === 'plain' ? '' : order.jumlahPorsi}
-                            harga={order.tipeOrderan === 'plain' ? activePacket?.hargaAula : (order.jumlahPorsi *  order.detailCatering.hargaPerBuah) + activePacket?.hargaAula}
+                            harga={order.tipeOrderan === 'plain' ? activePacket?.hargaAula : (order?.jumlahPorsi *  activePacket?.detailCatering?.hargaPerBuah) + activePacket?.hargaAula}
                             status={order.status}
                             email={order.email}
                             whatsapp={order.whatsapp}

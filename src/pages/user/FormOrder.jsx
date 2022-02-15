@@ -167,7 +167,7 @@ const FormOrder = () => {
             
         } catch (err) {
             setIsLoading(!isLoading)
-            console.log(err);
+            console.log(err.response);
         }
     }
 
