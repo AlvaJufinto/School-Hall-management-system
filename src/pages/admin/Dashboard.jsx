@@ -151,6 +151,9 @@ const Dashboard = () => {
                             whatsapp={order.whatsapp}
                         />
                     ))}
+                    {!isAdminDataLoading && activeOrder?.length === 0 && 
+                        <h3>Tidak ada order yang sedang berlangsung</h3>
+                    }
                 </DetailPreview>
             </AdminStyledSection>
         </DashboardContainer>

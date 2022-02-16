@@ -8,7 +8,7 @@ import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 import DummmyImg from "./../../assets/img/dummy-img-2.png" 
 
-import { AuthContext } from "../../context/AuthContext";
+import { AdminOrderContext } from "../../context/AdminOrderContext";
 
 const OrderQueueContainer = styled.div`
     height: 100vh;
@@ -17,15 +17,33 @@ const OrderQueueContainer = styled.div`
 
 export const DetailPreview = styled.div`
     margin: 0 0 50px 0;
-
+    
     .DetailPreview {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
         margin: 50px 0 0 0;
     }
 `
 
 const OrderQueue = () => {
-    const { isLoading, dispatch, user } = useContext(AuthContext);
+    const { isLoading, dispatch, order, packet } = useContext(AdminOrderContext);
+    const [ orderFuture, setOrderFuture ] = useState([]);
     
+    useEffect(() => {
+        console.log(new Date());
+        console.log(new Date(order[0]?.tanggal));
+        console.log("asdads")
+        
+        for (let i=0; i < order?.length; i++) {
+            if (new Date(order[i]?.tanggal) >= new Date() || order[i]?.status == 'order' ) {
+                console.log(order[i]);
+                setOrderFuture([...orderFuture, order[i]]);
+            }
+        }
+    }, [order, packet])
+
     return (
         <OrderQueueContainer>
             <StyledNavbarAdmin />
@@ -33,7 +51,15 @@ const OrderQueue = () => {
                 <DetailPreview>
                     <h3 className="fw-bolder">/Order Antrean</h3>
                     <div className="DetailPreview">
-                        <OrderCardComponent />
+                        {orderFuture && orderFuture?.map((order) => (
+                            <OrderCardComponent
+                                idPesanan={order._id}
+                                atasNama={order.atasNama} 
+                                namaAcara={order.namaAcara} 
+                                orderId={order._id}
+                                tanggal={order.tanggal}
+                                status={order.status} />
+                        ))}
                     </div>
                 </DetailPreview>
             </AdminStyledSection>

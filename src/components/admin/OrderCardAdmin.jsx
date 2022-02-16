@@ -10,11 +10,17 @@ const OrderCard = styled.div`
     color: white;
     background-color: ${GlobalColors.hardGrey};
     max-width: 400px;
-    width: 100%;
+    /* width: 100%; */
+    flex-grow: 1;
     overflow: hidden;
-
+    
     .Details {
         padding: 20px;
+        
+        .id {
+            word-break: break-all;
+            white-space: normal;
+        }
     }
 
     .Information {
@@ -22,10 +28,6 @@ const OrderCard = styled.div`
         
         p {
             margin: 0;
-
-            span {
-                color: ${GlobalColors.green};
-            }
         }
 
         ${StyledLink} {
@@ -61,22 +63,25 @@ const OrderCardTitle = styled.div`
     font-family: ${GlobalFonts.primary};
 `
 
-const OrderCardComponent = ({ title, name, packet, price, date }) => {
-
+const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, orderId, tanggal, status}) => {
+    
     return (
         <OrderCard>
             <div className="Details">
-                <p>ID Pesanan : 532438929</p>
-                <h2>Sosialisasi Bahaya Nyimeng Bagi Anak Lanjut Usia</h2>
-                <p>PT. Anti Nyimeng Sedunia</p>
-                <p>26/02/2021</p>
+                <p class="id" >ID Pesanan : {idPesanan}</p>
+                <h2>{namaAcara}</h2>
+                <p>{atasNama}</p>
+                <p>{tanggal.toString().slice(0, 10).split("-").reverse().join("-")}</p>
             </div>
             <div className="Information">
-                <p>Status : <span>Lunas</span></p>
-                <StyledLink className="link-primary" to="/admin/order-queue/:orderQueueId" >Informasi lainnya...</StyledLink>
+                <p>Status : <b style={{
+                    color: status == 'order' ? GlobalColors.red : GlobalColors.green,
+                }}>{status == 'order' ? 'BELUM LUNAS' : 'LUNAS' }</b></p>
+                <StyledLink className="link-primary" 
+                to={`/admin/order-queue/${idPesanan}`} >Informasi lainnya...</StyledLink>
             </div>
             <div className="Buttons">
-                <StyledLink to="/admin/order-queue/:orderQueueId" >
+                <StyledLink to={`/admin/order-queue/:${idPesanan}`} >
                     <StyledButton 
                         variant="success"
                         background={GlobalColors.green}

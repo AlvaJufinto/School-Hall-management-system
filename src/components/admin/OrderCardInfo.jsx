@@ -31,6 +31,8 @@ const OrderCard = styled.div`
 
             p {
                 text-transform: capitalize;
+                word-break: break-all;
+        white-space: normal;
             }
         }
     }

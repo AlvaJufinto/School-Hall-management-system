@@ -108,10 +108,10 @@ const StyledNavbarAdmin = () => {
     const location = useLocation();
     const { width: windowWidth } = useWindowDimensions();
     const { isLoading, dispatch, user } = useContext(AuthContext);
-    const [isHidden, setIsHidden] = useState(false);
+    const [isHidden, setIsHidden] = useState(true);
 
     useEffect(() => {
-        if(location.pathname.includes('/admin/') && isHidden == true ) {
+        if(location.pathname.includes('/admin/') && isHidden == false ) {
             setIsHidden(false);
         }
     }, [location])
@@ -143,7 +143,7 @@ const StyledNavbarAdmin = () => {
                     }} onClick={() => setIsHidden(!isHidden)} />
                     <StyledLink to="/admin/dashboard">
                         <h2>SEWA AULA</h2>
-                        <p>{user.role ? user.role : 'unknown'}</p>
+                        <p>{user.role ? user.role : 'admin'}</p>
                     </StyledLink>
                     <div style={{ width: '35px', }}></div>
                     {/* </Container> */}
