@@ -16,6 +16,7 @@ const CardsContainer = styled.div`
     padding: 0 0 100px 0;
     display: flex;
     justify-content: center;
+    align-items: stretch;
     flex-wrap: wrap;
     gap: 40px;
 `

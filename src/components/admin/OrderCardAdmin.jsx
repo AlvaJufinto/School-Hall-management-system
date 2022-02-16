@@ -65,6 +65,10 @@ const OrderCardTitle = styled.div`
 
 const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, orderId, tanggal, status}) => {
     
+    const orderDeleteHandler = (idPesanan) => {
+        console.log(idPesanan);
+    }
+
     return (
         <OrderCard>
             <div className="Details">
@@ -96,7 +100,9 @@ const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, orderId, tanggal, 
                     background={GlobalColors.red}
                     borderRadius="0"
                     // height="95"
-                    fontSize="2">
+                    fontSize="2"
+                    data-id={idPesanan}
+                    onClick={(e) => orderDeleteHandler(idPesanan)} >
                     <DeleteOutlineOutlined style={{ fontSize: '2rem' }} />
                 </StyledButton>
             </div>

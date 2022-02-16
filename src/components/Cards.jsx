@@ -8,7 +8,7 @@ const DefaultCard = styled(Card)`
     border-radius: 20px;
     background: ${GlobalColors.hardGrey};
     padding: 18px;
-    max-width: 100%;
+    height: 100%;
     
     img {
         object-fit: cover;
@@ -37,12 +37,12 @@ const SmallCard = styled(DefaultCard)`
     width: 300px;
 
     .CardBody {
-        flex: 0 0 100%;
         margin: 20px 0 0 0;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         gap: 20px;
+        height: 100%;
     }
     
 `

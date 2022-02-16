@@ -36,7 +36,7 @@ const OrderQueue = () => {
         console.log(new Date(order[0]?.tanggal));
         
         for (let i=0; i < order?.length; i++) {
-            if (new Date(order[i]?.tanggal) >= new Date() || order[i]?.status == 'order' ) {
+            if (new Date(order[i]?.tanggal) >= new Date()) {
                 console.log(order[i]);
                 setOrderFuture([...orderFuture, order[i]]);
             }
@@ -50,7 +50,7 @@ const OrderQueue = () => {
                 <DetailPreview>
                     <h3 className="fw-bolder">/Order Antrean</h3>
                     <div className="DetailPreview">
-                        {orderFuture && orderFuture?.map((order) => (
+                        {order && order?.map((order) => (
                             <OrderCardComponent
                                 idPesanan={order._id}
                                 atasNama={order.atasNama} 

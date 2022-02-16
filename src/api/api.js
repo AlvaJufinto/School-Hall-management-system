@@ -16,17 +16,6 @@ export const clientDataApi = {
   }
 };
 
-export const adminDataApi = {
-  allData: ({ accessToken }) => {
-    return axios.get(`${baseUrl}/admin/getalldata`, 
-    {
-      headers: {
-        'jwt': accessToken ,
-      }
-    });
-  }
-}
-
 export const authApi = {
   login: (body) => {
     return axios.post(`${baseUrl}/auth/login`, body);
@@ -39,4 +28,21 @@ export const authApi = {
   },
 };
 
-;
+export const adminDataApi = {
+  allData: ({ accessToken }) => {
+    return axios.get(`${baseUrl}/admin/getalldata`, 
+    {
+      headers: {
+        'jwt': accessToken ,
+      }
+    });
+  },
+  deleteOrder: ({ params, accessToken }) => {
+    return axios.delete(`${baseUrl}/admin/delete/${params}`,
+    {
+      headers: {
+        'jwt': accessToken
+      }
+    });
+  },
+}
