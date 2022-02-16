@@ -29,12 +29,11 @@ export const DetailPreview = styled.div`
 
 const OrderQueue = () => {
     const { isLoading, dispatch, order, packet } = useContext(AdminOrderContext);
-    const [ orderFuture, setOrderFuture ] = useState([]);
+    const [orderFuture, setOrderFuture] = useState([]);
     
     useEffect(() => {
         console.log(new Date());
         console.log(new Date(order[0]?.tanggal));
-        console.log("asdads")
         
         for (let i=0; i < order?.length; i++) {
             if (new Date(order[i]?.tanggal) >= new Date() || order[i]?.status == 'order' ) {

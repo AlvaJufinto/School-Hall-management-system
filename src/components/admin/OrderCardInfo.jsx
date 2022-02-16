@@ -22,17 +22,17 @@ const OrderCard = styled.div`
 
         .information {
             margin: 20px 0;
-            display: flex;
-            justify-content: space-between;
-
-            .info:nth-child(2) {
-                text-align: right;
+            
+            .info {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
             }
 
             p {
                 text-transform: capitalize;
                 word-break: break-all;
-        white-space: normal;
+                white-space: normal;
             }
         }
     }
@@ -66,18 +66,26 @@ const OrderCardComponent = ({ atasNama, namaAcara, orderId, tanggal, tipeOrder, 
                 <div className="information">
                     <div className="info">
                         <p>Id Pesanan :</p>
-                        <p>Tanggal : </p>
-                        <p>Paket : </p>
-                        {jumlahPorsi !== '' && <p>Jumlah Porsi : </p>}
-                        <p>Harga :</p>
-                        <p>Status : </p>
+                        <p>{orderId}</p>
                     </div>
                     <div className="info">
-                        <p>{orderId}</p>
+                        <p>Tanggal : </p>
                         <p>{tanggal?.toString().slice(0, 10).split("-").reverse().join("-")}</p>
+                    </div>
+                    <div className="info">
+                        <p>Paket : </p>
                         <p>{namaPaket}</p>
+                    </div>
+                    <div className="info">
+                        {tipeOrder === 'paket' && <p>Jumlah Porsi :</p>}
                         <p>{jumlahPorsi}</p>
+                    </div>
+                    <div className="info">
+                        <p>Harga :</p>
                         <p>Rp. {harga?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+                    </div>
+                    <div className="info">
+                        <p>Status : </p>
                         <p style={{
                             color: status === 'paid' ? GlobalColors.green : GlobalColors.red
                         }}><b>{status === 'paid' ? 'LUNAS' : 'BELUM LUNAS' }</b></p>

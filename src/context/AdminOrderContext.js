@@ -47,7 +47,7 @@ export const AdminOrderContextProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
-                if(accessToken) {
+            if(accessToken) {
                 dispatch({ type: "FETCH_ADMIN_ORDER_START" });
                 try {
                     const res = await adminDataApi.allData({ accessToken: accessToken });
@@ -55,9 +55,9 @@ export const AdminOrderContextProvider = ({ children }) => {
                 } catch (err) {
                     console.log(err.response);
                     dispatch({ type: "FETCH_ADMIN_ORDER_FAILURE", payload: err });
-                }
             }
-            })();
+        }
+        })();
     }, [refreshToken, accessToken]);
     
     return (

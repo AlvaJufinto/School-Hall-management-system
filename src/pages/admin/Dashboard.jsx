@@ -50,12 +50,13 @@ const Dashboard = () => {
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
 
+
     useEffect(() => {
         if(accessToken) {
             (async () => {
                 try {
                     const res = await adminDataApi.allData({ accessToken: accessToken });
-                    console.log(res.data.data.active);
+                    console.log(res.data.data);
                     console.log(res.data.data.order);
                     setActiveOrder(res.data.data.active);
                     setOrders(res.data.data.order);
@@ -77,7 +78,7 @@ const Dashboard = () => {
         }
     }, [activeOrder, orders, packets, activePacket])
 
-    const PreviewCard = ({ color, text, value, route, data }) => {
+    const PreviewCard = ({ color, text, route, data, isLoading }) => {
         return (
             <StyledLink to={`/admin/${route}`} >
                 <div style={{
@@ -101,7 +102,9 @@ const Dashboard = () => {
                     }}>
                         <span style={{
                             fontSize: '4rem',
-                        }}>{data}</span>
+                        }}>{isLoading ? <CircularProgress style={{
+                            color: 'white',
+                        }} /> : data }</span>
                         <img src={Icon} alt="Icon" />
                     </div>
                 </div>
@@ -120,17 +123,20 @@ const Dashboard = () => {
                             color={GlobalColors.violet} 
                             text="Jumlah Orderan"
                             route="order-queue"
-                            data={orders?.length} />
+                            data={orders?.length}
+                            isLoading={isAdminDataLoading} />
                         <PreviewCard 
                             color={GlobalColors.green}
                             text="Orderan Selesai"
                             route="order-done"
-                            data={0} />
+                            data={0}
+                            isLoading={isAdminDataLoading}  />
                         <PreviewCard 
                             color={GlobalColors.red}
                             text="Orderan Dibatalkan"
                             route="order-cancel"
-                            data={0} />
+                            data={0}
+                            isLoading={isAdminDataLoading}  />
                     </div>
                 </DetailPreview>
                 <DetailPreview>
