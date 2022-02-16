@@ -22,7 +22,7 @@ export const DetailPreview = styled.div`
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 25px;
         margin: 50px 0 0 0;
     }
 `
@@ -37,7 +37,6 @@ const OrderQueue = () => {
         
         for (let i=0; i < order?.length; i++) {
             if (new Date(order[i]?.tanggal) >= new Date()) {
-                console.log(order[i]);
                 setOrderFuture([...orderFuture, order[i]]);
             }
         }
@@ -50,14 +49,16 @@ const OrderQueue = () => {
                 <DetailPreview>
                     <h3 className="fw-bolder">/Order Antrean</h3>
                     <div className="DetailPreview">
-                        {order && order?.map((order) => (
+                        {orderFuture && orderFuture?.map((order) => (
                             <OrderCardComponent
                                 idPesanan={order._id}
                                 atasNama={order.atasNama} 
                                 namaAcara={order.namaAcara} 
                                 orderId={order._id}
                                 tanggal={order.tanggal}
-                                status={order.status} />
+                                status={order.status}
+                                orderFuture={orderFuture} 
+                                setOrderFuture={setOrderFuture} />
                         ))}
                     </div>
                 </DetailPreview>

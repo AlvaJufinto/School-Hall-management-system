@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from 'styled-components';
 import { CreateOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
 
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 import { GlobalMeasurements, GlobalColors, GlobalFonts } from './../../globals';
+
+import { AdminOrderContext } from "../../context/AdminOrderContext";
 
 const OrderCard = styled.div`
     border-radius: 20px;
@@ -13,6 +15,9 @@ const OrderCard = styled.div`
     /* width: 100%; */
     flex-grow: 1;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     
     .Details {
         padding: 20px;
@@ -22,7 +27,6 @@ const OrderCard = styled.div`
             white-space: normal;
         }
     }
-
     .Information {
         padding: 20px;
         
@@ -35,9 +39,10 @@ const OrderCard = styled.div`
         }
     }
 
+
     h2 {
         text-align: left;
-        min-width: 150px;
+        /* min-width: 150px; */
         font-size: 1.5rem;
     }    
 
@@ -58,21 +63,24 @@ const OrderCard = styled.div`
     }
 `
 
-const OrderCardTitle = styled.div`
-    font-size: 2rem;
-    font-family: ${GlobalFonts.primary};
-`
+const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, tanggal, status, orderFuture, setOrderFuture }) => {
+    const { dispatch, order } = useContext(AdminOrderContext);
 
-const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, orderId, tanggal, status}) => {
-    
-    const orderDeleteHandler = (idPesanan) => {
-        console.log(idPesanan);
+    const orderDeleteHandler = async (idPesanan) => {
+        try {
+            dispatch({ type: "DELETE_ADMIN_ORDER_SUCCESS", payload: idPesanan});
+            setOrderFuture(orderFuture.filter((item) => item._id !== idPesanan));
+        } catch(err) {
+
+        }
     }
+
+
 
     return (
         <OrderCard>
             <div className="Details">
-                <p class="id" >ID Pesanan : {idPesanan}</p>
+                <p class="id">Id Pesanan : {idPesanan}</p>
                 <h2>{namaAcara}</h2>
                 <p>{atasNama}</p>
                 <p>{tanggal.toString().slice(0, 10).split("-").reverse().join("-")}</p>

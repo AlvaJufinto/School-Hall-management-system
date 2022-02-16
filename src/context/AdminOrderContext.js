@@ -34,10 +34,20 @@ const AuthReducer = (state, action) => {
                 isLoading: false,
                 errorMessage: action.payload,
             }
-        // case "DELETE_ADMIN_ORDER_START":
-        //     return {
-        //         order: 
-        //     }
+        case "DELETE_ADMIN_ORDER_START":
+            return {
+                order: state.order,
+                packet: state.packet,
+                isLoading: false,
+                errorMessage: null,
+            }
+        case "DELETE_ADMIN_ORDER_SUCCESS":
+            return {
+                order: state.order.filter((item) => item._id !== action.payload),
+                packet: state.order,
+                isLoading: false,
+                errorMessage: null,
+            }
         default: 
             return state;
     }
