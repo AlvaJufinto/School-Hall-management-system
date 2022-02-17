@@ -44,12 +44,13 @@ const Dashboard = () => {
     const [isAdminDataLoading, setIsAdminDataLoading] = useState(true);
     const [activeOrder, setActiveOrder] = useState(null); 
     const [packets, setPackets] = useState(null);
-    const [orders, setOrders] = useState(null);
     const [activePacket, setActivePacket] = useState(null);
-
+    const [orders, setOrders] = useState([]);
+    const [doneOrders, setDoneOrders] = useState([]);
+    const [futureOrders, setFutureOrders] = useState([])
+    
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
-
 
     useEffect(() => {
         if(accessToken) {
@@ -57,9 +58,10 @@ const Dashboard = () => {
                 try {
                     const res = await adminDataApi.allData({ accessToken: accessToken });
                     console.log(res.data.data);
-                    console.log(res.data.data.order);
+                    console.log("sdasdasd")
                     setActiveOrder(res.data.data.active);
                     setOrders(res.data.data.order);
+                    
                     setPackets(res.data.data.paket);
                     setIsAdminDataLoading(!isAdminDataLoading);
                 } catch (err) {
@@ -78,7 +80,12 @@ const Dashboard = () => {
         }
     }, [activeOrder, orders, packets, activePacket])
 
-    const PreviewCard = ({ color, text, route, data, isLoading }) => {
+    useEffect(() => {
+        setDoneOrders(orders?.filter((item) => item.status === 'selesai'));
+        setFutureOrders(orders?.filter((item) => item.status === 'order' || item.status === 'paid'))
+    }, [orders]);
+
+    const PreviewCard = ({ color, text, route, data, isLoading, total }) => {
         return (
             <StyledLink to={`/admin/${route}`} >
                 <div style={{
@@ -101,10 +108,10 @@ const Dashboard = () => {
                         height: '50px',
                     }}>
                         <span style={{
-                            fontSize: '4rem',
+                            fontSize: '3rem',
                         }}>{isLoading ? <CircularProgress style={{
                             color: 'white',
-                        }} /> : data }</span>
+                        }} /> : `${data}/${total}` }</span>
                         <img src={Icon} alt="Icon" />
                     </div>
                 </div>
@@ -121,21 +128,24 @@ const Dashboard = () => {
                     <div className="DetailPreview" ref={horizontalElement} onMouseDown={onMouseDown} >
                         <PreviewCard 
                             color={GlobalColors.violet} 
-                            text="Jumlah Orderan"
+                            text="Order Antre"
                             route="order-queue"
-                            data={orders?.length}
+                            data={futureOrders?.length}
+                            total={orders?.length}
                             isLoading={isAdminDataLoading} />
                         <PreviewCard 
                             color={GlobalColors.green}
                             text="Orderan Selesai"
                             route="order-done"
-                            data={0}
+                            data={doneOrders?.length}
+                            total={orders?.length}
                             isLoading={isAdminDataLoading}  />
                         <PreviewCard 
                             color={GlobalColors.red}
                             text="Orderan Dibatalkan"
                             route="order-cancel"
                             data={0}
+                            total={orders?.length}
                             isLoading={isAdminDataLoading}  />
                     </div>
                 </DetailPreview>
@@ -144,6 +154,7 @@ const Dashboard = () => {
                     {isAdminDataLoading && <CircularProgress /> }                    
                     {activeOrder && activeOrder.map((order) =>(
                         <OrderCardInfo 
+                            key={order._id}
                             atasNama={order.atasNama} 
                             namaAcara={order.namaAcara} 
                             orderId={order._id}

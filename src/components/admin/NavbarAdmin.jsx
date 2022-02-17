@@ -171,11 +171,11 @@ const StyledNavbarAdmin = () => {
                         }}>Order Selesai</StyledLink>
                     <StyledLink to="/admin/order-cancel"
                          style={{ 
-                            backgroundColor: location.pathname == '/admin/order-done' ? GlobalColors.violet : '', 
+                            backgroundColor: location.pathname == '/admin/order-cancel' ? GlobalColors.violet : '', 
                         }}>Order Batal</StyledLink>
                     <StyledLink to="/admin/packet"
                          style={{ 
-                            backgroundColor: location.pathname == '/admin/order-done' ? GlobalColors.violet : '', 
+                            backgroundColor: location.pathname == '/admin/packet' ? GlobalColors.violet : '', 
                         }}>Paket</StyledLink>
                 </div>
                 <ProfileContainer>

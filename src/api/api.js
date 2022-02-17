@@ -38,7 +38,7 @@ export const adminDataApi = {
     });
   },
   deleteOrder: ({ params, accessToken }) => {
-    return axios.delete(`${baseUrl}/admin/delete/${params}`,
+    return axios.delete(`${baseUrl}/admin/delete/order/${params}`,
     {
       headers: {
         'jwt': accessToken

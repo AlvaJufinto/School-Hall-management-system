@@ -1,10 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 import styled from 'styled-components';
 import { CreateOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 import { GlobalMeasurements, GlobalColors, GlobalFonts } from './../../globals';
 
+import { adminDataApi } from "../../api/api";
 import { AdminOrderContext } from "../../context/AdminOrderContext";
 
 const OrderCard = styled.div`
@@ -58,20 +60,25 @@ const OrderCard = styled.div`
         ${StyledLink} ${StyledButton} {
             width: 100%;
             border: none;
-
         }
     }
 `
 
 const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, tanggal, status, orderFuture, setOrderFuture }) => {
-    const { dispatch, order } = useContext(AdminOrderContext);
+    const { dispatch, order, isLoading: deleteOrderIsLoading } = useContext(AdminOrderContext);
+    let accessToken = localStorage.getItem("accessToken");
 
     const orderDeleteHandler = async (idPesanan) => {
-        try {
-            dispatch({ type: "DELETE_ADMIN_ORDER_SUCCESS", payload: idPesanan});
-            setOrderFuture(orderFuture.filter((item) => item._id !== idPesanan));
-        } catch(err) {
-
+        if(accessToken) {
+            dispatch({ type: 'DELETE_ADMIN_ORDER_START'});
+            try {
+                const res = await adminDataApi.deleteOrder({ params: idPesanan, accessToken: accessToken });
+                
+                dispatch({ type: "DELETE_ADMIN_ORDER_SUCCESS", payload: idPesanan});
+                setOrderFuture(orderFuture.filter((item) => item._id !== idPesanan));
+            } catch(err) {
+                dispatch({ type: 'DELETE_ADMIN_ORDER_FAILURE' });
+            }
         }
     }
 
@@ -80,25 +87,25 @@ const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, tanggal, status, o
     return (
         <OrderCard>
             <div className="Details">
-                <p class="id">Id Pesanan : {idPesanan}</p>
+                <p className="id">Id Pesanan : {idPesanan}</p>
                 <h2>{namaAcara}</h2>
                 <p>{atasNama}</p>
                 <p>{tanggal.toString().slice(0, 10).split("-").reverse().join("-")}</p>
             </div>
             <div className="Information">
                 <p>Status : <b style={{
-                    color: status == 'order' ? GlobalColors.red : GlobalColors.green,
-                }}>{status == 'order' ? 'BELUM LUNAS' : 'LUNAS' }</b></p>
+                        textTransform: 'uppercase',
+                        color: status === 'paid' || status === 'selesai' ? GlobalColors.green : GlobalColors.red
+                    }}>{status}</b></p>
                 <StyledLink className="link-primary" 
-                to={`/admin/order-queue/${idPesanan}`} >Informasi lainnya...</StyledLink>
+                to={`/admin/order/${idPesanan}`} >Informasi lainnya...</StyledLink>
             </div>
             <div className="Buttons">
-                <StyledLink to={`/admin/order-queue/:${idPesanan}`} >
+                <StyledLink to={`/admin/order/${idPesanan}`} >
                     <StyledButton 
                         variant="success"
                         background={GlobalColors.green}
                         borderRadius="0"
-                        // height="95"
                         fontSize="2">
                         <CreateOutlined style={{ fontSize: '2rem' }} />
                     </StyledButton>
@@ -107,11 +114,15 @@ const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, tanggal, status, o
                     variant="danger"
                     background={GlobalColors.red}
                     borderRadius="0"
-                    // height="95"
                     fontSize="2"
                     data-id={idPesanan}
                     onClick={(e) => orderDeleteHandler(idPesanan)} >
-                    <DeleteOutlineOutlined style={{ fontSize: '2rem' }} />
+                    { deleteOrderIsLoading && <CircularProgress style={{
+                        color: 'white'
+                    }} /> }
+                    { !deleteOrderIsLoading && 
+                        <DeleteOutlineOutlined style={{ fontSize: '2rem' }} />
+                    }
                 </StyledButton>
             </div>
         </OrderCard>

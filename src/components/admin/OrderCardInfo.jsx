@@ -87,8 +87,10 @@ const OrderCardComponent = ({ atasNama, namaAcara, orderId, tanggal, tipeOrder, 
                     <div className="info">
                         <p>Status : </p>
                         <p style={{
-                            color: status === 'paid' ? GlobalColors.green : GlobalColors.red
-                        }}><b>{status === 'paid' ? 'LUNAS' : 'BELUM LUNAS' }</b></p>
+                            color: status === 'paid' || status === 'selesai' ? GlobalColors.green : GlobalColors.red
+                        }}><b style={{
+                            textTransform: 'uppercase',
+                        }}>{status}</b></p>
                     </div>
                 </div>
             </div>
