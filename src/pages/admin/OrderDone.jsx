@@ -46,6 +46,7 @@ const OrderDone = () => {
                             <OrderCardComponent
                                 key={order._id}
                                 idPesanan={order._id}
+                                idPaket={order.paketId}
                                 atasNama={order.atasNama} 
                                 namaAcara={order.namaAcara} 
                                 orderId={order._id}

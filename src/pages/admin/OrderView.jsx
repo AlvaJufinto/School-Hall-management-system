@@ -37,26 +37,25 @@ const OrderDone = () => {
     const [activePacket, setActivePacket] = useState(null);
 
     const { orderId } = useParams();
+    const { packetId }= useParams();
 
     useEffect(() => {
         setViewOrder(order.filter(item => item._id === orderId));
         console.log(order.filter(item => item._id === orderId));
-        setActivePacket(packet.filter(item => item._id === viewOrder && viewOrder[0]._id));
-    }, [order, packet]);
+    }, [orderId, order, packet]);
     
-    useEffect(() => {
-        console.log("Find Packet runs");
-        console.log(viewOrder);
-        console.log(packet)
-    }, [viewOrder, packet]);    
-    
+    useEffect(() =>{
+        setActivePacket(packet?.filter(item => item._id === packetId));
+        console.log(packet?.filter(item => item._id == packetId))
+    }, [viewOrder, packet, order, packetId])
+
     return (
         <OrderDoneContainer>
             <StyledNavbarAdmin />
             <AdminStyledSection>
                 <DetailPreview>
                     <h3 className="fw-bolder">/Order - <b style={{
-                        color: viewOrder && viewOrder.status == 'selesai' || viewOrder && viewOrder[0].status == 'paid' ? GlobalColors.green : GlobalColors.red,
+                        color: viewOrder && viewOrder[0].status == 'selesai' || viewOrder && viewOrder[0].status == 'paid' ? GlobalColors.green : GlobalColors.red,
                         textTransform: 'uppercase',  
                     }}>{viewOrder && viewOrder[0].status}</b></h3>
                     <OrderCardInfo 
@@ -66,9 +65,9 @@ const OrderDone = () => {
                             orderId={viewOrder && viewOrder[0]?._id}
                             tanggal={viewOrder && viewOrder[0]?.tanggal}
                             tipeOrder={viewOrder && viewOrder[0]?.tipeOrderan}
-                            namaPaket={activePacket?.namaPaket}
+                            namaPaket={activePacket && activePacket[0]?.namaPaket}
                             jumlahPorsi={viewOrder && viewOrder[0]?.tipeOrderan === 'plain' ? '' : viewOrder && viewOrder[0]?.jumlahPorsi}
-                            harga={viewOrder && viewOrder[0]?.tipeOrderan === 'plain' ? activePacket?.hargaAula : (viewOrder && viewOrder[0]?.jumlahPorsi *  activePacket?.detailCatering?.hargaPerBuah) + activePacket?.hargaAula}
+                            harga={viewOrder && viewOrder[0]?.tipeOrderan === 'plain' ? activePacket && activePacket[0]?.hargaAula : (viewOrder && viewOrder[0]?.jumlahPorsi *  activePacket && activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket && activePacket[0]?.hargaAula}
                             status={viewOrder && viewOrder[0]?.status}
                             email={viewOrder && viewOrder[0]?.email}
                             whatsapp={viewOrder && viewOrder[0]?.whatsapp}

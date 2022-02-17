@@ -64,7 +64,7 @@ const OrderCard = styled.div`
     }
 `
 
-const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, tanggal, status, orderFuture, setOrderFuture }) => {
+const OrderCardComponent = ({ idPesanan, idPaket, atasNama, namaAcara, tanggal, status, orderFuture, setOrderFuture }) => {
     const { dispatch, order, isLoading: deleteOrderIsLoading } = useContext(AdminOrderContext);
     let accessToken = localStorage.getItem("accessToken");
 
@@ -98,10 +98,10 @@ const OrderCardComponent = ({ idPesanan, atasNama, namaAcara, tanggal, status, o
                         color: status === 'paid' || status === 'selesai' ? GlobalColors.green : GlobalColors.red
                     }}>{status}</b></p>
                 <StyledLink className="link-primary" 
-                to={`/admin/order/${idPesanan}`} >Informasi lainnya...</StyledLink>
+                to={`/admin/order/${idPesanan}/${idPaket}`} >Informasi lainnya...</StyledLink>
             </div>
             <div className="Buttons">
-                <StyledLink to={`/admin/order/${idPesanan}`} >
+                <StyledLink to={`/admin/order/${idPesanan}/${idPaket}`} >
                     <StyledButton 
                         variant="success"
                         background={GlobalColors.green}
