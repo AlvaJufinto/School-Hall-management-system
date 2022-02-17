@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import styled from 'styled-components';
-import { CreateOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
+import { CreateOutlined, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
@@ -14,8 +14,7 @@ const OrderCard = styled.div`
     color: white;
     background-color: ${GlobalColors.hardGrey};
     max-width: 400px;
-    /* width: 100%; */
-    flex-grow: 1;
+    width: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -62,6 +61,10 @@ const OrderCard = styled.div`
             border: none;
         }
     }
+
+    @media (max-width: 1024px) {
+        min-width: 100%;
+    }
 `
 
 const OrderCardComponent = ({ idPesanan, idPaket, atasNama, namaAcara, tanggal, status, orderFuture, setOrderFuture }) => {
@@ -82,8 +85,6 @@ const OrderCardComponent = ({ idPesanan, idPaket, atasNama, namaAcara, tanggal, 
         }
     }
 
-
-
     return (
         <OrderCard>
             <div className="Details">
@@ -103,11 +104,11 @@ const OrderCardComponent = ({ idPesanan, idPaket, atasNama, namaAcara, tanggal, 
             <div className="Buttons">
                 <StyledLink to={`/admin/order/${idPesanan}/${idPaket}`} >
                     <StyledButton 
-                        variant="success"
-                        background={GlobalColors.green}
+                        variant="primary"
+                        background={GlobalColors.violet}
                         borderRadius="0"
                         fontSize="2">
-                        <CreateOutlined style={{ fontSize: '2rem' }} />
+                        <RemoveRedEyeOutlined style={{ fontSize: '2rem' }} />
                     </StyledButton>
                 </StyledLink>
                 <StyledButton 

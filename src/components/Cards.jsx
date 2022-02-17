@@ -9,7 +9,8 @@ const DefaultCard = styled(Card)`
     background: ${GlobalColors.hardGrey};
     padding: 18px;
     height: 100%;
-    
+    color: white;
+
     img {
         object-fit: cover;
         border-radius: 20px;
@@ -26,6 +27,7 @@ const DefaultCard = styled(Card)`
     }
 
     h2 {
+        font-family: ${GlobalFonts.primary};
         text-align: left;
         min-width: 150px;
         font-size: 1.5rem;

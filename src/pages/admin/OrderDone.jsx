@@ -20,7 +20,7 @@ export const DetailPreview = styled.div`
     
     .DetailPreview {
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
         flex-wrap: wrap;
         gap: 25px;
         margin: 50px 0 0 0;

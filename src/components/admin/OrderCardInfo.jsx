@@ -84,6 +84,7 @@ const OrderCardComponent = ({ atasNama, namaAcara, orderId, tanggal, tipeOrder, 
                     <div className="info">
                         <p>Harga :</p>
                         <p>Rp. {harga?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+                        {/* <p>{harga}</p> */}
                     </div>
                     <div className="info">
                         <p>Status : </p>
