@@ -24,7 +24,7 @@ const AuthReducer = (state, action) => {
         case "FETCH_ADMIN_ORDER_SUCCESS":
             return {
                 order: action.payload.order,
-                packet: action.payload.packet,
+                packet: action.payload.paket,
                 isLoading: false,
                 errorMessage: null,
             }

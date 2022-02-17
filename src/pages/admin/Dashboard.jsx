@@ -73,12 +73,8 @@ const Dashboard = () => {
     }, [accessToken, refreshToken]);
     
     useEffect(() => {
-        for (let i=0; i < packets?.length; i++) {
-            if (packets[i]?._id === activeOrder[0]?.paketId) {
-                setActivePacket(packets[i])
-            }
-        }
-    }, [activeOrder, orders, packets, activePacket])
+        setActivePacket(packets?.filter(item => item._id === activeOrder[0]?.paketId))
+    }, [activeOrder, orders, packets])
 
     useEffect(() => {
         setDoneOrders(orders?.filter((item) => item.status === 'selesai'));
