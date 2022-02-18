@@ -143,7 +143,7 @@ const StyledNavbarAdmin = () => {
                     }} onClick={() => setIsHidden(!isHidden)} />
                     <StyledLink to="/admin/dashboard">
                         <h2>SEWA AULA</h2>
-                        <p>{user.role ? user.role : 'admin'}</p>
+                        <p>{user.role ? user.role : 'unknown'}</p>
                     </StyledLink>
                     <div style={{ width: '35px', }}></div>
                     {/* </Container> */}

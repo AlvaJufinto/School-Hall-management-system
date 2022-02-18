@@ -38,8 +38,8 @@ export const DetailPreview = styled.div`
 
 const Dashboard = () => {
     const horizontalElement = useRef(null);
-    const { onMouseDown } = useDraggableScroll(horizontalElement);
     const { dispatch, user } = useContext(AuthContext);
+    const { onMouseDown } = useDraggableScroll(horizontalElement);
     const [isAdminDataLoading, setIsAdminDataLoading] = useState(true);
     const [activeOrder, setActiveOrder] = useState(null); 
     const [packets, setPackets] = useState(null);

@@ -9,6 +9,7 @@ import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import OrderCardComponent from '../../components/admin/OrderCardAdmin';
 import OrderCardInfo from "../../components/admin/OrderCardInfo";
 import CardComponent from "../../components/Cards";
+import OrderEditFormComponent from "../../components/admin/OrderEditAdmin";
 
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
@@ -21,11 +22,15 @@ import DummyImgPlain from "./../../assets/img/dummy-img-3.png";
 
 const OrderViewContainer = styled.div`
     font-family: ${GlobalFonts.secondary};
+
+    ${Modal} {
+        font-family: ${GlobalFonts.secondary};
+    }
 `;
 
 export const DetailPreview = styled.div`
     padding: 0 0 50px 0;
-
+    
     .Option {
         margin: 20px 0 40px 0;
         width: 150px;
@@ -93,11 +98,14 @@ const OrderDone = () => {
             <AdminStyledSection>
                 <Modal show={showModal} onHide={() => setShowModal(false)}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Edit Order</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                    <Modal.Footer>
-                    </Modal.Footer>
+                    <Modal.Body>
+                        <OrderEditFormComponent
+                            // atasNama={activePacket} 
+                            setShowModal={setShowModal}
+                        />
+                    </Modal.Body>
                 </Modal>
                 <DetailPreview>
                     <h3 className="fw-bolder">/Detail Pesanan - <b style={{

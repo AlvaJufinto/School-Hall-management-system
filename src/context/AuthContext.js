@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     isLoggedIn: false,
     isLoading: false,
     errorMessage: null,
+    pendingTokenCheck: true,
 }
 
 export const AuthContext = createContext(INITIAL_STATE);
@@ -18,6 +19,7 @@ const AuthReducer = (state, action) => {
                 isLoggedIn: false,
                 isLoading: true,
                 errorMessage: null,
+                pendingTokenCheck: true,
             };
         case "LOGIN_SUCCESS":
             return {
@@ -25,6 +27,7 @@ const AuthReducer = (state, action) => {
                 isLoggedIn: true,
                 isLoading: false,
                 errorMessage: null,
+                pendingTokenCheck: false
             }
         case "LOGIN_FAILURE":
             return {
@@ -32,6 +35,7 @@ const AuthReducer = (state, action) => {
                 isLoggedIn: false,
                 isLoading: false,
                 errorMessage: action.payload,
+                pendingTokenCheck: false
             }
         case "LOGOUT_START":
             return {
@@ -39,6 +43,7 @@ const AuthReducer = (state, action) => {
                 isLoggedIn: true,
                 isLoading: true,
                 errorMessage: null,
+                pendingTokenCheck: false,
             }
         case "LOGOUT_SUCCESS":
             return {
@@ -46,6 +51,7 @@ const AuthReducer = (state, action) => {
                 isLoggedIn: false,
                 isLoading: false,
                 errorMessage: null,
+                pendingTokenCheck: false
             }
         default: 
             return state;
@@ -58,6 +64,7 @@ export const AuthContextProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
+            dispatch({ type: "LOGIN_START" });
             if (refreshToken) {
                 try {
                     const res = await authApi.loggedIn({ refreshToken: refreshToken});
@@ -78,6 +85,7 @@ export const AuthContextProvider = ({ children }) => {
                 isLoggedIn: state.isLoggedIn,
                 isLoading: state.isLoading,
                 errorMessage: state.errorMessage,
+                pendingTokenCheck: state.pendingTokenCheck,
                 dispatch
             }}>
             { children }

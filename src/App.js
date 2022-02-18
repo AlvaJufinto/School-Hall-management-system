@@ -20,6 +20,7 @@ import Dashboard from "./pages/admin/Dashboard";
 import OrderQueue from "./pages/admin/OrderQueue";
 import OrderView from "./pages/admin/OrderView";
 import OrderDone from "./pages/admin/OrderDone";
+import Packet from "./pages/admin/PacketAdmin";
 
 import NotFound from "./pages/NotFound";
 
@@ -27,7 +28,7 @@ import { AuthContext } from "./context/AuthContext";
 import api from "./api/api";
 
 function App() {
-  const { isLoggedIn, dispatch } = useContext(AuthContext);
+  const { isLoggedIn, isLoading, dispatch } = useContext(AuthContext);
   
   return (
     <Router>
@@ -45,7 +46,7 @@ function App() {
           <Route path="/admin/order-queue" element={isLoggedIn ? <OrderQueue /> : <Navigate to="/admin/login" /> } />
           <Route path="/admin/order-done" element={isLoggedIn ? <OrderDone /> : <Navigate to="/admin/login" /> } />
           <Route path="/admin/order/:orderId" element={isLoggedIn ? <OrderView /> : <Navigate to="/admin/login" /> } />
-          {/* <Route path="/admin/order/:orderId" element={<OrderView /> } /> */}
+          <Route path="/admin/packet" element={isLoggedIn ? <Packet /> : <Navigate to="/admin/login" /> } />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
