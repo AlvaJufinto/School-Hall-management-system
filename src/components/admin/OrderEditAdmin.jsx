@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import styled from 'styled-components';
+// import {
 import { useNavigate } from 'react-router';
 import { CreateOutlined, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -73,7 +74,7 @@ const OrderCardComponent = ({ idPesanan, idPaket, atasNama, namaAcara, tanggal, 
     const { dispatch, order, isLoading: deleteOrderIsLoading } = useContext(AdminOrderContext);
     let accessToken = localStorage.getItem("accessToken");
 
-    const orderDeleteHandler = async (idPesanan) => {
+    const orderEditHandler = async (idPesanan) => {
         if(accessToken) {
             dispatch({ type: 'DELETE_ADMIN_ORDER_START'});
             try {
