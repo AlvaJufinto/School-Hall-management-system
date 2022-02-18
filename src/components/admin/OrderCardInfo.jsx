@@ -77,10 +77,12 @@ const OrderCardComponent = ({ atasNama, namaAcara, orderId, tanggal, tipeOrder, 
                         <p>Paket : </p>
                         <p>{namaPaket}</p>
                     </div>
-                    <div className="info">
-                        {tipeOrder === 'paket' && <p>Jumlah Porsi :</p>}
-                        <p>{jumlahPorsi}</p>
-                    </div>
+                    {tipeOrder === 'paket' &&
+                        <div className="info">
+                            <p>Jumlah Porsi :</p>
+                            <p>{jumlahPorsi}</p>
+                        </div>
+                    }
                     <div className="info">
                         <p>Harga :</p>
                         <p>Rp. {harga?.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>

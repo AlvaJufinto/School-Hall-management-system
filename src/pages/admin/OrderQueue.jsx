@@ -34,7 +34,7 @@ const OrderQueue = () => {
     useEffect(() => {
         setOrderFuture(order.filter(item => item.status == 'paid' || item.status == 'order'))
     }, [order, packet])
-
+    
     return (
         <OrderQueueContainer>
             <StyledNavbarAdmin />

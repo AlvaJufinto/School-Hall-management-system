@@ -1,5 +1,7 @@
 import { useEffect, useState, useContext } from "react";
+import axios from "axios";
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 import { CreateOutlined, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -97,9 +99,8 @@ const OrderCardComponent = ({ idPesanan, idPaket, atasNama, namaAcara, tanggal, 
                 <p>Status : <b style={{
                         textTransform: 'uppercase',
                         color: status === 'paid' || status === 'selesai' ? GlobalColors.green : GlobalColors.red
-                    }}>{status}</b></p>
-                <StyledLink className="link-primary" 
-                to={`/admin/order/${idPesanan}/${idPaket}`} >Informasi lainnya...</StyledLink>
+                    }}>{status}</b>
+                </p>
             </div>
             <div className="Buttons">
                 <StyledLink to={`/admin/order/${idPesanan}/${idPaket}`} >
@@ -107,8 +108,14 @@ const OrderCardComponent = ({ idPesanan, idPaket, atasNama, namaAcara, tanggal, 
                         variant="primary"
                         background={GlobalColors.violet}
                         borderRadius="0"
-                        fontSize="2">
-                        <RemoveRedEyeOutlined style={{ fontSize: '2rem' }} />
+                        fontSize="2"
+                        disabled={deleteOrderIsLoading}>
+                        { deleteOrderIsLoading && <CircularProgress style={{
+                        color: 'white'
+                        }} /> }
+                        { !deleteOrderIsLoading && 
+                            <RemoveRedEyeOutlined style={{ fontSize: '2rem' }} />
+                        }
                     </StyledButton>
                 </StyledLink>
                 <StyledButton 
@@ -116,11 +123,11 @@ const OrderCardComponent = ({ idPesanan, idPaket, atasNama, namaAcara, tanggal, 
                     background={GlobalColors.red}
                     borderRadius="0"
                     fontSize="2"
-                    data-id={idPesanan}
                     onClick={(e) => orderDeleteHandler(idPesanan)} >
                     { deleteOrderIsLoading && <CircularProgress style={{
                         color: 'white'
-                    }} /> }
+                    }} 
+                    disabled={deleteOrderIsLoading}/> }
                     { !deleteOrderIsLoading && 
                         <DeleteOutlineOutlined style={{ fontSize: '2rem' }} />
                     }

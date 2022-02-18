@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { CreateOutlined, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mui/icons-material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import OrderCardComponent from '../../components/admin/OrderCardAdmin';
@@ -12,6 +13,7 @@ import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 import DummmyImg from "./../../assets/img/dummy-img-2.png" 
 
+import { adminDataApi } from "../../api/api";
 import { AdminOrderContext } from "../../context/AdminOrderContext";
 import DummyImg from "./../../assets/img/dummy-img-1.png";
 import DummyImgPlain from "./../../assets/img/dummy-img-3.png";
@@ -49,17 +51,18 @@ export const DetailPreview = styled.div`
 `
 
 const OrderDone = () => {
-    const { isLoading, dispatch, order, packet } = useContext(AdminOrderContext);
+    const { isLoading: orderIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
     const [viewOrder, setViewOrder] = useState(null);
     const [status, setStatus] = useState(null);
     const [activePacket, setActivePacket] = useState(null);
-
+    
     const { orderId } = useParams();
     const { packetId }= useParams();
+    let navigate = useNavigate();
+    const accessToken = localStorage.getItem('accessToken');
 
     useEffect(() => {
         setViewOrder(order.filter(item => item._id === orderId));
-                    <h4>Option</h4>
         console.log(order.filter(item => item._id === orderId));
     }, [orderId, order, packet]);
     
@@ -67,6 +70,20 @@ const OrderDone = () => {
         setActivePacket(packet?.filter(item => item._id === packetId));
         console.log(packet?.filter(item => item._id == packetId))
     }, [viewOrder, packet, order, packetId])
+    
+    const orderDeleteHandler = async (orderId) => {
+        if(accessToken) {
+            dispatch({ type: 'DELETE_ADMIN_ORDER_START'});
+            try {
+                const res = await adminDataApi.deleteOrder({ params: orderId, accessToken: accessToken });
+                navigate(-1, { replace: true });
+                dispatch({ type: "DELETE_ADMIN_ORDER_SUCCESS", payload: orderId});
+                console.log("yes")
+            } catch(err) {
+                dispatch({ type: 'DELETE_ADMIN_ORDER_FAILURE' });
+            }
+        }
+    }
 
     return (
         <OrderDoneContainer>
@@ -74,32 +91,36 @@ const OrderDone = () => {
             <AdminStyledSection>
                 <DetailPreview>
                     <h3 className="fw-bolder">/Detail Pesanan - <b style={{
-                        color: viewOrder && viewOrder[0].status == 'selesai' || viewOrder && viewOrder[0].status == 'paid' ? GlobalColors.green : GlobalColors.red,
+                        color: viewOrder && viewOrder[0]?.status == 'selesai' || viewOrder && viewOrder[0]?.status == 'paid' ? GlobalColors.green : GlobalColors.red,
                         textTransform: 'uppercase',
-                    }}>{viewOrder && viewOrder[0].status}</b></h3>
+                    }}>{viewOrder && viewOrder[0]?.status}</b></h3>
                     <div className="Option">
                         <StyledButton 
                             variant="success"
                             background={GlobalColors.green}
                             borderRadius="20"
                             fontSize="2"
-                            // onClick={(e) => orderDeleteHandler(idPesanan)} 
-                            >
-                            {/* { deleteOrderIsLoading && <CircularProgress style={{
+                            disabled={orderIsLoading}>
+                            { orderIsLoading && <CircularProgress style={{
                                 color: 'white'
-                            }} /> } */}
-                            {/* { !deleteOrderIsLoading &&  */}
+                            }} /> }
+                            { !orderIsLoading && 
                                 <CreateOutlined style={{ fontSize: '2rem' }} />
-                            {/* } */}
+                            }
                         </StyledButton>
                         <StyledButton 
                             variant="danger"
                             background={GlobalColors.red}
                             borderRadius="20"
                             fontSize="2"
-                            // onClick={(e) => orderDeleteHandler(idPesanan)} 
-                            >
+                            onClick={(e) => orderDeleteHandler(orderId)} 
+                            disabled={orderIsLoading}>
+                            { orderIsLoading && <CircularProgress style={{
+                                color: 'white'
+                            }} /> }
+                            { !orderIsLoading && 
                                 <DeleteOutlineOutlined style={{ fontSize: '2rem' }} />
+                            }   
                         </StyledButton>
                     </div>
                     <div className="InfoHolder">
