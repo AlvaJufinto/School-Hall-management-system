@@ -89,50 +89,6 @@ const OrderCardComponent = ({ idPesanan, idPaket, atasNama, namaAcara, tanggal, 
 
     return (
         <OrderCard>
-            <div className="Details">
-                <p className="id">Id Pesanan : {idPesanan}</p>
-                <h2>{namaAcara}</h2>
-                <p>{atasNama}</p>
-                <p>{tanggal.toString().slice(0, 10).split("-").reverse().join("-")}</p>
-            </div>
-            <div className="Information">
-                <p>Status : <b style={{
-                        textTransform: 'uppercase',
-                        color: status === 'paid' || status === 'selesai' ? GlobalColors.green : GlobalColors.red
-                    }}>{status}</b>
-                </p>
-            </div>
-            <div className="Buttons">
-                <StyledLink to={`/admin/order/${idPesanan}`} >
-                    <StyledButton 
-                        variant="primary"
-                        background={GlobalColors.violet}
-                        borderRadius="0"
-                        fontSize="2"
-                        disabled={deleteOrderIsLoading}>
-                        { deleteOrderIsLoading && <CircularProgress style={{
-                        color: 'white'
-                        }} /> }
-                        { !deleteOrderIsLoading && 
-                            <RemoveRedEyeOutlined style={{ fontSize: '2rem' }} />
-                        }
-                    </StyledButton>
-                </StyledLink>
-                <StyledButton 
-                    variant="danger"
-                    background={GlobalColors.red}
-                    borderRadius="0"
-                    fontSize="2"
-                    onClick={(e) => orderDeleteHandler(idPesanan)} >
-                    { deleteOrderIsLoading && <CircularProgress style={{
-                        color: 'white'
-                    }} 
-                    disabled={deleteOrderIsLoading}/> }
-                    { !deleteOrderIsLoading && 
-                        <DeleteOutlineOutlined style={{ fontSize: '2rem' }} />
-                    }
-                </StyledButton>
-            </div>
         </OrderCard>
     )
 }

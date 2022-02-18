@@ -44,7 +44,7 @@ function App() {
           <Route path="/admin/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/admin/login" /> } />
           <Route path="/admin/order-queue" element={isLoggedIn ? <OrderQueue /> : <Navigate to="/admin/login" /> } />
           <Route path="/admin/order-done" element={isLoggedIn ? <OrderDone /> : <Navigate to="/admin/login" /> } />
-          <Route path="/admin/order/:orderId/:packetId" element={isLoggedIn ? <OrderView /> : <Navigate to="/admin/login" /> } />
+          <Route path="/admin/order/:orderId" element={isLoggedIn ? <OrderView /> : <Navigate to="/admin/login" /> } />
           {/* <Route path="/admin/order/:orderId" element={<OrderView /> } /> */}
 
           <Route path="*" element={<NotFound />} />

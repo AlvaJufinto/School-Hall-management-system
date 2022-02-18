@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { Modal } from 'react-bootstrap';
 import { useParams, useNavigate } from "react-router-dom";
 import { CreateOutlined, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -18,11 +19,13 @@ import { AdminOrderContext } from "../../context/AdminOrderContext";
 import DummyImg from "./../../assets/img/dummy-img-1.png";
 import DummyImgPlain from "./../../assets/img/dummy-img-3.png";
 
-const OrderDoneContainer = styled.div`
+const OrderViewContainer = styled.div`
     font-family: ${GlobalFonts.secondary};
 `;
 
 export const DetailPreview = styled.div`
+    padding: 0 0 50px 0;
+
     .Option {
         margin: 20px 0 40px 0;
         width: 150px;
@@ -38,7 +41,6 @@ export const DetailPreview = styled.div`
     .InfoHolder {
         display: flex;
         gap: 20px;
-        /* margin: 50px 0 0 0; */
     }
 
 
@@ -52,12 +54,11 @@ export const DetailPreview = styled.div`
 
 const OrderDone = () => {
     const { isLoading: orderIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
-    const [viewOrder, setViewOrder] = useState(null);
-    const [status, setStatus] = useState(null);
-    const [activePacket, setActivePacket] = useState(null);
+    const [viewOrder, setViewOrder] = useState([]);
+    const [activePacket, setActivePacket] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     
     const { orderId } = useParams();
-    const { packetId }= useParams();
     let navigate = useNavigate();
     const accessToken = localStorage.getItem('accessToken');
 
@@ -67,9 +68,10 @@ const OrderDone = () => {
     }, [orderId, order, packet]);
     
     useEffect(() =>{
-        setActivePacket(packet?.filter(item => item._id === packetId));
-        console.log(packet?.filter(item => item._id == packetId))
-    }, [viewOrder, packet, order, packetId])
+        console.log(packet);
+        setActivePacket(packet.filter(item => item._id === viewOrder[0]?.paketId));
+        console.log(packet.filter(item => item._id === viewOrder[0]?.paketId));
+    }, [viewOrder])
     
     const orderDeleteHandler = async (orderId) => {
         if(accessToken) {
@@ -86,9 +88,17 @@ const OrderDone = () => {
     }
 
     return (
-        <OrderDoneContainer>
+        <OrderViewContainer>
             <StyledNavbarAdmin />
             <AdminStyledSection>
+                <Modal show={showModal} onHide={() => setShowModal(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Footer>
+                    </Modal.Footer>
+                </Modal>
                 <DetailPreview>
                     <h3 className="fw-bolder">/Detail Pesanan - <b style={{
                         color: viewOrder && viewOrder[0]?.status == 'selesai' || viewOrder && viewOrder[0]?.status == 'paid' ? GlobalColors.green : GlobalColors.red,
@@ -97,6 +107,7 @@ const OrderDone = () => {
                     <div className="Option">
                         <StyledButton 
                             variant="success"
+                            onClick={() => setShowModal(true)}
                             background={GlobalColors.green}
                             borderRadius="20"
                             fontSize="2"
@@ -132,9 +143,9 @@ const OrderDone = () => {
                                 orderId={viewOrder?._id}
                                 tanggal={viewOrder?.tanggal}
                                 tipeOrder={viewOrder?.tipeOrderan}
-                                namaPaket={activePacket[0]?.namaPaket}
+                                namaPaket={activePacket && activePacket[0]?.namaPaket}
                                 jumlahPorsi={viewOrder?.tipeOrderan === 'plain' ? '' : viewOrder?.jumlahPorsi}
-                                harga={viewOrder?.tipeOrderan === 'plain' ? activePacket[0]?.hargaAula : (viewOrder?.jumlahPorsi * activePacket[0]?.detailCatering.hargaPerBuah) + activePacket[0]?.hargaAula}
+                                harga={viewOrder?.tipeOrderan === 'plain' ?activePacket[0]?.hargaAula : activePacket && (viewOrder?.jumlahPorsi * activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket[0]?.hargaAula}
                                 status={viewOrder?.status}
                                 email={viewOrder?.email}
                                 whatsapp={viewOrder?.whatsapp}
@@ -154,7 +165,7 @@ const OrderDone = () => {
                     </div>
                 </DetailPreview>
             </AdminStyledSection>
-        </OrderDoneContainer>
+        </OrderViewContainer>
     )
 }
 

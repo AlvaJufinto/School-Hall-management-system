@@ -11,7 +11,6 @@ import DummmyImg from "./../../assets/img/dummy-img-2.png"
 import { AdminOrderContext } from "../../context/AdminOrderContext";
 
 const OrderDoneContainer = styled.div`
-    height: 100vh;
     font-family: ${GlobalFonts.secondary};
 `;
 
@@ -20,10 +19,9 @@ export const DetailPreview = styled.div`
     
     .DetailPreview {
         display: flex;
-        /* justify-content: center; */
         flex-wrap: wrap;
         gap: 25px;
-        margin: 50px 0 0 0;
+        margin: 50px 0 50px 0;
     }
 `
 
@@ -55,7 +53,7 @@ const OrderDone = () => {
                                 OrderDone={orderDone} 
                                 setOrderDone={setOrderDone} />
                         ))}
-                        {!isLoading && !orderDone && 
+                        {!isLoading && orderDone.length === 0 && 
                             <h3 style={{
                                 alignSelf: 'flex-start'
                             }}>Tidak ada order yang sudah selesai</h3>

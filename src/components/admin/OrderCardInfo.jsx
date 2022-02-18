@@ -58,7 +58,7 @@ const OrderCardComponent = ({ atasNama, namaAcara, orderId, tanggal, tipeOrder, 
     return (
         <OrderCard>
             <div className="Details">
-                <p>{atasNama}</p>
+                <p> {`${atasNama} (${whatsapp})`} </p>
                 <h2>{namaAcara}</h2>
             </div>
             <div className="Informations">

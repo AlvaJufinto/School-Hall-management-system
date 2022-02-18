@@ -15,7 +15,6 @@ import { authApi } from "./../../api/api";
 import Icon from "./../../assets/svg/icon.svg"
 
 const DashboardContainer = styled.div`
-    height: 100vh;
     font-family: ${GlobalFonts.secondary};
 `;
 
@@ -23,7 +22,7 @@ export const DetailPreview = styled.div`
     margin: 0 0 50px 0;
 
     .DetailPreview {
-        margin: 20px 0 0 0;
+        margin: 20px 0 50px 0;
         width: 100%;
         height: '200px';
         display: flex;
@@ -156,9 +155,9 @@ const Dashboard = () => {
                             orderId={order._id}
                             tanggal={order.tanggal}
                             tipeOrder={order.tipeOrderan}
-                            namaPaket={activePacket?.namaPaket}
+                            namaPaket={activePacket && activePacket[0]?.namaPaket}
                             jumlahPorsi={order.tipeOrderan === 'plain' ? '' : order.jumlahPorsi}
-                            harga={order.tipeOrderan === 'plain' ? activePacket?.hargaAula : (order?.jumlahPorsi *  activePacket?.detailCatering?.hargaPerBuah) + activePacket?.hargaAula}
+                            harga={order.tipeOrderan === 'plain' ? activePacket[0]?.hargaAula : activePacket && (order?.jumlahPorsi * activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket[0]?.hargaAula}
                             status={order.status}
                             email={order.email}
                             whatsapp={order.whatsapp}

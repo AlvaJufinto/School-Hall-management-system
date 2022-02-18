@@ -11,7 +11,6 @@ import DummmyImg from "./../../assets/img/dummy-img-2.png"
 import { AdminOrderContext } from "../../context/AdminOrderContext";
 
 const OrderQueueContainer = styled.div`
-    height: 100vh;
     font-family: ${GlobalFonts.secondary};
 `;
 
@@ -23,14 +22,14 @@ export const DetailPreview = styled.div`
         /* justify-content: center; */
         flex-wrap: wrap;
         gap: 25px;
-        margin: 50px 0 0 0;
+        margin: 50px 0 50px 0;
     }
 `
 
 const OrderQueue = () => {
     const { isLoading, dispatch, order, packet } = useContext(AdminOrderContext);
     const [orderFuture, setOrderFuture] = useState([]);
-    
+
     useEffect(() => {
         setOrderFuture(order.filter(item => item.status == 'paid' || item.status == 'order'))
     }, [order, packet])
@@ -55,7 +54,7 @@ const OrderQueue = () => {
                                 orderFuture={orderFuture} 
                                 setOrderFuture={setOrderFuture} />
                         ))}
-                        {!isLoading && !orderFuture && 
+                        {!isLoading && orderFuture.length === 0 && 
                             <h3 style={{
                                 alignSelf: 'flex-start'
                             }}>Tidak ada order yang sedang mengantre</h3>
