@@ -178,7 +178,7 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                     minDate={new Date()}
                     dateFormat="dd/MM/yyyy"
                     onChange={(date) => {
-                        // setStartDate(new Date(date.toISOString()));
+                        setStartDate(date);
                         console.log(date.toISOString())
                     }} 
                     required/>
