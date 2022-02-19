@@ -39,7 +39,8 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
     const { isLoading: orderIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
 
     const [packetDropdownValue, setPacketDropdownValue] = useState(`${activePacket[0]?.namaPaket}-${activePacket[0]?._id}-${activePacket[0]?.paketPlain}`);
-    const [packetDropdownId, setPacketDropdownId] = useState(packetDropdownValue.split("-")[1]);
+    // const [packetDropdownValue, setPacketDropdownValue] = useState(`BRUHH`);
+    const [packetDropdownId, setPacketDropdownId] = useState(packetDropdownValue.split('-')[1]);
     const [isPlain, setIsPlain] = useState(activePacket[0]?.paketPlain)
     let accessToken = localStorage.getItem("accessToken");
     
@@ -52,36 +53,27 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
     const [status, setStatus] = useState(statusDefault);
 
     useEffect(() => {
-        console.log(activePacket);
-        console.log(packetDropdownId);
-        console.log(isPlain);
-        console.log(new Date(tanggal))
         setPacketDropdownId(packetDropdownValue.split("-")[1]);
-        setIsPlain(packetDropdownValue.split("-")[2] === "true" ? false : true);
-        console.log(packetDropdownValue.split("-")[2] === "true" ? false : true);
-    }, [packetDropdownValue, packetDropdownId, isPlain])
+        setIsPlain(packetDropdownValue.split("-")[2] == "true" ? true : false);
+    }, [packetDropdownValue, packetDropdownId, isPlain, order, dispatch])
     
     // Sat Apr 30 2022 07:00:00 GMT+0700 (Western Indonesia Time)
     const orderEditHandler = async (e) => {
         e.preventDefault()
         const detail = {
             _id: id,
-            atasNama: atasNama, 
             namaAcara: namaAcara, 
-            email: email, 
-            whatsapp: whatsapp, 
-            tanggal: startDate.toISOString(),
             paketId: packetDropdownId,
+            tipeOrderan: isPlain ? 'plain' : 'paket',
+            atasNama: atasNama, 
+            email: email,  
+            whatsapp: whatsapp, 
+            jumlahPorsi: isPlain ? null : portion,
+            tanggal: startDate.toISOString(),
             status: status,
-            tipeOrderan: !isPlain ? 'plain' : 'order', 
-            jumlahPorsi: !isPlain ? null : portion,
         }
-
-        console.log(detail);
-        console.log(startDate.toISOString())
         
         if(accessToken) {
-            console.log(detail);
             dispatch({ type: 'EDIT_ADMIN_ORDER_START'});
             try {
                 // const res = await adminDataApi.editOrder({ params: id, accessToken: accessToken });
@@ -89,7 +81,6 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                 const findIndex = order.findIndex(obj => obj._id === id);
                 let newOrders = order.filter((item) => item._id !== id);
                 newOrders.splice(findIndex, 0, detail);
-                console.log(newOrders);
                 
                 dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: newOrders });
                 setShowModal(false);
@@ -151,12 +142,12 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                         console.log(e);
                     }}>
                     {packet.map(packet =>(
-                        <Dropdown.Item eventKey={`${packet.namaPaket}-${packet._id}-${packet.paketPlain}`}>{packet.namaPaket}</Dropdown.Item>
+                        <Dropdown.Item eventKey={`${packet?.namaPaket}-${packet?._id}-${packet?.paketPlain}`}>{packet.namaPaket}</Dropdown.Item>
                     ))}
                         
                 </DropdownButton>
             </Form.Group>
-            {isPlain === true && <Form.Group className="mb-3">
+            {isPlain === false && <Form.Group className="mb-3">
                 <Form.Label>Jumlah porsi</Form.Label>
                 <Form.Control 
                     type="number"

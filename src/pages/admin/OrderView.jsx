@@ -168,13 +168,13 @@ const OrderDone = () => {
                                 tipeOrder={viewOrder?.tipeOrderan}
                                 namaPaket={activePacket && activePacket[0]?.namaPaket}
                                 jumlahPorsi={viewOrder?.tipeOrderan === 'plain' ? '' : viewOrder?.jumlahPorsi}
-                                harga={viewOrder?.tipeOrderan === 'plain' ?activePacket[0]?.hargaAula : activePacket && (viewOrder?.jumlahPorsi * activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket[0]?.hargaAula}
+                                harga={viewOrder?.tipeOrderan === 'plain' ?activePacket && activePacket[0]?.hargaAula : activePacket && (viewOrder?.jumlahPorsi * activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket[0]?.hargaAula}
                                 status={viewOrder?.status}
                                 email={viewOrder?.email}
                                 whatsapp={viewOrder?.whatsapp}
                             />
                         ))}
-                        {/* {activePacket && activePacket.map((packet) => (
+                        {activePacket && activePacket.map((packet) => (
                             <CardComponent 
                                 packetPlain={packet?.paketPlain}
                                 image={packet?.paketPlain ? DummyImgPlain : DummyImg} 
@@ -184,7 +184,7 @@ const OrderDone = () => {
                                 cardVariant="small"
                                 className="h-100"
                             />
-                        ))}  */}
+                        ))} 
                     </div>
                 </DetailPreview>
             </AdminStyledSection>

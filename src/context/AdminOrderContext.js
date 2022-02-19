@@ -45,28 +45,28 @@ const AuthReducer = (state, action) => {
         case "DELETE_ADMIN_ORDER_SUCCESS":
             return {
                 order: state.order.filter((item) => item._id !== action.payload),
-                packet: state.order,
+                packet: state.packet,
                 isLoading: false,
                 errorMessage: null,
             }
         case "EDIT_ADMIN_ORDER_START":
             return {
                 order: state.order,
-                packet: state.order,
+                packet: state.packet,
                 isLoading: true,
                 errorMessage: null, 
             }
         case "EDIT_ADMIN_ORDER_SUCCESS":
             return {
                 order: action.payload,
-                packet: state.order,
+                packet: state.packet,
                 isLoading: false,
                 errorMessage: null, 
             }
         case "EDIT_ADMIN_ORDER_FAILURE":
             return {
                 order: state.order,
-                packet: state.order,
+                packet: state.packet,
                 isLoading: false,
                 errorMessage: action.payload, 
             }
