@@ -101,10 +101,23 @@ const OrderDone = () => {
                         <Modal.Title>Edit Order</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <OrderEditFormComponent
-                            // atasNama={activePacket} 
-                            setShowModal={setShowModal}
-                        />
+                        {viewOrder && viewOrder.map((viewOrder) => (
+                            <OrderEditFormComponent 
+                                key={viewOrder?._id}
+                                setShowModal={setShowModal}
+                                atasNama={viewOrder?.atasNama} 
+                                namaAcara={viewOrder?.namaAcara} 
+                                tanggal={viewOrder?.tanggal}
+                                activePacket={activePacket}
+                                tipeOrder={viewOrder?.tipeOrderan}
+                                namaPaket={activePacket && activePacket[0]?.namaPaket}
+                                jumlahPorsi={viewOrder?.tipeOrderan === 'plain' ? '' : viewOrder?.jumlahPorsi}
+                                harga={viewOrder?.tipeOrderan === 'plain' ?activePacket[0]?.hargaAula : activePacket && (viewOrder?.jumlahPorsi * activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket[0]?.hargaAula}
+                                status={viewOrder?.status}
+                                email={viewOrder?.email}
+                                whatsapp={viewOrder?.whatsapp}
+                            />
+                        ))}
                     </Modal.Body>
                 </Modal>
                 <DetailPreview>
@@ -146,6 +159,7 @@ const OrderDone = () => {
                         {viewOrder && viewOrder.map((viewOrder) => (
                             <OrderCardInfo 
                                 key={viewOrder?._id}
+                                setShowModal={setShowModal}
                                 atasNama={viewOrder?.atasNama} 
                                 namaAcara={viewOrder?.namaAcara} 
                                 orderId={viewOrder?._id}

@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import styled from 'styled-components';
-import { Form } from 'react-bootstrap';
+import DatePicker from "react-datepicker";
+import { Form, Dropdown, DropdownButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { CreateOutlined, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -12,9 +13,15 @@ import { GlobalMeasurements, GlobalColors, GlobalFonts } from './../../globals';
 import { adminDataApi } from "../../api/api";
 import { AdminOrderContext } from "../../context/AdminOrderContext";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const OrderEditFormContainer = styled.form`
     font-family: ${GlobalFonts.secondary};
     
+    ${Form.Group} {
+        text-transform: capitalize;
+    }
+
     .Buttons {
         width: 250px;
         display: flex;
@@ -28,36 +35,65 @@ const OrderEditFormContainer = styled.form`
     }
 `
 
-const OrderEditFormComponent = ({ setShowModal }) => {
+const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namAcaraDefault, tanggal, activePacket, jumlahPorsi: jumlahPorsiDefault,whatsapp: whatsappDefault, email: emailDefault, setShowModal }) => {
     const { isLoading: orderIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
+
+    const [startDate, setStartDate] = useState(new Date(tanggal));
+    const [portion, setPortion] = useState(jumlahPorsiDefault);
+    const [packetDropdownValue, setPacketDropdownValue] = useState(`${activePacket[0]?.namaPaket}-${activePacket[0]?._id}-${activePacket[0]?.paketPlain}`);
+    const [packetDropdownId, setPacketDropdownId] = useState(packetDropdownValue.split("-")[1]);
+    const [isPlain, setIsPlain] = useState(activePacket[0]?.paketPlain)
     let accessToken = localStorage.getItem("accessToken");
 
-    const atasNama = useRef();
+    const [atasNama, setAtasNama] = useState(atasNamaDefault);
+    // const [atasNama, setAtasNama] = useState(namaAcaraDefault);
     const namaAcara = useRef();
     const email = useRef();
     const whatsapp = useRef();
+    
+    useEffect(() => {
+        console.log(activePacket);
+        console.log(packetDropdownId);
+        console.log(isPlain);
+        setPacketDropdownId(packetDropdownValue.split("-")[1]);
+        setIsPlain(packetDropdownValue.split("-")[2] === "true" ? false : true);
+        console.log(packetDropdownValue.split("-")[2] === "true" ? false : true);
+    }, [packetDropdownValue, packetDropdownId, isPlain])
 
-    const orderEditHandler = async () => {
-        if(accessToken) {
-            dispatch({ type: 'EDIT_ADMIN_ORDER_START'});
-            try {
-                // const res = await adminDataApi.editOrder({ params: idPesanan, accessToken: accessToken });
-                
-                // dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: idPesanan});
-            } catch(err) {
-                dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
-            }
+    const orderEditHandler = async (e) => {
+        e.preventDefault()
+        const detail = {
+            atasNama: atasNama.current.value, 
+            namaAcara: namaAcara.current.value, 
+            email: email.current.value, 
+            whatsapp: whatsapp.current.value, 
+            tanggal: startDate,
+            // jumlahPorsi: portion, 
         }
+
+        console.log(detail);
+        // if(accessToken) {
+        //     console.log(detail);
+        //     dispatch({ type: 'EDIT_ADMIN_ORDER_START'});
+        //     try {
+        //         // const res = await adminDataApi.editOrder({ params: idPesanan, accessToken: accessToken });
+                
+        //         // dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: idPesanan});
+        //     } catch(err) {
+        //         dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
+        //     }
+        // }
     }
 
     return (
-        <OrderEditFormContainer>
+        <OrderEditFormContainer onSubmit={e => orderEditHandler(e)} >
             <Form.Group className="mb-3" controlId="validationCustom01">
                 <Form.Label>Atas Nama</Form.Label>
                 <Form.Control 
                     type="text"
                     name="atasNama"
-                    ref={atasNama}
+                    value={atasNama}
+                    onChange={e => setAtasNama(e.target.value)}
                     required />
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
@@ -66,6 +102,7 @@ const OrderEditFormComponent = ({ setShowModal }) => {
                 <Form.Control 
                     type="text"
                     name="namaAcara"
+                    value={namAcaraDefault}
                     ref={namaAcara}
                     required />
             </Form.Group>
@@ -74,6 +111,7 @@ const OrderEditFormComponent = ({ setShowModal }) => {
                 <Form.Control 
                     type="email"
                     name="email"
+                    value={emailDefault}
                     ref={email} 
                     required />
             </Form.Group>
@@ -81,13 +119,30 @@ const OrderEditFormComponent = ({ setShowModal }) => {
                 <Form.Label>No. Whatsapp</Form.Label>
                 <Form.Control 
                     type="number" 
-                    min="30"
                     name="whatsapp"
                     ref={whatsapp} 
-                    pattern="/^+91(7\d|8\d|9\d)\d{9}$/"
+                    value={whatsappDefault}
+                    pattern="/^+62(7\d|8\d|9\d)\d{9}$/"
                     required />
             </Form.Group>
-            {/* {!packet?.paketPlain && <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="formGroupPassword">
+                <Form.Label>Pilih Paket</Form.Label>
+                <DropdownButton 
+                    id="dropdown-basic-button" 
+                    variant={"dark"}
+                    title={`${packetDropdownValue.split("-")[0]} ${' '}`}
+                    onSelect={e => {
+                        setPacketDropdownValue(e);
+                        setIsPlain(e)
+                        console.log(e);
+                    }}>
+                    {packet.map(packet =>(
+                        <Dropdown.Item eventKey={`${packet.namaPaket}-${packet._id}-${packet.paketPlain}`}>{packet.namaPaket}</Dropdown.Item>
+                    ))}
+                        
+                </DropdownButton>
+            </Form.Group>
+            {isPlain === true && <Form.Group className="mb-3">
                 <Form.Label>Jumlah porsi</Form.Label>
                 <Form.Control 
                     type="number"
@@ -98,8 +153,8 @@ const OrderEditFormComponent = ({ setShowModal }) => {
                     }}
                     pattern="[0-9]"
                     required />
-            </Form.Group> } */}
-            {/* <Form.Group className="mb-3" >
+            </Form.Group> }
+            <Form.Group className="mb-3" >
                 <Form.Label>Pilih tanggal</Form.Label>
                 <DatePicker 
                     type="date"
@@ -108,9 +163,9 @@ const OrderEditFormComponent = ({ setShowModal }) => {
                     minDate={new Date()}
                     onChange={(date) => {
                         setStartDate(date);
-                                    }} 
+                    }} 
                     required/>
-            </Form.Group> */}
+            </Form.Group>
             <div className="Buttons">
                 <StyledButton 
                     color={GlobalColors.white}
@@ -130,7 +185,6 @@ const OrderEditFormComponent = ({ setShowModal }) => {
                     variant="danger"
                     fontSize="1.25"
                     borderRadius="20"
-                    type="submit" 
                     disabled={orderIsLoading}
                     onClick={() => setShowModal(false)}>
                     {orderIsLoading ? <CircularProgress style={{
