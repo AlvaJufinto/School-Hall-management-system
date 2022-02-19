@@ -35,21 +35,20 @@ const OrderEditFormContainer = styled.form`
     }
 `
 
-const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namAcaraDefault, tanggal, activePacket, jumlahPorsi: jumlahPorsiDefault,whatsapp: whatsappDefault, email: emailDefault, setShowModal }) => {
+const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namaAcaraDefault, tanggal, activePacket, jumlahPorsi: jumlahPorsiDefault, whatsapp: whatsappDefault, email: emailDefault, setShowModal }) => {
     const { isLoading: orderIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
 
-    const [startDate, setStartDate] = useState(new Date(tanggal));
-    const [portion, setPortion] = useState(jumlahPorsiDefault);
     const [packetDropdownValue, setPacketDropdownValue] = useState(`${activePacket[0]?.namaPaket}-${activePacket[0]?._id}-${activePacket[0]?.paketPlain}`);
     const [packetDropdownId, setPacketDropdownId] = useState(packetDropdownValue.split("-")[1]);
     const [isPlain, setIsPlain] = useState(activePacket[0]?.paketPlain)
     let accessToken = localStorage.getItem("accessToken");
-
+    
+    const [startDate, setStartDate] = useState(new Date(tanggal));
+    const [portion, setPortion] = useState(jumlahPorsiDefault);
     const [atasNama, setAtasNama] = useState(atasNamaDefault);
-    // const [atasNama, setAtasNama] = useState(namaAcaraDefault);
-    const namaAcara = useRef();
-    const email = useRef();
-    const whatsapp = useRef();
+    const [namaAcara, setNamaAcara] = useState(namaAcaraDefault);
+    const [email, setEmail] = useState(emailDefault);
+    const [whatsapp, setWhatsapp] = useState(whatsappDefault);
     
     useEffect(() => {
         console.log(activePacket);
@@ -102,8 +101,8 @@ const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namAcara
                 <Form.Control 
                     type="text"
                     name="namaAcara"
-                    value={namAcaraDefault}
-                    ref={namaAcara}
+                    value={namaAcara}
+                    onChange={e => setNamaAcara(e.target.value)}
                     required />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -111,8 +110,8 @@ const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namAcara
                 <Form.Control 
                     type="email"
                     name="email"
-                    value={emailDefault}
-                    ref={email} 
+                    value={email}
+                    onChange={e => setEmail(e.target.value)} 
                     required />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">
@@ -120,8 +119,8 @@ const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namAcara
                 <Form.Control 
                     type="number" 
                     name="whatsapp"
-                    ref={whatsapp} 
-                    value={whatsappDefault}
+                    value={whatsapp}
+                    onChange={e => setWhatsapp(e.target.value)}
                     pattern="/^+62(7\d|8\d|9\d)\d{9}$/"
                     required />
             </Form.Group>
