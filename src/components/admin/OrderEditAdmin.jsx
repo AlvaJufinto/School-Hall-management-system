@@ -35,7 +35,7 @@ const OrderEditFormContainer = styled.form`
     }
 `
 
-const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namaAcaraDefault, tanggal, activePacket, jumlahPorsi: jumlahPorsiDefault, whatsapp: whatsappDefault, email: emailDefault, setShowModal }) => {
+const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: namaAcaraDefault, tanggal, activePacket, jumlahPorsi: jumlahPorsiDefault, whatsapp: whatsappDefault, email: emailDefault, setShowModal, status: statusDefault }) => {
     const { isLoading: orderIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
 
     const [packetDropdownValue, setPacketDropdownValue] = useState(`${activePacket[0]?.namaPaket}-${activePacket[0]?._id}-${activePacket[0]?.paketPlain}`);
@@ -44,40 +44,54 @@ const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namaAcar
     let accessToken = localStorage.getItem("accessToken");
     
     const [startDate, setStartDate] = useState(new Date(tanggal));
-    const [portion, setPortion] = useState(jumlahPorsiDefault);
+    const [portion, setPortion] = useState(jumlahPorsiDefault ? jumlahPorsiDefault : 30);
     const [atasNama, setAtasNama] = useState(atasNamaDefault);
     const [namaAcara, setNamaAcara] = useState(namaAcaraDefault);
     const [email, setEmail] = useState(emailDefault);
     const [whatsapp, setWhatsapp] = useState(whatsappDefault);
-    
+    const [status, setStatus] = useState(statusDefault);
+
     useEffect(() => {
         console.log(activePacket);
         console.log(packetDropdownId);
         console.log(isPlain);
+        console.log(new Date(tanggal))
         setPacketDropdownId(packetDropdownValue.split("-")[1]);
         setIsPlain(packetDropdownValue.split("-")[2] === "true" ? false : true);
         console.log(packetDropdownValue.split("-")[2] === "true" ? false : true);
     }, [packetDropdownValue, packetDropdownId, isPlain])
-
+    
+    // Sat Apr 30 2022 07:00:00 GMT+0700 (Western Indonesia Time)
     const orderEditHandler = async (e) => {
         e.preventDefault()
         const detail = {
-            atasNama: atasNama.current.value, 
-            namaAcara: namaAcara.current.value, 
-            email: email.current.value, 
-            whatsapp: whatsapp.current.value, 
-            tanggal: startDate,
-            // jumlahPorsi: portion, 
+            _id: id,
+            atasNama: atasNama, 
+            namaAcara: namaAcara, 
+            email: email, 
+            whatsapp: whatsapp, 
+            tanggal: startDate.toString(),
+            paketId: packetDropdownId,
+            status: status,
+            tipeOrderan: !isPlain ? 'plain' : 'order', 
+            jumlahPorsi: !isPlain ? null : portion,
         }
 
         console.log(detail);
+        
         // if(accessToken) {
         //     console.log(detail);
         //     dispatch({ type: 'EDIT_ADMIN_ORDER_START'});
         //     try {
-        //         // const res = await adminDataApi.editOrder({ params: idPesanan, accessToken: accessToken });
+        //         // const res = await adminDataApi.editOrder({ params: id, accessToken: accessToken });
                 
-        //         // dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: idPesanan});
+        //         const findIndex = order.findIndex(obj => obj._id === id);
+        //         let newOrders = order.filter((item) => item._id !== id);
+        //         newOrders.splice(findIndex, 0, detail);
+        //         console.log(newOrders);
+                
+        //         dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: newOrders });
+        //         setShowModal(false);
         //     } catch(err) {
         //         dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
         //     }
@@ -146,6 +160,7 @@ const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namaAcar
                 <Form.Control 
                     type="number"
                     name="jumlahPorsi"
+                    min="30"
                     value={portion}
                     onChange={e => {
                         setPortion(e.currentTarget.value);
@@ -162,8 +177,23 @@ const OrderEditFormComponent = ({ atasNama: atasNamaDefault, namaAcara: namaAcar
                     minDate={new Date()}
                     onChange={(date) => {
                         setStartDate(date);
+                        console.log(date)
                     }} 
                     required/>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formGroupPassword">
+                <Form.Label>Pilih Paket</Form.Label>
+                <DropdownButton 
+                    id="dropdown-basic-button" 
+                    variant={"dark"}
+                    title={status}
+                    onSelect={e => {
+                        setStatus(e)
+                        console.log(e);
+                    }}>
+                        <Dropdown.Item eventKey="order">Order</Dropdown.Item>
+                        <Dropdown.Item eventKey="paid">Paid</Dropdown.Item>
+                </DropdownButton>
             </Form.Group>
             <div className="Buttons">
                 <StyledButton 

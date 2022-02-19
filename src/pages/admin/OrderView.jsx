@@ -104,6 +104,7 @@ const OrderDone = () => {
                         {viewOrder && viewOrder.map((viewOrder) => (
                             <OrderEditFormComponent 
                                 key={viewOrder?._id}
+                                id={viewOrder?._id}
                                 setShowModal={setShowModal}
                                 atasNama={viewOrder?.atasNama} 
                                 namaAcara={viewOrder?.namaAcara} 
@@ -173,7 +174,7 @@ const OrderDone = () => {
                                 whatsapp={viewOrder?.whatsapp}
                             />
                         ))}
-                        {activePacket && activePacket.map((packet) => (
+                        {/* {activePacket && activePacket.map((packet) => (
                             <CardComponent 
                                 packetPlain={packet?.paketPlain}
                                 image={packet?.paketPlain ? DummyImgPlain : DummyImg} 
@@ -183,7 +184,7 @@ const OrderDone = () => {
                                 cardVariant="small"
                                 className="h-100"
                             />
-                        ))} 
+                        ))}  */}
                     </div>
                 </DetailPreview>
             </AdminStyledSection>
