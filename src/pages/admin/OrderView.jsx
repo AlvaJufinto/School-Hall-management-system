@@ -87,6 +87,7 @@ const OrderDone = () => {
                 dispatch({ type: "DELETE_ADMIN_ORDER_SUCCESS", payload: orderId});
                 console.log("yes")
             } catch(err) {
+                console.log(err.response);
                 dispatch({ type: 'DELETE_ADMIN_ORDER_FAILURE' });
             }
         }

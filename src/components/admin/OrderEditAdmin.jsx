@@ -76,7 +76,7 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
         if(accessToken) {
             dispatch({ type: 'EDIT_ADMIN_ORDER_START'});
             try {
-                // const res = await adminDataApi.editOrder({ params: id, accessToken: accessToken });
+                const res = await adminDataApi.editOrder({ params: id, accessToken: accessToken });
                 
                 const findIndex = order.findIndex(obj => obj._id === id);
                 let newOrders = order.filter((item) => item._id !== id);
@@ -85,6 +85,7 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                 dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: newOrders });
                 setShowModal(false);
             } catch(err) {
+                console.log(err.response);
                 dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
             }
         }
