@@ -70,7 +70,7 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
             namaAcara: namaAcara, 
             email: email, 
             whatsapp: whatsapp, 
-            tanggal: startDate.toString(),
+            tanggal: startDate.toISOString(),
             paketId: packetDropdownId,
             status: status,
             tipeOrderan: !isPlain ? 'plain' : 'order', 
@@ -78,24 +78,25 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
         }
 
         console.log(detail);
+        console.log(startDate.toISOString())
         
-        // if(accessToken) {
-        //     console.log(detail);
-        //     dispatch({ type: 'EDIT_ADMIN_ORDER_START'});
-        //     try {
-        //         // const res = await adminDataApi.editOrder({ params: id, accessToken: accessToken });
+        if(accessToken) {
+            console.log(detail);
+            dispatch({ type: 'EDIT_ADMIN_ORDER_START'});
+            try {
+                // const res = await adminDataApi.editOrder({ params: id, accessToken: accessToken });
                 
-        //         const findIndex = order.findIndex(obj => obj._id === id);
-        //         let newOrders = order.filter((item) => item._id !== id);
-        //         newOrders.splice(findIndex, 0, detail);
-        //         console.log(newOrders);
+                const findIndex = order.findIndex(obj => obj._id === id);
+                let newOrders = order.filter((item) => item._id !== id);
+                newOrders.splice(findIndex, 0, detail);
+                console.log(newOrders);
                 
-        //         dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: newOrders });
-        //         setShowModal(false);
-        //     } catch(err) {
-        //         dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
-        //     }
-        // }
+                dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: newOrders });
+                setShowModal(false);
+            } catch(err) {
+                dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
+            }
+        }
     }
 
     return (
@@ -175,9 +176,10 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                     name="tanggal"
                     selected={startDate}
                     minDate={new Date()}
+                    dateFormat="dd/MM/yyyy"
                     onChange={(date) => {
-                        setStartDate(date);
-                        console.log(date)
+                        // setStartDate(new Date(date.toISOString()));
+                        console.log(date.toISOString())
                     }} 
                     required/>
             </Form.Group>

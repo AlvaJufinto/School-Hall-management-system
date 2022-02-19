@@ -256,8 +256,11 @@ const FormOrder = () => {
                                     name="tanggal"
                                     selected={startDate}
                                     minDate={new Date()}
+                                    dateFormat="dd/MM/yyyy"
                                     onChange={(date) => {
                                         setStartDate(date);
+                                        console.log(date);
+                                        console.log(date.toISOString())
                                     }} 
                                     required/>
                             </Form.Group>
