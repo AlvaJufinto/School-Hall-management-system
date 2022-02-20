@@ -13,7 +13,6 @@ import OrderEditFormComponent from "../../components/admin/OrderEditAdmin";
 
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
-import DummmyImg from "./../../assets/img/dummy-img-2.png" 
 
 import { adminDataApi } from "../../api/api";
 import { AdminOrderContext } from "../../context/AdminOrderContext";
@@ -105,7 +104,7 @@ const OrderDone = () => {
                         {viewOrder && viewOrder.map((viewOrder) => (
                             <OrderEditFormComponent 
                                 key={viewOrder?._id}
-                                id={viewOrder?._id}
+                                id={orderId}
                                 setShowModal={setShowModal}
                                 atasNama={viewOrder?.atasNama} 
                                 namaAcara={viewOrder?.namaAcara} 

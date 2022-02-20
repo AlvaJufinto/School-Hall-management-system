@@ -1,18 +1,19 @@
 import { useContext, useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { CreateOutlined, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
 import useDraggableScroll from 'use-draggable-scroll';
 
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
-import OrderCardInfo from "../../components/admin/OrderCardInfo"; 
+import CardComponent from "./../../components/admin/PacketCardAdmin";
 import { adminDataApi } from '../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 
-import { AuthContext } from "../../context/AuthContext";
 import { AdminOrderContext } from "../../context/AdminOrderContext";
-import Icon from "./../../assets/svg/icon.svg"
+import DummyImg from "./../../assets/img/dummy-img-1.png";
+import DummyImgPlain from "./../../assets/img/dummy-img-3.png";
 
 const PacketContainer = styled.div`
     font-family: ${GlobalFonts.secondary};
@@ -26,10 +27,9 @@ export const DetailPreview = styled.div`
         width: 100%;
         height: '200px';
         display: flex;   
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 50px;
         overflow-x: auto;
-
         ::-webkit-scrollbar {
             display: none;
         }
@@ -60,9 +60,6 @@ const Packet = () => {
     //         })();
     //     }
     // }, [accessToken, refreshToken]);
-    
-    useEffect(() => {
-    }, [order, packet])
 
     return (
         <PacketContainer>
@@ -70,13 +67,24 @@ const Packet = () => {
             <AdminStyledSection>
                 <DetailPreview>
                     <h3 className="fw-bolder mb-4">/Paket</h3>
-                    {isAdminDataLoading && <CircularProgress /> }                    
-                    {/* {activeOrder && activeOrder.map((order) =>(
-                       
-                    ))} */}
-                    {!isAdminDataLoading && packet?.length === 0 && 
-                        <h3>Tidak ada order yang sedang berlangsung</h3>
-                    }
+                    <div className="DetailPreview">
+                        {isAdminDataLoading && <CircularProgress /> }                    
+                        {packet && packet.map((packet) =>(
+                            <CardComponent 
+                                paketId={packet?._id}
+                                packetPlain={packet?.paketPlain}
+                                image={packet?.paketPlain ? DummyImgPlain : DummyImg} 
+                                title={packet?.namaPaket}
+                                packet={packet?.detailCatering && packet?.detailCatering?.detailPaketCatering}
+                                price={packet?.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
+                                cardVariant="small"
+                                className="h-100" 
+                                packetIsLoading={isAdminDataLoading} />
+                        ))}
+                        {!isAdminDataLoading && packet?.length === 0 && 
+                            <h3>Tidak ada paket yang tersedia</h3>
+                        }
+                    </div>
                 </DetailPreview>
             </AdminStyledSection>
         </PacketContainer>

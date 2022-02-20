@@ -39,10 +39,9 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
     const { isLoading: orderIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
 
     const [packetDropdownValue, setPacketDropdownValue] = useState(`${activePacket[0]?.namaPaket}-${activePacket[0]?._id}-${activePacket[0]?.paketPlain}`);
-    // const [packetDropdownValue, setPacketDropdownValue] = useState(`BRUHH`);
     const [packetDropdownId, setPacketDropdownId] = useState(packetDropdownValue.split('-')[1]);
     const [isPlain, setIsPlain] = useState(activePacket[0]?.paketPlain)
-    let accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem('accessToken');    
     
     const [startDate, setStartDate] = useState(new Date(tanggal));
     const [portion, setPortion] = useState(jumlahPorsiDefault ? jumlahPorsiDefault : 30);
@@ -55,9 +54,9 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
     useEffect(() => {
         setPacketDropdownId(packetDropdownValue.split("-")[1]);
         setIsPlain(packetDropdownValue.split("-")[2] == "true" ? true : false);
+        console.log(accessToken);
     }, [packetDropdownValue, packetDropdownId, isPlain, order, dispatch])
     
-    // Sat Apr 30 2022 07:00:00 GMT+0700 (Western Indonesia Time)
     const orderEditHandler = async (e) => {
         e.preventDefault()
         const detail = {
@@ -72,20 +71,23 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
             tanggal: startDate.toISOString(),
             status: status,
         }
+
         
         if(accessToken) {
             dispatch({ type: 'EDIT_ADMIN_ORDER_START'});
             try {
                 const res = await adminDataApi.editOrder({ params: id, accessToken: accessToken });
-                
+
                 const findIndex = order.findIndex(obj => obj._id === id);
                 let newOrders = order.filter((item) => item._id !== id);
                 newOrders.splice(findIndex, 0, detail);
                 
                 dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: newOrders });
+                console.log(res);
                 setShowModal(false);
             } catch(err) {
-                console.log(err.response);
+                console.log(err.response.data.message);
+                console.error("asdasd")
                 dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
             }
         }

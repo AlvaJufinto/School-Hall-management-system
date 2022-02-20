@@ -41,7 +41,7 @@ export const adminDataApi = {
     return axios.delete(`${baseUrl}/admin/delete/order/${params}`,
     {
       headers: {
-        'jwt': accessToken
+        'jwt': accessToken,
       }
     });
   },
@@ -49,10 +49,11 @@ export const adminDataApi = {
     return axios.post(`${baseUrl}/admin/edit/order/${params}`,
     {
       headers: {
-        'jwt': accessToken
+        'jwt': accessToken,
       }
     });
   }
+  // deletePacket: ({})
 }
 
 
