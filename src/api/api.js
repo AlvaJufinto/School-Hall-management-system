@@ -45,8 +45,9 @@ export const adminDataApi = {
       }
     });
   },
-  editOrder: ({ params, accessToken }) => {
+  editOrder: ({ params, accessToken }, detail) => {
     return axios.post(`${baseUrl}/admin/edit/order/${params}`,
+    detail,
     {
       headers: {
         'jwt': accessToken,

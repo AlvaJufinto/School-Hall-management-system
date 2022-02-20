@@ -16,7 +16,6 @@ const DefaultCard = styled(Card)`
     border-radius: 20px;
     background: ${GlobalColors.hardGrey};
     padding: 18px;
-    height: 100%;
     color: white;
 
     img {
@@ -26,9 +25,9 @@ const DefaultCard = styled(Card)`
 
     ${Card.Text} {
         font-size: 1rem;
-        
+
         p {
-            margin: -3px 0;
+            margin: 0 0;
             font-family: ${GlobalFonts.secondary};
             text-transform: capitalize;
         }
@@ -63,8 +62,6 @@ const SmallCard = styled(DefaultCard)`
         margin: 20px 0 0 0;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        gap: 20px;
         height: 100%;
     }
     
@@ -74,6 +71,7 @@ const CardTitle = styled(Card.Title)`
     font-size: 2rem;
     font-family: ${GlobalFonts.primary};
 `
+
 
 const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacket, price, cardVariant }) => {
     const { isLoading: packetIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);

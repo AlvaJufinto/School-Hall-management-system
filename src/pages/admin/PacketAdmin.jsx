@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { CreateOutlined, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mui/icons-material';
+import { CreateOutlined, AddRounded, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
 import useDraggableScroll from 'use-draggable-scroll';
 
@@ -24,21 +24,25 @@ export const DetailPreview = styled.div`
 
     .DetailPreview {
         margin: 20px 0 50px 0;
-        width: 100%;
-        height: '200px';
         display: flex;   
         flex-wrap: wrap;
-        gap: 50px;
-        overflow-x: auto;
-        ::-webkit-scrollbar {
-            display: none;
-        }
+        align-items: stretch;
+        gap: 20px;
     }
+`
+
+const AddCardContainer = styled.div`
+    border-radius: 20px;
+    width: 300px;
+    background: ${GlobalColors.hardGrey};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const Packet = () => {
     const { isLoading: isAdminDataLoading, dispatch, order, packet } = useContext(AdminOrderContext);
-    
+    const [isShowAdd, setIsShowAdd] = useState(false);
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
 
@@ -81,9 +85,25 @@ const Packet = () => {
                                 className="h-100" 
                                 packetIsLoading={isAdminDataLoading} />
                         ))}
-                        {!isAdminDataLoading && packet?.length === 0 && 
-                            <h3>Tidak ada paket yang tersedia</h3>
-                        }
+                        <AddCardContainer>
+                            <StyledButton 
+                                variant="secondary"
+                                onClick={() => setIsShowAdd(true)}
+                                background="rgba(255, 255, 255, 0.1)"
+                                borderRadius="20"
+                                border="5px solid white"
+                                height="150"
+                                width="100"
+                                fontSize="2"
+                                disabled={isAdminDataLoading}>
+                                { isAdminDataLoading && <CircularProgress style={{
+                                    color: 'white'
+                                }} /> }
+                                    { !isAdminDataLoading && 
+                                        <AddRounded style={{ fontSize: '3.5rem' }} />
+                                    }
+                                </StyledButton>
+                    </AddCardContainer>
                     </div>
                 </DetailPreview>
             </AdminStyledSection>
