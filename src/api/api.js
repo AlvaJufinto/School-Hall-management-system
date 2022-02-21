@@ -61,6 +61,14 @@ export const adminDataApi = {
         'jwt': accessToken,
       }
     });  
+  },
+  deletePacket: ({ params, accessToken }) => {
+    return axios.delete(`${baseUrl}/admin/delete/paket/${params}`,
+    {
+      headers: {
+        'jwt' : accessToken
+      }
+    })
   }
 }
 

@@ -85,11 +85,13 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
         }
     }, [packet])
 
-    const orderDeleteHandler = (paketId) => {
+    const orderDeleteHandler = async (paketId) => {
         console.log(paketId);
         if(accessToken) {
             dispatch({ type: 'DELETE_ADMIN_PACKET_START'});
             try {
+                const res = await adminDataApi.deletePacket({ params: paketId, accessToken: accessToken });
+
                 dispatch({ type: 'DELETE_ADMIN_PACKET_SUCCESS', payload: paketId})
             } catch (err) {
                 console.log(err);
