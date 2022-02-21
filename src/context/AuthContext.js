@@ -61,6 +61,7 @@ const AuthReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
     let refreshToken = localStorage.getItem("refreshToken");
+    let accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
         (async () => {
@@ -76,7 +77,7 @@ export const AuthContextProvider = ({ children }) => {
                 }
             }
         })();
-    }, [refreshToken]);
+    }, [refreshToken, accessToken]);
     
     return (
         <AuthContext.Provider

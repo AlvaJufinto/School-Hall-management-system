@@ -21,13 +21,14 @@ const DefaultCard = styled(Card)`
     img {
         object-fit: cover;
         border-radius: 20px;
+        height: 300px;
     }
 
     ${Card.Text} {
         font-size: 1rem;
 
         p {
-            margin: 0 0;
+            margin: 0;
             font-family: ${GlobalFonts.secondary};
             text-transform: capitalize;
         }
@@ -72,8 +73,7 @@ const CardTitle = styled(Card.Title)`
     font-family: ${GlobalFonts.primary};
 `
 
-
-const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacket, price, cardVariant }) => {
+const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacket, price }) => {
     const { isLoading: packetIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
     const [showEdit, setShowEdit] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);

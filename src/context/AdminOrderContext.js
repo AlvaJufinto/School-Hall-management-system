@@ -70,6 +70,27 @@ const AuthReducer = (state, action) => {
                 isLoading: false,
                 errorMessage: action.payload, 
             }
+        case "ADD_ADMIN_PACKET_START":
+            return {
+                order: state.order,
+                packet: state.packet,
+                isLoading: true,
+                errorMessage: null,
+            }
+        case "ADD_ADMIN_PACKET_SUCCESS":
+            return {
+                order: state.order,
+                packet: action.payload,
+                isLoading: false,
+                errorMessage: null,
+            }
+        case "ADD_ADMIN_PACKET_FAILURE":
+            return {
+                order: state.order,
+                packet: state.packet,
+                isLoading: false,
+                errorMessage: action.payload,
+            }
         case "DELETE_ADMIN_PACKET_START":
             return {
                 order: state.order,
@@ -108,7 +129,7 @@ export const AdminOrderContextProvider = ({ children }) => {
             }
         }
         })();
-    }, [refreshToken, accessToken]);
+    }, [refreshToken]);
     
     return (
         <AdminOrderContext.Provider

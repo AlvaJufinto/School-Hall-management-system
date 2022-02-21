@@ -53,8 +53,15 @@ export const adminDataApi = {
         'jwt': accessToken,
       }
     });
+  },
+  addPacket: ({ accessToken }, detail) => {
+    return axios.post(`${baseUrl}/admin/tambahpaket`, detail,
+    {
+      headers: { 
+        'jwt': accessToken,
+      }
+    });  
   }
-  // deletePacket: ({})
 }
 
 

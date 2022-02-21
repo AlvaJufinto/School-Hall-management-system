@@ -57,6 +57,12 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
         console.log(accessToken);
     }, [packetDropdownValue, packetDropdownId, isPlain, order, dispatch])
     
+    useEffect(() => {
+        if(portion < 30) {
+            setPortion(30)
+        }
+    }, [portion])
+
     const orderEditHandler = async (e) => {
         e.preventDefault()
         const detail = {

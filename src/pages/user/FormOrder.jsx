@@ -196,6 +196,7 @@ const FormOrder = () => {
                             packetPlain={packet?.paketPlain}
                             image={packet?.paketPlain ? DummyImgPlain : DummyImg} 
                             title={packet?.namaPaket}
+                            description={packet?.deskripsi}
                             packet={!packet.paketPlain && packet.detailCatering.detailPaketCatering}
                             price={!packet.paketPlain ? packet.detailCatering.hargaPerBuah : '0'}
                             cardVariant="small"
