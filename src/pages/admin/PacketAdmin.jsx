@@ -48,7 +48,7 @@ const AddCardContainer = styled.div`
 const Packet = () => {
     const { isLoading: isAdminDataLoading, packet } = useContext(AdminOrderContext);
     const [isShowAdd, setIsShowAdd] = useState(false);
-
+    
     useEffect(() => {
         console.log(packet);
     }, [])
@@ -77,7 +77,8 @@ const Packet = () => {
                         <AddCardContainer>
                             {isShowAdd ? 
                             <AddForm
-                                setIsShowAdd={setIsShowAdd} />
+                                setIsShowAdd={setIsShowAdd}
+                                isAddForm={true} />
                             : 
                             <StyledButton 
                                 variant="secondary"

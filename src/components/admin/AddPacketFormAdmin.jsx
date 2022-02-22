@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Form, InputGroup, FormControl } from "react-bootstrap";
-import { AddRounded, Check, Close } from '@mui/icons-material';
+import { CreateOutlined, Check, Close } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
 import useDraggableScroll from 'use-draggable-scroll';
 
@@ -53,9 +53,8 @@ const AddForm = styled.form`
     }
 `
 
-const AddFormContainer = ({ setIsShowAdd }) => {
+const AddFormContainer = ({ setIsShowAdd, isAddForm }) => {
     const { isLoading: isAdminDataLoading, dispatch, packet } = useContext(AdminOrderContext);
-    const [newPackets, setNewPackets] = useState(packet);
     let accessToken = localStorage.getItem("accessToken");
     
     const [namaPaket, setNamaPaket] = useState("");
@@ -68,9 +67,9 @@ const AddFormContainer = ({ setIsShowAdd }) => {
     useEffect(() => {
         console.log("AAOKWOAKWOAWK")
         console.log(packet)
-    }, [packet, newPackets])
+    }, [packet])
     
-    const AddPaketHandler = async (e) => {
+    const addPaketHandler = async (e) => {
         e.preventDefault();
         const detail = {
             paketPlain : tipePaket === "plain" ? true : false,
@@ -96,6 +95,7 @@ const AddFormContainer = ({ setIsShowAdd }) => {
                 setNamaPaket("");
                 setTipePaket("");
                 setSpesifikasiPaket("");
+                setDeskripsiPaket("")
                 setHargaAula(0);
                 setHargaPaket(0);
             } catch (err) {
@@ -105,8 +105,12 @@ const AddFormContainer = ({ setIsShowAdd }) => {
         }
     }
 
+    const editPaketHandler = async (e) => {
+
+    }
+
     return (
-        <AddForm onSubmit={e => AddPaketHandler(e)} >
+        <AddForm>
             <img variant="top" src={BlankImg} />
                 <div className="CardBody">
                     <Form.Control 
@@ -170,22 +174,41 @@ const AddFormContainer = ({ setIsShowAdd }) => {
                         </InputGroup>
                     }
                 </div> 
-                <StyledButton 
-                    variant="success"
-                    onClick=""
-                    background={GlobalColors.green}
-                    borderRadius="20"
-                    height="50"
-                    className="mr-3"
-                    type="submit"
-                    disabled={isAdminDataLoading}>
-                    { isAdminDataLoading && <CircularProgress style={{
-                        color: 'white'
-                    }} /> }
-                    { !isAdminDataLoading && 
-                        <Check style={{ fontSize: '2rem' }} />
-                    }
-                </StyledButton>
+                {isAddForm ? 
+                    <StyledButton 
+                        variant="success"
+                        onClick={e => addPaketHandler(e)}
+                        background={GlobalColors.green}
+                        borderRadius="20"
+                        height="50"
+                        className="mr-3"
+                        type="submit"
+                        disabled={isAdminDataLoading}>
+                        { isAdminDataLoading && <CircularProgress style={{
+                            color: 'white'
+                        }} /> }
+                        { !isAdminDataLoading && 
+                            <Check style={{ fontSize: '2rem' }} />
+                        }
+                    </StyledButton>
+                :
+                    <StyledButton 
+                        variant="success"
+                        onClick=""
+                        background={GlobalColors.green}
+                        borderRadius="20"
+                        height="50"
+                        className="mr-3"
+                        type="submit"
+                        disabled={isAdminDataLoading}>
+                        { isAdminDataLoading && <CircularProgress style={{
+                            color: 'white'
+                        }} /> }
+                        { !isAdminDataLoading && 
+                            <CreateOutlined style={{ fontSize: '2rem' }} />
+                        }
+                    </StyledButton>
+                }
                 <StyledButton 
                     variant="danger"
                     onClick={() => setIsShowAdd(false)}
@@ -201,7 +224,6 @@ const AddFormContainer = ({ setIsShowAdd }) => {
                     }   
                 </StyledButton>
         </AddForm>
-
     )
 }
 
