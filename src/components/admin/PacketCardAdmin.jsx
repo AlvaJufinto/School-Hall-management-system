@@ -64,7 +64,6 @@ const SmallCard = styled(DefaultCard)`
         margin: 20px 0 0 0;
         display: flex;
         flex-direction: column;
-        height: 100%;
     }
     
 `
@@ -102,54 +101,56 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
     
     return (
         <>
-            {
-                isFormShown ?
-                <AddForm 
-                    isAddForm={false}  />
-                :
-                <SmallCard>
-                    <img variant="top" src={image} />
-                    <div className="CardBody">
-                        <CardTitle>{title}</CardTitle>
-                        <Card.Text>
-                            {packetPlain ? 'paket yang menyediakan aula saja dengan fasilitasnya' : activePacket?.map((packet, i) => (
-                                <p key={i}>{packet}</p>
-                                ))}
-                        </Card.Text>
-                    </div>
-                    <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {price == 0 ? '' : '/orang'}</h2>
-                    <div className="Options">
-                        <StyledButton 
-                            variant="success"
-                            onClick={() => isFormShown(true)}
-                            background={GlobalColors.green}
-                            borderRadius="20"
-                            fontSize="2"
-                            disabled={packetIsLoading}>
-                            { packetIsLoading && <CircularProgress style={{
-                                color: 'white'
-                            }} /> }
-                            { !packetIsLoading && 
-                                <CreateOutlined style={{ fontSize: '2rem' }} />
-                            }
-                        </StyledButton>
-                        <StyledButton 
-                            variant="danger"
-                            background={GlobalColors.red}
-                            borderRadius="20"
-                            fontSize="2"
-                            onClick={() => orderDeleteHandler(paketId)} 
-                            disabled={packetIsLoading || isButtonDisabled}>
-                            { packetIsLoading && <CircularProgress style={{
-                                color: 'white'
-                            }} /> }
-                            { !packetIsLoading && 
-                                <DeleteOutlineOutlined style={{ fontSize: '2rem' }} />
-                            }   
-                        </StyledButton>
-                    </div>
-                </SmallCard>
-            }
+            <SmallCard>
+                { isFormShown ? 
+                    <AddForm 
+                        isAddForm={false} 
+                        setIsFormShown={setIsFormShown} />    
+                    :
+                    <>
+                        <img variant="top" src={image} />
+                        <div className="CardBody">
+                                <CardTitle>{title}</CardTitle>
+                                <Card.Text>
+                                    {packetPlain ? 'paket yang menyediakan aula saja dengan fasilitasnya' : activePacket?.map((packet, i) => (
+                                        <p key={i}>{packet}</p>
+                                        ))}
+                                </Card.Text>
+                        </div>
+                        <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {price == 0 ? '' : '/orang'}</h2>
+                        <div className="Options">
+                                <StyledButton 
+                                    variant="success"
+                                    onClick={() => setIsFormShown(true)}
+                                    background={GlobalColors.green}
+                                    borderRadius="20"
+                                    fontSize="2"
+                                    disabled={packetIsLoading}>
+                                    { packetIsLoading && <CircularProgress style={{
+                                        color: 'white'
+                                    }} /> }
+                                    { !packetIsLoading && 
+                                        <CreateOutlined style={{ fontSize: '2rem' }} />
+                                    }
+                                </StyledButton>
+                                <StyledButton 
+                                    variant="danger"
+                                    background={GlobalColors.red}
+                                    borderRadius="20"
+                                    fontSize="2"
+                                    onClick={() => orderDeleteHandler(paketId)} 
+                                    disabled={packetIsLoading || isButtonDisabled}>
+                                    { packetIsLoading && <CircularProgress style={{
+                                        color: 'white'
+                                    }} /> }
+                                    { !packetIsLoading && 
+                                        <DeleteOutlineOutlined style={{ fontSize: '2rem' }} />
+                                    }   
+                                </StyledButton>
+                        </div>
+                    </>
+                }
+            </SmallCard>
         </>
     )
 }

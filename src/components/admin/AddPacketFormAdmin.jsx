@@ -53,7 +53,7 @@ const AddForm = styled.form`
     }
 `
 
-const AddFormContainer = ({ setIsShowAdd, isAddForm }) => {
+const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown  }) => {
     const { isLoading: isAdminDataLoading, dispatch, packet } = useContext(AdminOrderContext);
     let accessToken = localStorage.getItem("accessToken");
     
@@ -209,20 +209,38 @@ const AddFormContainer = ({ setIsShowAdd, isAddForm }) => {
                         }
                     </StyledButton>
                 }
-                <StyledButton 
-                    variant="danger"
-                    onClick={() => setIsShowAdd(false)}
-                    background={GlobalColors.red}
-                    borderRadius="20"
-                    height="50"
-                    disabled={isAdminDataLoading}>
-                    { isAdminDataLoading && <CircularProgress style={{
-                        color: 'white'
-                    }} /> }
-                    { !isAdminDataLoading && 
-                        <Close style={{ fontSize: '2rem' }} />
-                    }   
-                </StyledButton>
+                {
+                    isAddForm ?
+                        <StyledButton 
+                            variant="danger"
+                            onClick={() => setIsShowAdd(false)}
+                            background={GlobalColors.red}
+                            borderRadius="20"
+                            height="50"
+                            disabled={isAdminDataLoading}>
+                            { isAdminDataLoading && <CircularProgress style={{
+                                color: 'white'
+                            }} /> }
+                            { !isAdminDataLoading && 
+                                <Close style={{ fontSize: '2rem' }} />
+                            }   
+                        </StyledButton>
+                    :
+                        <StyledButton 
+                            variant="danger"
+                            onClick={() => setIsFormShown(false)}
+                            background={GlobalColors.red}
+                            borderRadius="20"
+                            height="50"
+                            disabled={isAdminDataLoading}>
+                            { isAdminDataLoading && <CircularProgress style={{
+                                color: 'white'
+                            }} /> }
+                            { !isAdminDataLoading && 
+                                <Close style={{ fontSize: '2rem' }} />
+                            }   
+                        </StyledButton>
+                }
         </AddForm>
     )
 }
