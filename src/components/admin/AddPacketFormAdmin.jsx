@@ -92,6 +92,12 @@ const AddFormContainer = ({ setIsShowAdd }) => {
                 
                 console.log(res);
                 dispatch({ type: "ADD_ADMIN_PACKET_SUCCESS", payload: res.data.data })
+
+                setNamaPaket("");
+                setTipePaket("");
+                setSpesifikasiPaket("");
+                setHargaAula(0);
+                setHargaPaket(0);
             } catch (err) {
                 console.log(err.response);
                 dispatch({ type: "ADD_ADMIN_PACKET_FAILURE", payload: err.response })
