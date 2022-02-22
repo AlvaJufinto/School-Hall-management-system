@@ -87,7 +87,7 @@ const CardComponent = ({ packetPlain, description, image, title, packet, price, 
                 <div className="CardBody">
                     <CardTitle>{title}</CardTitle>
                     <Card.Text>
-                        {packetPlain ? description : packet.map((packet, i) => (
+                        {packetPlain ? description : packet?.map((packet, i) => (
                             <p key={i}>{packet}</p>
                         ))}
                     </Card.Text>

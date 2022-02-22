@@ -22,18 +22,21 @@ const CardsContainer = styled.div`
 `
 
 const PacketCards = () => {
-    const [packets, setPackets]  = useState();
-    const [isLoading, setIsLoading] = useState(true);
+    const [packets, setPackets]  = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         (async () => {
+            setIsLoading(true);
             try {
                 const res = await clientDataApi.allPackets();
-                setPackets(res.data.data.paket)
-                setIsLoading(!isLoading);
+                setPackets(res.data.data.paket);
+                console.log(res.data.data.paket);
+                console.log(packets);
+                setIsLoading(false);
             } catch (err) {
                 console.log(err);
-                setIsLoading(!isLoading);
+                setIsLoading(false);
             }
         })();
     }, []);
@@ -43,10 +46,10 @@ const PacketCards = () => {
             <StyledTitle>Pilih paket</StyledTitle>
             <CardsContainer>
                 {isLoading && <CircularProgress /> }
-                {packets && packets.map((packet, i) =>(
+                {packets?.map((packet) =>(
                     <StyledLink to={`/form-order/${packet._id}`}>
                         <CardComponent 
-                            packetPlain={packet.paketPlain}
+                            packetPlain={packet?.paketPlain}
                             image={packet?.paketPlain ? DummyImgPlain : DummyImg} 
                             title={packet?.namaPaket}
                             description={packet?.deskripsi}
