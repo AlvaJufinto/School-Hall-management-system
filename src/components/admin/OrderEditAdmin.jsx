@@ -80,7 +80,7 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
 
         
         if(accessToken) {
-            dispatch({ type: 'EDIT_ADMIN_ORDER_START'});
+            dispatch({ type: 'EDIT_ADMIN_ORDER_START' });
             try {
                 const res = await adminDataApi.editOrder({ params: id, accessToken: accessToken }, detail);
 

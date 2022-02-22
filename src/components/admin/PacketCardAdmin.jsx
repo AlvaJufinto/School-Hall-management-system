@@ -105,7 +105,7 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
             <div className="CardBody">
                 <CardTitle>{title}</CardTitle>
                 <Card.Text>
-                    {packetPlain ? 'paket yang menyediakan aula saja dengan fasilitasnya' : activePacket.map((packet, i) => (
+                    {packetPlain ? 'paket yang menyediakan aula saja dengan fasilitasnya' : activePacket?.map((packet, i) => (
                         <p key={i}>{packet}</p>
                         ))}
                 </Card.Text>

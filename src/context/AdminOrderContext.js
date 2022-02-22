@@ -80,7 +80,7 @@ const AuthReducer = (state, action) => {
         case "ADD_ADMIN_PACKET_SUCCESS":
             return {
                 order: state.order,
-                packet: action.payload,
+                packet: [...state.packet, action.payload],
                 isLoading: false,
                 errorMessage: null,
             }
@@ -130,7 +130,7 @@ export const AdminOrderContextProvider = ({ children }) => {
         }
         })();
     }, [refreshToken]);
-    
+
     return (
         <AdminOrderContext.Provider
             value={{
