@@ -75,8 +75,8 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
             deskripsi : deskripsiPaket ? deskripsiPaket : "kosong",
             detailCatering : {
                 gambar: "GambarAja",
-                hargaPerBuah : tipePaket === "plain" ? "" : Number(hargaPaket),
-                detailPaketCatering : spesifikasiPaket ? spesifikasiPaket.replace(/\s/g, '').split(',') : 0,
+                hargaPerBuah : tipePaket === "plain" ? 0 : Number(hargaPaket),
+                detailPaketCatering : spesifikasiPaket ? spesifikasiPaket.split(',') : "",
             }
         } 
 
@@ -112,8 +112,8 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
             deskripsi : deskripsiPaket ? deskripsiPaket : "kosong",
             detailCatering : {
                 gambar: "GambarAja",
-                hargaPerBuah : tipePaket === "plain" ? "" : Number(hargaPaket),
-                detailPaketCatering : spesifikasiPaket ? spesifikasiPaket.replace(/\s/g, '').split(',') : 0,
+                hargaPerBuah : tipePaket === "plain" ? 0 : Number(hargaPaket),
+                detailPaketCatering : spesifikasiPaket ? spesifikasiPaket.split(',') : "",
             }
         } 
 

@@ -125,20 +125,22 @@ const OrderDone = () => {
                         textTransform: 'uppercase',
                     }}>{viewOrder && viewOrder[0]?.status}</b></h3>
                     <div className="Option">
-                        <StyledButton 
-                            variant="success"
-                            onClick={() => setShowModal(true)}
-                            background={GlobalColors.green}
-                            borderRadius="20"
-                            fontSize="2"
-                            disabled={orderIsLoading}>
-                            { orderIsLoading && <CircularProgress style={{
-                                color: 'white'
-                            }} /> }
-                            { !orderIsLoading && 
-                                <CreateOutlined style={{ fontSize: '2rem' }} />
-                            }
-                        </StyledButton>
+                        { !viewOrder[0]?.status === 'selesai' &&
+                            <StyledButton 
+                                variant="success"
+                                onClick={() => setShowModal(true)}
+                                background={GlobalColors.green}
+                                borderRadius="20"
+                                fontSize="2"
+                                disabled={orderIsLoading}>
+                                { orderIsLoading && <CircularProgress style={{
+                                    color: 'white'
+                                }} /> }
+                                { !orderIsLoading && 
+                                    <CreateOutlined style={{ fontSize: '2rem' }} />
+                                }
+                            </StyledButton>
+                        }
                         <StyledButton 
                             variant="danger"
                             background={GlobalColors.red}
