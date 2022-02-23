@@ -106,6 +106,7 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
                     <AddForm 
                         isAddForm={false} 
                         setIsFormShown={setIsFormShown}
+                        isFormShown={isFormShown}
                         packetInfo={{
                             paketId, 
                             packetPlain,

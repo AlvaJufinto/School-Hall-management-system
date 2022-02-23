@@ -68,7 +68,16 @@ export const adminDataApi = {
       headers: {
         'jwt' : accessToken
       }
-    })
+    });
+  },
+  editPacket: ({ params, accessToken }, detail) => {
+    return axios.post(`${baseUrl}/admin/edit/paket/${params}`,
+    detail,
+    {
+      headers: {
+        'jwt' : accessToken
+      }
+    });
   }
 }
 

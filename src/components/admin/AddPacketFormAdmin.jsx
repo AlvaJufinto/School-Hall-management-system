@@ -1,13 +1,10 @@
 import { useContext, useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import { Form, InputGroup, FormControl } from "react-bootstrap";
 import { CreateOutlined, Check, Close } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
 import useDraggableScroll from 'use-draggable-scroll';
 
-import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
-import CardComponent from "./../../components/admin/PacketCardAdmin";
 import { adminDataApi } from '../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
@@ -68,7 +65,7 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
         console.log(packetInfo);
         console.log("AAOKWOAKWOAWK");
     }, [packet])
-    
+
     const addPaketHandler = async (e) => {
         e.preventDefault();
         const detail = {
@@ -79,7 +76,7 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
             detailCatering : {
                 gambar: "GambarAja",
                 hargaPerBuah : tipePaket === "plain" ? "" : Number(hargaPaket),
-                detailPaketCatering : spesifikasiPaket ? spesifikasiPaket.replace(/\s/g, '').split(',') : "",
+                detailPaketCatering : spesifikasiPaket ? spesifikasiPaket.replace(/\s/g, '').split(',') : 0,
             }
         } 
 
@@ -106,7 +103,44 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
     }
 
     const editPaketHandler = async (e) => {
+        e.preventDefault();
+        const detail = {
+            _id: packetInfo?.paketId,
+            paketPlain : tipePaket === "plain" ? true : false,
+            namaPaket : namaPaket,
+            hargaAula : Number(hargaAula),
+            deskripsi : deskripsiPaket ? deskripsiPaket : "kosong",
+            detailCatering : {
+                gambar: "GambarAja",
+                hargaPerBuah : tipePaket === "plain" ? "" : Number(hargaPaket),
+                detailPaketCatering : spesifikasiPaket ? spesifikasiPaket.replace(/\s/g, '').split(',') : 0,
+            }
+        } 
 
+         if(accessToken) {
+            dispatch({ type: "EDIT_ADMIN_PACKET_START" })
+            try {
+                console.log(detail);
+                const res = await adminDataApi.editPacket({ params: packetInfo?.paketId, accessToken: accessToken }, detail); 
+                
+                const findIndex = packet.findIndex(obj => obj._id === detail?._id);
+                let newPackets = packet.filter((item) => item._id !== detail?._id);
+                newPackets.splice(findIndex, 0, detail);
+                console.log(newPackets);
+                
+                dispatch({ type: "EDIT_ADMIN_PACKET_SUCCESS", payload: newPackets })
+                setIsFormShown(false);
+                // setNamaPaket("");
+                // setTipePaket("");
+                // setSpesifikasiPaket("");
+                // setDeskripsiPaket("")
+                // setHargaAula(0);
+                // setHargaPaket(0);
+            } catch (err) {
+                console.log(err.response);
+                dispatch({ type: "EDIT_ADMIN_PACKET_FAILURE", payload: err.response })
+            }
+        }
     }
 
     return (
@@ -195,7 +229,7 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
                 :
                     <StyledButton 
                         variant="success"
-                        onClick=""
+                        onClick={e => editPaketHandler(e)}
                         background={GlobalColors.green}
                         borderRadius="20"
                         height="50"

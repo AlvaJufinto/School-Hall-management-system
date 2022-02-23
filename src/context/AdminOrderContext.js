@@ -105,6 +105,27 @@ const AuthReducer = (state, action) => {
                 isLoading: false,
                 errorMessage: null, 
             }
+        case "EDIT_ADMIN_PACKET_START":
+            return {
+                order: state.order,
+                packet: state.packet,
+                isLoading: true,
+                errorMessage: null,
+            }
+        case "EDIT_ADMIN_PACKET_SUCCESS":
+            return {
+                order: state.order,
+                packet: action.payload,
+                isLoading: false, 
+                errorMessage: null,
+            }
+        case "EDIT_ADMIN_PACKET_FAILURE":
+            return {
+                order: state.order,
+                packet: state.packet,
+                isLoading: false,
+                errorMessage: action.payload, 
+            }
         default: 
             return state;
     }

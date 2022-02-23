@@ -60,7 +60,7 @@ const Packet = () => {
                 <DetailPreview>
                     <h3 className="fw-bolder mb-4">/Paket</h3>
                     <div className="DetailPreview">
-                        {isAdminDataLoading && <CircularProgress /> }                    
+                        {isAdminDataLoading && !packet && <CircularProgress /> }                    
                         {packet?.map((packet) =>(
                             <CardComponent 
                                 key={packet}
