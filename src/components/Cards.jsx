@@ -79,7 +79,7 @@ const CardTitle = styled(Card.Title)`
     font-family: ${GlobalFonts.primary};
 `
 
-const CardComponent = ({ packetPlain, description, image, title, packet, price, cardVariant }) => {
+const CardComponent = ({ packetPlain, deskripsi, image, title, packet, price, cardVariant }) => {
     const SmallCardComponent = () => {
         return (
             <SmallCard>
@@ -87,7 +87,7 @@ const CardComponent = ({ packetPlain, description, image, title, packet, price, 
                 <div className="CardBody">
                     <CardTitle>{title}</CardTitle>
                     <Card.Text>
-                        {packetPlain ? description : packet?.map((packet, i) => (
+                        {packetPlain ? deskripsi : packet?.map((packet, i) => (
                             <p key={i}>{packet}</p>
                         ))}
                     </Card.Text>

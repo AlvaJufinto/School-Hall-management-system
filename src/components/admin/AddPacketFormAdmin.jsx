@@ -53,16 +53,16 @@ const AddForm = styled.form`
     }
 `
 
-const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown  }) => {
+const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo  }) => {
     const { isLoading: isAdminDataLoading, dispatch, packet } = useContext(AdminOrderContext);
     let accessToken = localStorage.getItem("accessToken");
     
-    const [namaPaket, setNamaPaket] = useState("");
-    const [tipePaket, setTipePaket] = useState("plain"); 
-    const [deskripsiPaket, setDeskripsiPaket] = useState("");
-    const [spesifikasiPaket, setSpesifikasiPaket] = useState("");
-    const [hargaAula, setHargaAula] = useState(0);
-    const [hargaPaket, setHargaPaket] = useState(0);
+    const [namaPaket, setNamaPaket] = useState();
+    const [tipePaket, setTipePaket] = useState(isAddForm ? "plain" : packetInfo?.tipePaket); 
+    const [deskripsiPaket, setDeskripsiPaket] = useState();
+    const [spesifikasiPaket, setSpesifikasiPaket] = useState();
+    const [hargaAula, setHargaAula] = useState();
+    const [hargaPaket, setHargaPaket] = useState();
     
     useEffect(() => {
         console.log("AAOKWOAKWOAWK")
@@ -114,19 +114,20 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown  }) => {
             <img variant="top" src={BlankImg} />
                 <div className="CardBody">
                     <Form.Control 
-                        variant="success"
                         type="text"
                         placeholder="Nama Paket"
                         className="NamaPaket"
                         value={namaPaket}
                         onChange={e => setNamaPaket(e.target.value)}
                         required />
-                    <Form.Select className="mt-3" onChange={e => setTipePaket(e.target.value)}  aria-label="Floating label select example">
-                        <option 
-                            value="plain">Tanpa Catering</option>
-                        <option 
-                            value="order">Paket Catering</option>
-                    </Form.Select>
+                    {isAddForm && 
+                        <Form.Select className="mt-3" onChange={e => setTipePaket(e.target.value)}  aria-label="Floating label select example">
+                            <option 
+                                value="plain">Tanpa Catering</option>
+                            <option 
+                                value="order">Paket Catering</option>
+                        </Form.Select>
+                    }
                     {tipePaket === 'order' ?
                         <Form.Control 
                             as="textarea" 

@@ -68,13 +68,11 @@ const OrderDone = () => {
 
     useEffect(() => {
         setViewOrder(order.filter(item => item._id === orderId));
-        console.log(order.filter(item => item._id === orderId));
+        console.log(viewOrder);
     }, [orderId, order, packet]);
     
     useEffect(() =>{
-        console.log(packet);
         setActivePacket(packet.filter(item => item._id === viewOrder[0]?.paketId));
-        console.log(packet.filter(item => item._id === viewOrder[0]?.paketId));
     }, [viewOrder])
     
     const orderDeleteHandler = async (orderId) => {
@@ -162,6 +160,7 @@ const OrderDone = () => {
                                 key={viewOrder?._id}
                                 setShowModal={setShowModal}
                                 atasNama={viewOrder?.atasNama} 
+                                deskripsi={viewOrder?.deskripsi}
                                 namaAcara={viewOrder?.namaAcara} 
                                 orderId={viewOrder?._id}
                                 tanggal={viewOrder?.tanggal}
@@ -178,6 +177,7 @@ const OrderDone = () => {
                             <CardComponent 
                                 packetPlain={packet?.paketPlain}
                                 image={packet?.paketPlain ? DummyImgPlain : DummyImg} 
+                                deskripsi={packet?.deskripsi}
                                 title={packet?.namaPaket}
                                 packet={!packet.paketPlain && packet.detailCatering.detailPaketCatering}
                                 price={!packet.paketPlain ? packet.detailCatering.hargaPerBuah : '0'}

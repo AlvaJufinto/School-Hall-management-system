@@ -68,6 +68,7 @@ const Packet = () => {
                                 packetPlain={packet?.paketPlain}
                                 image={packet?.paketPlain ? DummyImgPlain : DummyImg} 
                                 title={packet?.namaPaket}
+                                deskripsi={packet?.deskripsi}
                                 packet={packet?.detailCatering && packet?.detailCatering?.detailPaketCatering}
                                 price={packet?.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
                                 cardVariant="small"

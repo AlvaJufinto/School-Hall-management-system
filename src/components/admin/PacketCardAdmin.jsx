@@ -36,16 +36,15 @@ const DefaultCard = styled(Card)`
     }
 
     h2 {
-        margin: 30px 0 0 0;
+        margin: 20px 0;
         font-family: ${GlobalFonts.primary};
         text-align: left;
-        min-width: 150px;
         font-size: 1.5rem;
         color: ${GlobalColors.green};
     }    
 
     .Options {
-        margin: 20px 0 0 0;
+        margin-top: auto;
         height: 50px;
         display: flex;
         gap: 20px;
@@ -73,7 +72,7 @@ const CardTitle = styled(Card.Title)`
     font-family: ${GlobalFonts.primary};
 `
 
-const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacket, price }) => {
+const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacket, deskripsi, price }) => {
     const { isLoading: packetIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
     const [isFormShown, setIsFormShown] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -105,14 +104,23 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
                 { isFormShown ? 
                     <AddForm 
                         isAddForm={false} 
-                        setIsFormShown={setIsFormShown} />    
+                        setIsFormShown={setIsFormShown}
+                        packetInfo={{
+                            paketId, 
+                            tipePaket: (() => packetPlain ? 'plain' : 'order')(), 
+                            image, 
+                            title, 
+                            packet: activePacket, 
+                            deskripsi, 
+                            price
+                        }} />    
                     :
                     <>
                         <img variant="top" src={image} />
                         <div className="CardBody">
                                 <CardTitle>{title}</CardTitle>
                                 <Card.Text>
-                                    {packetPlain ? 'paket yang menyediakan aula saja dengan fasilitasnya' : activePacket?.map((packet, i) => (
+                                    {packetPlain ? deskripsi : activePacket?.map((packet, i) => (
                                         <p key={i}>{packet}</p>
                                         ))}
                                 </Card.Text>
