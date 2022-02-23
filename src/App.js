@@ -11,6 +11,7 @@ import { GlobalStyles } from "./globals";
 
 // User
 import Home from "./pages/user/Home";
+import Schedule from "./pages/user/Schedule";
 import FormOrder from "./pages/user/FormOrder";
 import Receipt from "./pages/user/Receipt";
 
@@ -29,7 +30,7 @@ import api from "./api/api";
 
 function App() {
   const { isLoggedIn, isLoading, dispatch } = useContext(AuthContext);
-  
+
   return (
     <Router>
       <GlobalStyles />
@@ -37,6 +38,7 @@ function App() {
         <Routes>
           {/* User */}
           <Route path="/" element={<Home />} />
+          <Route path="/schedule" element={<Schedule />} />
           <Route path="/form-order/:packetId" element={<FormOrder />} />
           <Route path="/receipt/:receiptId" element={<Receipt />} />
 

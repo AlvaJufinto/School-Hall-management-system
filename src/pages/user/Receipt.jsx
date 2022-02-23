@@ -17,7 +17,6 @@ import WhatsappIcon from "../../assets/svg/Whatsapp-icon.svg";
 import DummyImg from "./../../assets/img/dummy-img-1.png";
 import DummyImgPlain from "./../../assets/img/dummy-img-3.png";
 
-
 const ReceiptInformation = styled.div`
     padding: 40px 0;
     text-align: center;

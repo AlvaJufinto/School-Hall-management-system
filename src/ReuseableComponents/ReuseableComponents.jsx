@@ -37,7 +37,7 @@ export const StyledButton = styled(Button)`
 export const StyledTitle = styled.h1`
     margin: auto;
     display: flex;
-    justify-content: center;
+    justify-content: ${props => props.justifyContent ? props.justifyContent : 'center'};
     color: ${props => props.color ? props.color : 'black'};
     font-size: ${props => props.fontSize ? props.fontSize : "3"}rem;
     padding: ${props => props.marginY ? props.marginY : "100"}px 0px 50px 0px;

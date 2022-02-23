@@ -51,6 +51,22 @@ const Dashboard = () => {
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
 
+    // useEffect(() => {
+    //     (async () => {
+    //         dispatch({ type: "LOGIN_START" });
+    //         if (refreshToken) {
+    //             try {
+    //                 const res = await authApi.loggedIn({ refreshToken: refreshToken});
+    //                 dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+
+    //                 // console.log(res)
+    //             } catch (err) {
+    //                 console.error(err);
+    //             }
+    //         }
+    //     })();
+    // }, [refreshToken, accessToken]);
+
     useEffect(() => {
         if(accessToken) {
             (async () => {

@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { Form } from "react-bootstrap";
 
 import { StyledButton } from '../../ReuseableComponents/ReuseableComponents';
@@ -56,7 +57,7 @@ const StyledForm = styled.form`
 
 const Login = () => {
     const { display, isLoading, dispatch, errorMessage, user } = useContext(AuthContext);
-    
+    const navigate = useNavigate();
     const [formState, setFormState] = useState({
         username: "",
         password: "",
@@ -80,9 +81,9 @@ const Login = () => {
             
             let getUserCredentials = await authApi.loggedIn({ refreshToken: refreshToken });
             dispatch({ type: "LOGIN_SUCCESS", payload: getUserCredentials });
-            
+            navigate("/admin/dashboard", { replace: true });
         } catch (err) {
-            dispatch({ type: "LOGIN_FAILURE", payload: err.response.data.message });
+            dispatch({ type: "LOGIN_FAILURE", payload: err.response });
         }
     }
 

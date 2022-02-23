@@ -27,7 +27,7 @@ const StyledNavbar = () => {
                             <StyledLink to="/">HOME</StyledLink>
                         </Nav.Link>
                         <Nav.Link className="mr-5">
-                            <StyledLink to="/about">ABOUT</StyledLink>
+                            <StyledLink to="/schedule">Jadwal</StyledLink>
                         </Nav.Link>
                         <Nav.Link>
                             <StyledLink to="/contact">CONTACT</StyledLink>
