@@ -53,20 +53,20 @@ const AddForm = styled.form`
     }
 `
 
-const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo  }) => {
+const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo }) => {
     const { isLoading: isAdminDataLoading, dispatch, packet } = useContext(AdminOrderContext);
     let accessToken = localStorage.getItem("accessToken");
     
-    const [namaPaket, setNamaPaket] = useState();
+    const [namaPaket, setNamaPaket] = useState(packetInfo?.title);
     const [tipePaket, setTipePaket] = useState(isAddForm ? "plain" : packetInfo?.tipePaket); 
-    const [deskripsiPaket, setDeskripsiPaket] = useState();
-    const [spesifikasiPaket, setSpesifikasiPaket] = useState();
-    const [hargaAula, setHargaAula] = useState();
-    const [hargaPaket, setHargaPaket] = useState();
+    const [deskripsiPaket, setDeskripsiPaket] = useState(packetInfo?.packetPlain ? packetInfo?.deskripsi : "");
+    const [spesifikasiPaket, setSpesifikasiPaket] = useState(!packetInfo?.packetPlain ? packetInfo?.packet?.toString() : "");
+    const [hargaAula, setHargaAula] = useState(packetInfo?.priceAula);
+    const [hargaPaket, setHargaPaket] = useState(packetInfo?.price);
     
     useEffect(() => {
-        console.log("AAOKWOAKWOAWK")
-        console.log(packet)
+        console.log(packetInfo);
+        console.log("AAOKWOAKWOAWK");
     }, [packet])
     
     const addPaketHandler = async (e) => {

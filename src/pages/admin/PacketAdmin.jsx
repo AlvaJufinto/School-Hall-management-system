@@ -71,6 +71,7 @@ const Packet = () => {
                                 deskripsi={packet?.deskripsi}
                                 packet={packet?.detailCatering && packet?.detailCatering?.detailPaketCatering}
                                 price={packet?.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
+                                priceAula={packet?.hargaAula}
                                 cardVariant="small"
                                 className="h-100" 
                                 packetIsLoading={isAdminDataLoading} />

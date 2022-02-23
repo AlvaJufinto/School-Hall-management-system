@@ -57,7 +57,8 @@ const DefaultCard = styled(Card)`
 `
 
 const SmallCard = styled(DefaultCard)`
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
 
     .CardBody {
         margin: 20px 0 0 0;
@@ -72,7 +73,7 @@ const CardTitle = styled(Card.Title)`
     font-family: ${GlobalFonts.primary};
 `
 
-const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacket, deskripsi, price }) => {
+const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacket, deskripsi, price, priceAula }) => {
     const { isLoading: packetIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
     const [isFormShown, setIsFormShown] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -107,12 +108,14 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
                         setIsFormShown={setIsFormShown}
                         packetInfo={{
                             paketId, 
+                            packetPlain,
                             tipePaket: (() => packetPlain ? 'plain' : 'order')(), 
                             image, 
                             title, 
                             packet: activePacket, 
                             deskripsi, 
-                            price
+                            price,
+                            priceAula
                         }} />    
                     :
                     <>

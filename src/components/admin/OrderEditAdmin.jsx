@@ -91,7 +91,7 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                 dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: newOrders });
                 setShowModal(false);
             } catch(err) {
-                console.log(err.response.data.message);
+                console.log(err.response.data);
                 console.log(err.response.data);
                 console.error("asdasd")
                 dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
