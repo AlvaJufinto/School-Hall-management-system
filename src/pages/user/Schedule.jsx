@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import useWindowDimensions from "./../../hooks/useWindowDimensions";
 import styled from 'styled-components';
 import { Form } from "react-bootstrap";
@@ -36,19 +37,49 @@ const CardScheduleContainer = styled.div`
 `
 
 const AvailableDateContainer = styled.div`
-    
+    margin: 40px 0 0 0;
+    font-family: ${GlobalFonts.secondary};
+
+    h5 {
+        color: black;
+    }
+
+    span {
+        font-size: 1.25rem;
+        color: ${GlobalColors.green};
+    }
 `
 
 const Schedule = () => {
     const { height, width } = useWindowDimensions();
-    const [months, setMonths] = useState([ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
-    const [years, setYears] = useState(['2022', '2023', '2024', '2025', '2026', '2027']);
-    const [yearValue, setYearValue] = useState("Pilih Tahun")
-    const [monthValue, setMonthValue] = useState("Pilih Bulan")
+    const date = new Date();
+    const [isAvailableDateLoading, setIsAvailableDateLoading] = useState(true);
+    const [availableDate, setAvailableDate] = useState([]);
+    const [months, setMonths] = useState([ "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]);
+    const [years, setYears] = useState(Array(6).fill().map((_, idx) => new Date().getFullYear() + idx));
+    const [yearValue, setYearValue] = useState(date.getFullYear())
+    const [monthValue, setMonthValue] = useState(date.getMonth() + 1);
+
+    useEffect(async () => {
+        setIsAvailableDateLoading(true);
+        try {
+            const res = await clientDataApi.getAvailableDate({ month: monthValue, year: yearValue });
+                
+            console.log(res.data.details.data);
+            setAvailableDate(res.data.details.data);
+            setIsAvailableDateLoading(false);
+        } catch (err) {
+            console.log(err.response);
+            setIsAvailableDateLoading(false);
+        }
+    }, [yearValue, monthValue])
 
     useEffect(() => {
         console.log('kok ga muncul?');
-        console.log(years);
+        console.log(date.getMonth() + 1);
+        console.log(date.getFullYear());
+        console.log(Array(5).fill().map((_, idx) => new Date().getFullYear() + idx))
+        console.log(date.getFullYear());
     }, [months])
     
     const CardSchedule = ({ isActive }) => {
@@ -79,7 +110,7 @@ const Schedule = () => {
                 <SelectHolder>
                     <Form.Select size="lg" 
                         value={yearValue}
-                        onChange={e => setYearValue(e)}
+                        onChange={e => setYearValue(e.target.value)}
                         style={{
                             borderRadius: '30px',
                             fontSize: '1.5rem',
@@ -88,7 +119,7 @@ const Schedule = () => {
                             padding: '10px 20px',
                         }}>
                         {years?.map((year, i) => (
-                            <option key={i} value={i+1}>{year}</option>
+                            <option key={i} value={year}>{year}</option>
                         ))}
                     </Form.Select>
                     <Form.Select size="lg" 
@@ -107,6 +138,11 @@ const Schedule = () => {
                     </Form.Select>
                 </SelectHolder>
                 <AvailableDateContainer>
+                    <h5>{`Tanggal yang tersedia bulan ${months[monthValue]} Tahun ${yearValue} :`}</h5>
+                    { isAvailableDateLoading && <CircularProgress /> }
+                    { !isAvailableDateLoading && availableDate?.map((date, i) => (
+                        <span key={i} >{i === 0 ? "" : ","} {date}</span>
+                    ))}
                 </AvailableDateContainer>
                 <StyledTitle 
                     justifyContent="flex-start" 

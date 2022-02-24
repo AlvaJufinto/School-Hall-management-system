@@ -14,8 +14,8 @@ export const clientDataApi = {
   addOrder: ({ params }, detail) => {
     return axios.post(`${baseUrl}/client/order/${params}`, detail);
   },
-  getAvailableDate: ({ params, month, year }) => {
-    return axios.post(`${baseUrl}/client/avDate?month=${month}&year=${year}`)
+  getAvailableDate: ({ month, year }) => {
+    return axios.get(`${baseUrl}/client/avDate?month=${month}&year=${year}`)
   },
 };
 
