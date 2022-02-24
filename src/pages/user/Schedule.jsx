@@ -187,7 +187,7 @@ const Schedule = () => {
                     {!isOrderLoading && queueOrder?.length === 0 && <p style={{
                         color: GlobalColors.violet,
                         fontSize: '2rem',
-                    }}>😔 Tidak ada order yang sedang berlangsung</p>}
+                    }}>😔 Tidak ada order yang sedang mengantre, ayo buruan pesan!</p>}
                 </CardScheduleContainer>
             </StyledSection>
             <Footer />
