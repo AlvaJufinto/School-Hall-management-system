@@ -60,6 +60,10 @@ const Schedule = () => {
     const [yearValue, setYearValue] = useState(date.getFullYear())
     const [monthValue, setMonthValue] = useState(date.getMonth() + 1);
 
+    const [isOrderLoading, setIsOrderLoading] = useState(true);
+    const [activeOrder, setActiveOrder] = useState();
+    const [queueOrder, setQueueOrder] = useState();
+
     useEffect(async () => {
         setIsAvailableDateLoading(true);
         try {
@@ -74,15 +78,26 @@ const Schedule = () => {
         }
     }, [yearValue, monthValue])
 
-    useEffect(() => {
-        console.log('kok ga muncul?');
-        console.log(date.getMonth() + 1);
-        console.log(date.getFullYear());
-        console.log(Array(5).fill().map((_, idx) => new Date().getFullYear() + idx))
-        console.log(date.getFullYear());
-    }, [months])
+    useEffect(async () => {
+        setIsOrderLoading(true);
+        try {
+            const res = await clientDataApi.allData();
+            console.log(res.data.data.order);
+            setActiveOrder(res.data.data.active);
+            setQueueOrder(res.data.data.order);
+            setIsOrderLoading(false)
+        } catch (err) {
+            console.log(err);
+            setIsOrderLoading(false);
+        }
+    }, [])
     
-    const CardSchedule = ({ isActive }) => {
+    const CardSchedule = ({ isActive, orderDetail }) => {
+
+        const breakStyle = {
+            wordBreak: 'break-word',
+        
+        }
 
         return (
             <div style={{
@@ -93,11 +108,12 @@ const Schedule = () => {
                 padding: '20px',
                 borderRadius: '20px'
             }}>
-                <p>Nama Pete</p>
+                <p>{orderDetail?.atasNama}</p>
                 <h3 style={{
                     margin: '20px 0px'
-                }}>Penyuluhan Bahaya Nyimeng Bagi Anak Lanjut Usia</h3>
-                <p>26/03/2022</p>
+                }}>{orderDetail?.namaAcara}</h3>
+                <p style={breakStyle}>{orderDetail?.email}</p>
+                <p style={breakStyle}>{orderDetail?.tanggal?.toString().slice(0, 10).split('-').reverse().join('-')}</p>
             </div>
         )
     }
@@ -106,7 +122,7 @@ const Schedule = () => {
         <>
             <StyledNavbar />
             <StyledSection className="p-3">
-                <StyledTitle justifyContent="flex-start" fontSize="2.5">Lihat ketersediaan hari</StyledTitle>
+                <StyledTitle justifyContent="flex-start" fontSize="2.5">Lihat ketersediaan Tanggal</StyledTitle>
                 <SelectHolder>
                     <Form.Select size="lg" 
                         value={yearValue}
@@ -150,23 +166,28 @@ const Schedule = () => {
                     isActive={true}>
                         Sedang Berlangsung
                 </StyledTitle>
-                <CardSchedule isActive={true} />
+                { isOrderLoading && <CircularProgress /> }
+                { !isOrderLoading && activeOrder?.map((order, i) => (
+                    <CardSchedule key={i} isActive={true} />
+                ))}
+                { !isOrderLoading && activeOrder?.length === 0 && <p style={{
+                    color: GlobalColors.green,
+                    fontSize: '2rem',
+                }}>😔 Tidak ada order yang sedang berlangsung</p> }
                 <StyledTitle 
                     justifyContent="flex-start" 
                     fontSize="2.5">
                         Akan Datang
                 </StyledTitle>
                 <CardScheduleContainer>
-                    <CardSchedule />
-                    <CardSchedule />
-                    <CardSchedule />
-                    <CardSchedule />
-                    <CardSchedule />
-                    <CardSchedule />
-                    <CardSchedule />
-                    <CardSchedule />
-                    <CardSchedule />
-                    <CardSchedule />
+                    {isOrderLoading && <CircularProgress />}
+                    {!isOrderLoading && queueOrder?.map((order) => (
+                        <CardSchedule orderDetail={order} />
+                    ))}
+                    {!isOrderLoading && queueOrder?.length === 0 && <p style={{
+                        color: GlobalColors.violet,
+                        fontSize: '2rem',
+                    }}>😔 Tidak ada order yang sedang berlangsung</p>}
                 </CardScheduleContainer>
             </StyledSection>
             <Footer />

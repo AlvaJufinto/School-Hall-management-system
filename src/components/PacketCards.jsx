@@ -46,7 +46,7 @@ const PacketCards = () => {
             <StyledTitle>Pilih paket</StyledTitle>
             <CardsContainer>
                 {isLoading && <CircularProgress /> }
-                {packets?.map((packet) =>(
+                {!isLoading && packets?.map((packet) =>(
                     <StyledLink to={`/form-order/${packet._id}`}>
                         <CardComponent 
                             packetPlain={packet?.paketPlain}

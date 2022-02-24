@@ -2,6 +2,9 @@ import axios from "axios";
 import { baseUrl } from "./interceptor";
 
 export const clientDataApi = {
+  allData: () => {
+    return axios.get(`${baseUrl}/client/getAllData`);
+  },
   allPackets: () => {
     return axios.get(`${baseUrl}/client/getalldata?q=paket`);
   },
