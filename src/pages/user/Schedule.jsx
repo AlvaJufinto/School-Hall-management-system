@@ -35,11 +35,22 @@ const CardScheduleContainer = styled.div`
     padding: 0 0 300px 0;
 `
 
+const AvailableDateContainer = styled.div`
+    
+`
+
 const Schedule = () => {
     const { height, width } = useWindowDimensions();
+    const [months, setMonths] = useState([ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+    const [years, setYears] = useState(['2022', '2023', '2024', '2025', '2026', '2027']);
     const [yearValue, setYearValue] = useState("Pilih Tahun")
-    const [monthValue, setMonthValue] = useState("Pil")
+    const [monthValue, setMonthValue] = useState("Pilih Bulan")
 
+    useEffect(() => {
+        console.log('kok ga muncul?');
+        console.log(years);
+    }, [months])
+    
     const CardSchedule = ({ isActive }) => {
 
         return (
@@ -47,7 +58,7 @@ const Schedule = () => {
                 width: width >= 994 ? '450px' : '100%',
                 maxWidth: '100%',
                 fontFamily: GlobalFonts.secondary,
-                background: isActive === true ? GlobalColors.violet : GlobalColors.hardGrey,
+                background: isActive === true ? GlobalColors.green : GlobalColors.hardGrey,
                 padding: '20px',
                 borderRadius: '20px'
             }}>
@@ -71,34 +82,44 @@ const Schedule = () => {
                         onChange={e => setYearValue(e)}
                         style={{
                             borderRadius: '30px',
+                            fontSize: '1.5rem',
                             background: GlobalColors.violet,
                             color: 'white',
                             padding: '10px 20px',
                         }}>
-                        <option></option>
-                        <option></option>
+                        {years?.map((year, i) => (
+                            <option key={i} value={i+1}>{year}</option>
+                        ))}
                     </Form.Select>
                     <Form.Select size="lg" 
                         value={monthValue}
-                        onChange={e => setMonthValue(e)}
+                        onChange={e => setMonthValue(e.target.value)}
                         style={{
                             borderRadius: '30px',
+                            fontSize: '1.5rem',
                             background: GlobalColors.violet,
                             color: 'white',
                             padding: '10px 20px',
                         }}>
-                        <option></option>
-                        <option></option>
+                        {months?.map((month, i) => (
+                            <option key={i} value={i+1}>{month}</option>
+                        ))}
                     </Form.Select>
                 </SelectHolder>
+                <AvailableDateContainer>
+                </AvailableDateContainer>
                 <StyledTitle 
                     justifyContent="flex-start" 
                     fontSize="2.5"
-                    isActive={true}>Sedang Berlangsung</StyledTitle>
+                    isActive={true}>
+                        Sedang Berlangsung
+                </StyledTitle>
                 <CardSchedule isActive={true} />
                 <StyledTitle 
                     justifyContent="flex-start" 
-                    fontSize="2.5">Akan Datang</StyledTitle>
+                    fontSize="2.5">
+                        Akan Datang
+                </StyledTitle>
                 <CardScheduleContainer>
                     <CardSchedule />
                     <CardSchedule />
