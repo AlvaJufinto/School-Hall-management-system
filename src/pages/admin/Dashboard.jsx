@@ -163,7 +163,7 @@ const Dashboard = () => {
                 <DetailPreview>
                     <h3 className="fw-bolder mb-4">/Sedang Berlangsung</h3>
                     {isAdminDataLoading && <CircularProgress /> }                    
-                    {activeOrder && activeOrder.map((order) =>(
+                    { !isAdminDataLoading && activeOrder && activeOrder.map((order) =>(
                         <OrderCardInfo 
                             key={order._id}
                             atasNama={order.atasNama} 

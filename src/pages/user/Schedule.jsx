@@ -168,7 +168,7 @@ const Schedule = () => {
                 </StyledTitle>
                 { isOrderLoading && <CircularProgress /> }
                 { !isOrderLoading && activeOrder?.map((order, i) => (
-                    <CardSchedule key={i} isActive={true} />
+                    <CardSchedule key={i} isActive={true} orderDetail={order} />
                 ))}
                 { !isOrderLoading && activeOrder?.length === 0 && <p style={{
                     color: GlobalColors.green,
@@ -181,8 +181,8 @@ const Schedule = () => {
                 </StyledTitle>
                 <CardScheduleContainer>
                     {isOrderLoading && <CircularProgress />}
-                    {!isOrderLoading && queueOrder?.map((order) => (
-                        <CardSchedule orderDetail={order} />
+                    {!isOrderLoading && queueOrder?.map((order, i) => (
+                        <CardSchedule key={i} orderDetail={order} />
                     ))}
                     {!isOrderLoading && queueOrder?.length === 0 && <p style={{
                         color: GlobalColors.violet,
