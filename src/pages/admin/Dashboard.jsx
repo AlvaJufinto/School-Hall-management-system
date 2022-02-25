@@ -6,6 +6,7 @@ import useDraggableScroll from 'use-draggable-scroll';
 
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import OrderCardInfo from "../../components/admin/OrderCardInfo"; 
+import LoadingComponent from "../../components/admin/LoadingComponent";
 import { adminDataApi } from './../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
@@ -131,60 +132,66 @@ const Dashboard = () => {
     }
 
     return (
-        <DashboardContainer>
-            <StyledNavbarAdmin />
-            <AdminStyledSection>
-                <DetailPreview>
-                    <h3 className="fw-bolder" >/Detail</h3>
-                    <div className="DetailPreview" ref={horizontalElement} onMouseDown={onMouseDown} >
-                        <PreviewCard 
-                            color={GlobalColors.violet} 
-                            text="Order Antre"
-                            route="order-queue"
-                            data={futureOrders?.length}
-                            total={orders?.length}
-                            isLoading={isAdminDataLoading} />
-                        <PreviewCard 
-                            color={GlobalColors.green}
-                            text="Orderan Selesai"
-                            route="order-done"
-                            data={doneOrders?.length}
-                            total={orders?.length}
-                            isLoading={isAdminDataLoading}  />
-                        <PreviewCard 
-                            color={GlobalColors.red}
-                            text="Orderan Dibatalkan"
-                            route="order-cancel"
-                            data={0}
-                            total={orders?.length}
-                            isLoading={isAdminDataLoading}  />
-                    </div>
-                </DetailPreview>
-                <DetailPreview>
-                    <h3 className="fw-bolder mb-4">/Sedang Berlangsung</h3>
-                    {isAdminDataLoading && <CircularProgress /> }                    
-                    { !isAdminDataLoading && activeOrder && activeOrder.map((order) =>(
-                        <OrderCardInfo 
-                            key={order._id}
-                            atasNama={order.atasNama} 
-                            namaAcara={order.namaAcara} 
-                            orderId={order._id}
-                            tanggal={order.tanggal}
-                            tipeOrder={order.tipeOrderan}
-                            namaPaket={activePacket && activePacket[0]?.namaPaket}
-                            jumlahPorsi={order.tipeOrderan === 'plain' ? '' : order.jumlahPorsi}
-                            harga={order.tipeOrderan === 'plain' ? activePacket[0]?.hargaAula : activePacket && (order?.jumlahPorsi * activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket[0]?.hargaAula}
-                            status={order.status}
-                            email={order.email}
-                            whatsapp={order.whatsapp}
-                        />
-                    ))}
-                    {!isAdminDataLoading && activeOrder?.length === 0 && 
-                        <h3>Tidak ada order yang sedang berlangsung</h3>
-                    }
-                </DetailPreview>
-            </AdminStyledSection>
-        </DashboardContainer>
+        <>
+        { isAdminDataLoading ? 
+            <LoadingComponent />    
+        :
+            <DashboardContainer>
+                <StyledNavbarAdmin />
+                <AdminStyledSection>
+                    <DetailPreview>
+                        <h3 className="fw-bolder" >/Detail</h3>
+                        <div className="DetailPreview" ref={horizontalElement} onMouseDown={onMouseDown} >
+                            <PreviewCard 
+                                color={GlobalColors.violet} 
+                                text="Order Antre"
+                                route="order-queue"
+                                data={futureOrders?.length}
+                                total={orders?.length}
+                                isLoading={isAdminDataLoading} />
+                            <PreviewCard 
+                                color={GlobalColors.green}
+                                text="Orderan Selesai"
+                                route="order-done"
+                                data={doneOrders?.length}
+                                total={orders?.length}
+                                isLoading={isAdminDataLoading}  />
+                            <PreviewCard 
+                                color={GlobalColors.red}
+                                text="Orderan Dibatalkan"
+                                route="order-cancel"
+                                data={0}
+                                total={orders?.length}
+                                isLoading={isAdminDataLoading}  />
+                        </div>
+                    </DetailPreview>
+                    <DetailPreview>
+                        <h3 className="fw-bolder mb-4">/Sedang Berlangsung</h3>
+                        {isAdminDataLoading && <CircularProgress /> }                    
+                        { !isAdminDataLoading && activeOrder && activeOrder.map((order) =>(
+                            <OrderCardInfo 
+                                key={order._id}
+                                atasNama={order.atasNama} 
+                                namaAcara={order.namaAcara} 
+                                orderId={order._id}
+                                tanggal={order.tanggal}
+                                tipeOrder={order.tipeOrderan}
+                                namaPaket={activePacket && activePacket[0]?.namaPaket}
+                                jumlahPorsi={order.tipeOrderan === 'plain' ? '' : order.jumlahPorsi}
+                                harga={order.tipeOrderan === 'plain' ? activePacket[0]?.hargaAula : activePacket && (order?.jumlahPorsi * activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket[0]?.hargaAula}
+                                status={order.status}
+                                email={order.email}
+                                whatsapp={order.whatsapp}
+                            />
+                        ))}
+                        {!isAdminDataLoading && activeOrder?.length === 0 && 
+                            <h3>Tidak ada order yang sedang berlangsung</h3>
+                        }
+                    </DetailPreview>
+                </AdminStyledSection>
+            </DashboardContainer>
+        }
+        </>
     )
 }
 
