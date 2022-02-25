@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useWindowDimensions from "./../../hooks/useWindowDimensions";
 import styled from 'styled-components';
-import { Form } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from 'react-router';
 import { clientDataApi } from "./../../api/api";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -96,7 +96,6 @@ const Schedule = () => {
 
         const breakStyle = {
             wordBreak: 'break-word',
-        
         }
 
         return (
@@ -108,7 +107,13 @@ const Schedule = () => {
                 padding: '20px',
                 borderRadius: '20px'
             }}>
-                <p>{orderDetail?.atasNama}</p>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                }}>
+                    <p>{orderDetail?.atasNama}</p>
+                    { isActive === true ? <Spinner animation="grow" variant="danger" /> : "" }
+                </div>
                 <h3 style={{
                     margin: '20px 0px'
                 }}>{orderDetail?.namaAcara}</h3>
