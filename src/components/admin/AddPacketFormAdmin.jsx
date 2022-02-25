@@ -1,17 +1,16 @@
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Form, InputGroup, FormControl } from "react-bootstrap";
 import { CreateOutlined, Check, Close } from '@mui/icons-material';
-import CircularProgress from '@mui/material/CircularProgress';
+import { CircularProgress } from '@mui/material';
 import useDraggableScroll from 'use-draggable-scroll';
+import Snackbar from "../Snackbar";
 
 import { adminDataApi } from '../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
-import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
+import { StyledButton } from '../../ReuseableComponents/ReuseableComponents';
 
 import { AdminOrderContext } from "../../context/AdminOrderContext";
-import DummyImg from "./../../assets/img/dummy-img-1.png";
-import DummyImgPlain from "./../../assets/img/dummy-img-3.png";
 import BlankImg from "./../../assets/svg/blank-img.svg";
 
 
@@ -51,7 +50,8 @@ const AddForm = styled.form`
 `
 
 const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo }) => {
-    const { isLoading: isAdminDataLoading, dispatch, packet } = useContext(AdminOrderContext);
+    const { isLoading: isAdminDataLoading, dispatch, packet, errorMessage } = useContext(AdminOrderContext);
+
     let accessToken = localStorage.getItem("accessToken");
     
     const [namaPaket, setNamaPaket] = useState(packetInfo?.title);
@@ -97,7 +97,7 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
                 setHargaPaket(0);
             } catch (err) {
                 console.log(err.response);
-                dispatch({ type: "ADD_ADMIN_PACKET_FAILURE", payload: err.response })
+                dispatch({ type: "ADD_ADMIN_PACKET_FAILURE", payload: err.response.data.message })
             }
         }
     }
@@ -138,13 +138,16 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
                 // setHargaPaket(0);
             } catch (err) {
                 console.log(err.response);
-                dispatch({ type: "EDIT_ADMIN_PACKET_FAILURE", payload: err.response })
+                dispatch({ type: "EDIT_ADMIN_PACKET_FAILURE", payload: err.response });
             }
         }
     }
 
     return (
         <AddForm>
+            { errorMessage &&
+                <Snackbar type="error" message={errorMessage} />
+            }
             <img variant="top" src={BlankImg} />
                 <div className="CardBody">
                     <Form.Control 
