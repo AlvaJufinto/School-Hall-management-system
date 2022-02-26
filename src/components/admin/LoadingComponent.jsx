@@ -32,6 +32,11 @@ const LoadingContainer = styled.div`
         color: ${GlobalColors.green};
     }
 
+    p {
+        color: white;
+        font-family: ${GlobalFonts.secondary}
+    }
+
     @media (max-width: 768px) {
         padding: 1rem;
     }
@@ -44,6 +49,7 @@ const LoadingComponent = () => {
         <LoadingContainer>
             <h1>Sewa Aula SIJA</h1>
             <h2>{user.role ? user.role : 'unknown'}</h2>
+            <p>Tip : Jika loading terlalu lama, solusinya dalah merefresh halaman!</p>
             <LinearProgress />
         </LoadingContainer>
      );

@@ -43,7 +43,8 @@ const Dashboard = () => {
     const { onMouseDown } = useDraggableScroll(horizontalElement);
     const [activePacket, setActivePacket] = useState(null);
     const [doneOrders, setDoneOrders] = useState([]);
-    const [futureOrders, setFutureOrders] = useState([])
+    const [futureOrders, setFutureOrders] = useState([]);
+    const [cancelOrders, setCancelOrders] = useState([]);
     
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
@@ -80,6 +81,7 @@ const Dashboard = () => {
     useEffect(() => {
         setDoneOrders(order?.filter((item) => item.status === 'selesai'));
         setFutureOrders(order?.filter((item) => item.status === 'order' || item.status === 'paid'))
+        setCancelOrders(order?.filter((item) => item.status === 'batal'));
     }, [order]);
 
     const PreviewCard = ({ color, text, route, data, isLoading, total }) => {
@@ -145,7 +147,7 @@ const Dashboard = () => {
                                 color={GlobalColors.red}
                                 text="Orderan Dibatalkan"
                                 route="order-cancel"
-                                data={0}
+                                data={cancelOrders?.length}
                                 total={order?.length}
                                 isLoading={isLoading}  />
                         </div>
