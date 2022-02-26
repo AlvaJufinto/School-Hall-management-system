@@ -38,7 +38,7 @@ const OrderCancel = () => {
             <StyledNavbarAdmin />
             <AdminStyledSection>
                 <DetailPreview>
-                    <h3 className="fw-bolder">/Order Selesai</h3>
+                    <h3 className="fw-bolder">/Order Batal</h3>
                     <div className="DetailPreview">
                         {orderCancel && orderCancel.map((order) => (
                             <OrderCardComponent

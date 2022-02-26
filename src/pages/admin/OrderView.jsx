@@ -125,7 +125,7 @@ const OrderDone = () => {
                         textTransform: 'uppercase',
                     }}>{viewOrder && viewOrder[0]?.status}</b></h3>
                     <div className="Option">
-                        {viewOrder[0]?.status !== 'selesai' || viewOrder[0]?.status !== 'batal' &&
+                        {viewOrder[0]?.status === 'paid' || viewOrder[0]?.status === 'order' ?
                             <StyledButton 
                                 variant="success"
                                 onClick={() => setShowModal(true)}
@@ -140,6 +140,7 @@ const OrderDone = () => {
                                     <CreateOutlined style={{ fontSize: '2rem' }} />
                                 }
                             </StyledButton>
+                            : ""
                         }
                         <StyledButton 
                             variant="danger"

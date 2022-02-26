@@ -49,7 +49,7 @@ const AuthReducer = (state, action) => {
             }
         case "DELETE_ADMIN_ORDER_SUCCESS":
             return {
-                active: state.active,
+                active: state.order,
                 order: state.order.filter((item) => item._id !== action.payload),
                 packet: state.packet,
                 isLoading: false,
@@ -65,7 +65,7 @@ const AuthReducer = (state, action) => {
             }
         case "EDIT_ADMIN_ORDER_SUCCESS":
             return {
-                active: state.active,
+                active: action.payload?.filter((item) => new Date(item.tanggal).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) && item.status === 'paid'),
                 order: action.payload,
                 packet: state.packet,
                 isLoading: false,

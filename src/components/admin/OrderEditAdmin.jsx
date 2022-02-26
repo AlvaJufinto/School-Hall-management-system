@@ -83,17 +83,15 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
             dispatch({ type: 'EDIT_ADMIN_ORDER_START' });
             try {
                 const res = await adminDataApi.editOrder({ params: id, accessToken: accessToken }, detail);
-
+                
                 const findIndex = order.findIndex(obj => obj._id === id);
                 let newOrders = order.filter((item) => item._id !== id);
                 newOrders.splice(findIndex, 0, detail);
-                
+
                 dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: newOrders });
                 setShowModal(false);
             } catch(err) {
                 console.log(err.response.data);
-                console.log(err.response.data);
-                console.error("asdasd")
                 dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
             }
         }
@@ -189,10 +187,7 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                     id="dropdown-basic-button" 
                     variant={"dark"}
                     title={status}
-                    onSelect={e => {
-                        setStatus(e)
-                        console.log(e);
-                    }}>
+                    onSelect={e => setStatus(e)}>
                         <Dropdown.Item eventKey="order">Order</Dropdown.Item>
                         <Dropdown.Item eventKey="paid">Paid</Dropdown.Item>
                 </DropdownButton>

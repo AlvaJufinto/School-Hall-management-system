@@ -49,7 +49,7 @@ const LoadingComponent = () => {
         <LoadingContainer>
             <h1>Sewa Aula SIJA</h1>
             <h2>{user.role ? user.role : 'unknown'}</h2>
-            <p>Tip : Jika loading terlalu lama, solusinya adalah merefresh halaman!</p>
+            <p>Tip : Jika loading terlalu lama, solusinya adalah merefresh halaman atau mengecek koneksi internet Anda!</p>
             <LinearProgress />
         </LoadingContainer>
      );
