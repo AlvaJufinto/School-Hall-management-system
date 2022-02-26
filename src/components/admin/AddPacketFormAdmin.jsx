@@ -71,7 +71,7 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
         const detail = {
             paketPlain : tipePaket === "plain" ? true : false,
             namaPaket : namaPaket,
-            hargaAula : Number(hargaAula),
+            hargaAula : hargaAula ? Number(hargaAula) : 300000,
             deskripsi : deskripsiPaket ? deskripsiPaket : "kosong",
             detailCatering : {
                 gambar: "GambarAja",

@@ -1,5 +1,4 @@
 import { useContext, useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
 import useDraggableScroll from 'use-draggable-scroll';
@@ -9,9 +8,10 @@ import OrderCardInfo from "../../components/admin/OrderCardInfo";
 import LoadingComponent from "../../components/admin/LoadingComponent";
 import { adminDataApi } from './../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
-import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
+import { AdminStyledSection, StyledLink, StyledButton } from '../../ReuseableComponents/ReuseableComponents';
 
 import { AuthContext } from "../../context/AuthContext";
+import { AdminOrderContext } from "../../context/AdminOrderContext";
 import { authApi } from "./../../api/api";
 import Icon from "./../../assets/svg/icon.svg"
 
@@ -38,64 +38,49 @@ export const DetailPreview = styled.div`
 `
 
 const Dashboard = () => {
+    const { isLoading, dispatch, order, packet, active } = useContext(AdminOrderContext);
     const horizontalElement = useRef(null);
-    const { dispatch, user } = useContext(AuthContext);
     const { onMouseDown } = useDraggableScroll(horizontalElement);
-    const [isAdminDataLoading, setIsAdminDataLoading] = useState(true);
-    const [activeOrder, setActiveOrder] = useState(null); 
-    const [packets, setPackets] = useState(null);
     const [activePacket, setActivePacket] = useState(null);
-    const [orders, setOrders] = useState([]);
     const [doneOrders, setDoneOrders] = useState([]);
     const [futureOrders, setFutureOrders] = useState([])
     
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
 
-    // useEffect(() => {
-    //     (async () => {
-    //         dispatch({ type: "LOGIN_START" });
-    //         if (refreshToken) {
-    //             try {
-    //                 const res = await authApi.loggedIn({ refreshToken: refreshToken});
-    //                 dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-
-    //                 // console.log(res)
-    //             } catch (err) {
-    //                 console.error(err);
-    //             }
-    //         }
-    //     })();
-    // }, [refreshToken, accessToken]);
-
     useEffect(() => {
-        if(accessToken) {
-            (async () => {
-                try {
-                    const res = await adminDataApi.allData({ accessToken: accessToken });
-                    console.log(res.data.data);
-                    console.log("sdasdasd")
-                    setActiveOrder(res.data.data.active);
-                    setOrders(res.data.data.order);
+        console.log(order);
+        console.log(active);
+    }, [])
+
+    // useEffect(() => {
+    //     if(accessToken) {
+    //         (async () => {
+    //             try {
+    //                 const res = await adminDataApi.allData({ accessToken: accessToken });
+    //                 console.log(res.data.data);
+    //                 console.log("sdasdasd")
+    //                 setActiveOrder(res.data.data.active);
+    //                 setOrders(res.data.data.order);
                     
-                    setPackets(res.data.data.paket);
-                    setIsAdminDataLoading(!isAdminDataLoading);
-                } catch (err) {
-                    console.error(err.response);
-                    setIsAdminDataLoading(!isAdminDataLoading);
-                }
-            })();
-        }
-    }, [accessToken, refreshToken]);
+    //                 setPackets(res.data.data.paket);
+    //                 setisLoading(!isLoading);
+    //             } catch (err) {
+    //                 console.error(err.response);
+    //                 setisLoading(!isLoading);
+    //             }
+    //         })();
+    //     }
+    // }, [accessToken, refreshToken]);
     
     useEffect(() => {
-        setActivePacket(packets?.filter(item => item._id === activeOrder[0]?.paketId))
-    }, [activeOrder, orders, packets])
+        setActivePacket(packet?.filter(item => item._id === active[0]?.paketId))
+    }, [order, packet])
 
     useEffect(() => {
-        setDoneOrders(orders?.filter((item) => item.status === 'selesai'));
-        setFutureOrders(orders?.filter((item) => item.status === 'order' || item.status === 'paid'))
-    }, [orders]);
+        setDoneOrders(order?.filter((item) => item.status === 'selesai'));
+        setFutureOrders(order?.filter((item) => item.status === 'order' || item.status === 'paid'))
+    }, [order]);
 
     const PreviewCard = ({ color, text, route, data, isLoading, total }) => {
         return (
@@ -133,9 +118,9 @@ const Dashboard = () => {
 
     return (
         <>
-        { isAdminDataLoading ? 
-            <LoadingComponent />    
-        :
+        { isLoading ? 
+            <LoadingComponent />     
+        : 
             <DashboardContainer>
                 <StyledNavbarAdmin />
                 <AdminStyledSection>
@@ -147,28 +132,28 @@ const Dashboard = () => {
                                 text="Order Antre"
                                 route="order-queue"
                                 data={futureOrders?.length}
-                                total={orders?.length}
-                                isLoading={isAdminDataLoading} />
+                                total={order?.length}
+                                isLoading={isLoading} />
                             <PreviewCard 
                                 color={GlobalColors.green}
                                 text="Orderan Selesai"
                                 route="order-done"
                                 data={doneOrders?.length}
-                                total={orders?.length}
-                                isLoading={isAdminDataLoading}  />
+                                total={order?.length}
+                                isLoading={isLoading}  />
                             <PreviewCard 
                                 color={GlobalColors.red}
                                 text="Orderan Dibatalkan"
                                 route="order-cancel"
                                 data={0}
-                                total={orders?.length}
-                                isLoading={isAdminDataLoading}  />
+                                total={order?.length}
+                                isLoading={isLoading}  />
                         </div>
                     </DetailPreview>
                     <DetailPreview>
                         <h3 className="fw-bolder mb-4">/Sedang Berlangsung</h3>
-                        {isAdminDataLoading && <CircularProgress /> }                    
-                        { !isAdminDataLoading && activeOrder && activeOrder.map((order) =>(
+                        {isLoading && <CircularProgress /> }                    
+                            {!isLoading && active?.map((order) =>(
                             <OrderCardInfo 
                                 key={order._id}
                                 atasNama={order.atasNama} 
@@ -178,19 +163,19 @@ const Dashboard = () => {
                                 tipeOrder={order.tipeOrderan}
                                 namaPaket={activePacket && activePacket[0]?.namaPaket}
                                 jumlahPorsi={order.tipeOrderan === 'plain' ? '' : order.jumlahPorsi}
-                                harga={order.tipeOrderan === 'plain' ? activePacket[0]?.hargaAula : activePacket && (order?.jumlahPorsi * activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket[0]?.hargaAula}
+                                harga={order.tipeOrderan === 'plain' ? activePacket && activePacket[0]?.hargaAula : activePacket && (order?.jumlahPorsi * activePacket[0]?.detailCatering?.hargaPerBuah) + activePacket[0]?.hargaAula}
                                 status={order.status}
                                 email={order.email}
                                 whatsapp={order.whatsapp}
                             />
                         ))}
-                        {!isAdminDataLoading && activeOrder?.length === 0 && 
+                        {!isLoading && active?.length === 0 && 
                             <h3>Tidak ada order yang sedang berlangsung</h3>
                         }
                     </DetailPreview>
                 </AdminStyledSection>
             </DashboardContainer>
-        }
+        } 
         </>
     )
 }

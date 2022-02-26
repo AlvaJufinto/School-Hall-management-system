@@ -4,6 +4,7 @@ import axios from 'axios';
 import { adminDataApi } from './../api/api';
 
 const INITIAL_STATE = {
+    active: null,
     order: null,
     packet: null,
     isLoading: false,
@@ -16,6 +17,7 @@ const AuthReducer = (state, action) => {
     switch (action.type) {
         case "FETCH_ADMIN_ORDER_START":
             return {    
+                active: null,
                 order: null,
                 packet: null,
                 isLoading: true,
@@ -23,6 +25,7 @@ const AuthReducer = (state, action) => {
             };           
         case "FETCH_ADMIN_ORDER_SUCCESS":
             return {
+                active: action.payload.active,
                 order: action.payload.order,
                 packet: action.payload.paket,
                 isLoading: false,
@@ -30,6 +33,7 @@ const AuthReducer = (state, action) => {
             }
         case "FETCH_ADMIN_ORDER_FAILURE":
             return {
+                active: null,
                 order: null,
                 packet: null,
                 isLoading: false,
@@ -37,6 +41,7 @@ const AuthReducer = (state, action) => {
             }
         case "DELETE_ADMIN_ORDER_START":
             return {
+                active: state.active,
                 order: state.order,
                 packet: state.packet,
                 isLoading: true,
@@ -44,6 +49,7 @@ const AuthReducer = (state, action) => {
             }
         case "DELETE_ADMIN_ORDER_SUCCESS":
             return {
+                active: state.active,
                 order: state.order.filter((item) => item._id !== action.payload),
                 packet: state.packet,
                 isLoading: false,
@@ -51,6 +57,7 @@ const AuthReducer = (state, action) => {
             }
         case "EDIT_ADMIN_ORDER_START":
             return {
+                active: state.active,
                 order: state.order,
                 packet: state.packet,
                 isLoading: true,
@@ -58,6 +65,7 @@ const AuthReducer = (state, action) => {
             }
         case "EDIT_ADMIN_ORDER_SUCCESS":
             return {
+                active: state.active,
                 order: action.payload,
                 packet: state.packet,
                 isLoading: false,
@@ -65,6 +73,7 @@ const AuthReducer = (state, action) => {
             }
         case "EDIT_ADMIN_ORDER_FAILURE":
             return {
+                active: state.active,
                 order: state.order,
                 packet: state.packet,
                 isLoading: false,
@@ -72,6 +81,7 @@ const AuthReducer = (state, action) => {
             }
         case "ADD_ADMIN_PACKET_START":
             return {
+                active: state.active,
                 order: state.order,
                 packet: state.packet,
                 isLoading: true,
@@ -79,6 +89,7 @@ const AuthReducer = (state, action) => {
             }
         case "ADD_ADMIN_PACKET_SUCCESS":
             return {
+                active: state.active,
                 order: state.order,
                 packet: [...state.packet, action.payload],
                 isLoading: false,
@@ -86,6 +97,7 @@ const AuthReducer = (state, action) => {
             }
         case "ADD_ADMIN_PACKET_FAILURE":
             return {
+                active: state.active,
                 order: state.order,
                 packet: state.packet,
                 isLoading: false,
@@ -93,6 +105,7 @@ const AuthReducer = (state, action) => {
             }
         case "DELETE_ADMIN_PACKET_START":
             return {
+                active: state.active,
                 order: state.order,
                 packet: state.packet,
                 isLoading: true,
@@ -100,6 +113,7 @@ const AuthReducer = (state, action) => {
             }
         case "DELETE_ADMIN_PACKET_SUCCESS":
             return {
+                active: state.active,
                 order: state.order,
                 packet: state.packet.filter((item) => item._id !== action.payload),
                 isLoading: false,
@@ -107,6 +121,7 @@ const AuthReducer = (state, action) => {
             }
         case "EDIT_ADMIN_PACKET_START":
             return {
+                active: state.active,
                 order: state.order,
                 packet: state.packet,
                 isLoading: true,
@@ -114,6 +129,7 @@ const AuthReducer = (state, action) => {
             }
         case "EDIT_ADMIN_PACKET_SUCCESS":
             return {
+                active: state.active,
                 order: state.order,
                 packet: action.payload,
                 isLoading: false, 
@@ -121,6 +137,7 @@ const AuthReducer = (state, action) => {
             }
         case "EDIT_ADMIN_PACKET_FAILURE":
             return {
+                active: state.active,
                 order: state.order,
                 packet: state.packet,
                 isLoading: false,
@@ -145,7 +162,7 @@ export const AdminOrderContextProvider = ({ children }) => {
                     const res = await adminDataApi.allData({ accessToken: accessToken });
                     dispatch({ type: "FETCH_ADMIN_ORDER_SUCCESS", payload: res.data.data });
                 } catch (err) {
-                    console.log(err.response);
+                    console.log(err);
                     dispatch({ type: "FETCH_ADMIN_ORDER_FAILURE", payload: err });
             }
         }
@@ -155,6 +172,7 @@ export const AdminOrderContextProvider = ({ children }) => {
     return (
         <AdminOrderContext.Provider
             value={{
+                active: state.active,
                 order: state.order,
                 packet: state.packet,
                 isLoading: state.isLoading,
