@@ -156,6 +156,7 @@ export const AdminOrderContextProvider = ({ children }) => {
 
     useEffect(() => {   
         (async () => {
+            console.log("Bruh")
             if(accessToken) {
                 dispatch({ type: "FETCH_ADMIN_ORDER_START" });
                 try {

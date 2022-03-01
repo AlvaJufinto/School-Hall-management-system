@@ -10,7 +10,7 @@ const NavbarBrand = styled(Navbar.Brand)`
 const StyledNavbar = () => {
     return (
         <Navbar variant="dark" expand="lg" style={{
-            padding: `20px`, 
+            padding: `5px 20px`, 
             fontSize: `${GlobalMeasurements.navbarFontSize}rem`,
             backgroundColor: GlobalColors.hardGrey,            
         }}>
