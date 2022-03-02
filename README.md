@@ -1,1 +1,1 @@
-# Ntaran dulu, masih belum kena revisi abis2an dari PM
+# Ntaran dulu, masih belum kena revisi abis2an
