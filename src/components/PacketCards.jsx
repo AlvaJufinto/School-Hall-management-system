@@ -31,11 +31,8 @@ const PacketCards = () => {
             try {
                 const res = await clientDataApi.allPackets();
                 setPackets(res.data.data.paket);
-                console.log(res.data.data.paket);
-                console.log(packets);
                 setIsLoading(false);
             } catch (err) {
-                console.log(err);
                 setIsLoading(false);
             }
         })();

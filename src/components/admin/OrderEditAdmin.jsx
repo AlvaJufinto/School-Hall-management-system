@@ -54,7 +54,6 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
     useEffect(() => {
         setPacketDropdownId(packetDropdownValue.split("-")[1]);
         setIsPlain(packetDropdownValue.split("-")[2] == "true" ? true : false);
-        console.log(accessToken);
     }, [packetDropdownValue, packetDropdownId, isPlain, order, dispatch])
     
     useEffect(() => {
@@ -91,7 +90,6 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                 dispatch({ type: "EDIT_ADMIN_ORDER_SUCCESS", payload: newOrders });
                 setShowModal(false);
             } catch(err) {
-                console.log(err.response.data);
                 dispatch({ type: 'EDIT_ADMIN_ORDER_FAILURE' });
             }
         }
@@ -145,8 +143,7 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                     title={`${packetDropdownValue.split("-")[0]} ${' '}`}
                     onSelect={e => {
                         setPacketDropdownValue(e);
-                        setIsPlain(e)
-                        console.log(e);
+                        setIsPlain(e);
                     }}>
                     {packet.map(packet =>(
                         <Dropdown.Item eventKey={`${packet?.namaPaket}-${packet?._id}-${packet?.paketPlain}`}>{packet.namaPaket}</Dropdown.Item>
@@ -175,10 +172,7 @@ const OrderEditFormComponent = ({ id, atasNama: atasNamaDefault, namaAcara: nama
                     selected={startDate}
                     minDate={new Date()}
                     dateFormat="dd/MM/yyyy"
-                    onChange={(date) => {
-                        setStartDate(date);
-                        console.log(date.toISOString())
-                    }} 
+                    onChange={(date) => setStartDate(date)} 
                     required/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formGroupPassword">

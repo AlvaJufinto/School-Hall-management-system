@@ -61,11 +61,6 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
     const [hargaAula, setHargaAula] = useState(packetInfo?.priceAula);
     const [hargaPaket, setHargaPaket] = useState(packetInfo?.price);
     
-    useEffect(() => {
-        console.log(packetInfo);
-        console.log("AAOKWOAKWOAWK");
-    }, [packet])
-
     const addPaketHandler = async (e) => {
         e.preventDefault();
         const detail = {
@@ -83,10 +78,7 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
         if(accessToken) {
             dispatch({ type: "ADD_ADMIN_PACKET_START" })
             try {
-                console.log(detail)
                 const res = await adminDataApi.addPacket({ accessToken: accessToken }, detail); 
-                
-                console.log(res);
                 dispatch({ type: "ADD_ADMIN_PACKET_SUCCESS", payload: res.data.data })
 
                 setNamaPaket("");
@@ -96,7 +88,6 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
                 setHargaAula(0);
                 setHargaPaket(0);
             } catch (err) {
-                console.log(err.response);
                 dispatch({ type: "ADD_ADMIN_PACKET_FAILURE", payload: err.response.data.message })
             }
         }
@@ -120,24 +111,15 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
          if(accessToken) {
             dispatch({ type: "EDIT_ADMIN_PACKET_START" })
             try {
-                console.log(detail);
                 const res = await adminDataApi.editPacket({ params: packetInfo?.paketId, accessToken: accessToken }, detail); 
                 
                 const findIndex = packet.findIndex(obj => obj._id === detail?._id);
                 let newPackets = packet.filter((item) => item._id !== detail?._id);
                 newPackets.splice(findIndex, 0, detail);
-                console.log(newPackets);
-                
+
                 dispatch({ type: "EDIT_ADMIN_PACKET_SUCCESS", payload: newPackets })
                 setIsFormShown(false);
-                // setNamaPaket("");
-                // setTipePaket("");
-                // setSpesifikasiPaket("");
-                // setDeskripsiPaket("")
-                // setHargaAula(0);
-                // setHargaPaket(0);
             } catch (err) {
-                console.log(err.response);
                 dispatch({ type: "EDIT_ADMIN_PACKET_FAILURE", payload: err.response });
             }
         }

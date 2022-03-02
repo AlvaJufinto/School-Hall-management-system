@@ -111,7 +111,6 @@ const StyledNavbarAdmin = () => {
     const [isHidden, setIsHidden] = useState(true);
 
     useEffect(() => {
-        console.log(user)
         if(location.pathname.includes('/admin/') && isHidden == false ) {
             setIsHidden(false);
         }

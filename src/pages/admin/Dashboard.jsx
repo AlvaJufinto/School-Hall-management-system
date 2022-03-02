@@ -49,11 +49,6 @@ const Dashboard = () => {
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
 
-    useEffect(() => {
-        console.log(order);
-        console.log(active);
-    }, [])
-
     // useEffect(() => {
     //     if(accessToken) {
     //         (async () => {

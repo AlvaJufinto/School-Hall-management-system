@@ -68,7 +68,6 @@ const OrderDone = () => {
 
     useEffect(() => {
         setViewOrder(order.filter(item => item._id === orderId));
-        console.log(viewOrder);
     }, [orderId, order, packet]);
     
     useEffect(() =>{
@@ -82,7 +81,6 @@ const OrderDone = () => {
                 const res = await adminDataApi.deleteOrder({ params: orderId, accessToken: accessToken });
                 navigate(-1, { replace: true });
                 dispatch({ type: "DELETE_ADMIN_ORDER_SUCCESS", payload: orderId});
-                console.log("yes")
             } catch(err) {
                 console.log(err.response);
                 dispatch({ type: 'DELETE_ADMIN_ORDER_FAILURE' });

@@ -68,12 +68,9 @@ const Schedule = () => {
         setIsAvailableDateLoading(true);
         try {
             const res = await clientDataApi.getAvailableDate({ month: monthValue, year: yearValue });
-                
-            console.log(res.data.details.data);
             setAvailableDate(res.data.details.data);
             setIsAvailableDateLoading(false);
         } catch (err) {
-            console.log(err.response);
             setIsAvailableDateLoading(false);
         }
     }, [yearValue, monthValue])
@@ -82,12 +79,10 @@ const Schedule = () => {
         setIsOrderLoading(true);
         try {
             const res = await clientDataApi.allData();
-            console.log(res.data.data.order);
             setActiveOrder(res.data.data.active);
             setQueueOrder(res.data.data.order);
             setIsOrderLoading(false)
         } catch (err) {
-            console.log(err);
             setIsOrderLoading(false);
         }
     }, [])

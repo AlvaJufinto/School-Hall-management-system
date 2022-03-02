@@ -162,12 +162,10 @@ const FormOrder = () => {
                 tanggal: startDate,
             }
             const res = await clientDataApi.addOrder({ params: packetId.packetId}, detail);
-            console.log(res.data.detailPesanan._id);
             navigate(`/receipt/${res.data.detailPesanan._id}`, { replace: true });
             
         } catch (err) {
-            setIsLoading(!isLoading)
-            console.log(err.response);
+            setIsLoading(!isLoading);
         }
     }
 
@@ -258,11 +256,7 @@ const FormOrder = () => {
                                     selected={startDate}
                                     minDate={new Date()}
                                     dateFormat="dd/MM/yyyy"
-                                    onChange={(date) => {
-                                        setStartDate(date);
-                                        console.log(date);
-                                        console.log(date.toISOString())
-                                    }} 
+                                    onChange={(date) => setStartDate(date)} 
                                     required/>
                             </Form.Group>
                             <p className="text-danger fw-bolder">*Pastikan formulir diisi dengan benar </p>

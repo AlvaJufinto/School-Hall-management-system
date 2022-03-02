@@ -156,14 +156,12 @@ export const AdminOrderContextProvider = ({ children }) => {
 
     useEffect(() => {   
         (async () => {
-            console.log("Bruh")
             if(accessToken) {
                 dispatch({ type: "FETCH_ADMIN_ORDER_START" });
                 try {
                     const res = await adminDataApi.allData({ accessToken: accessToken });
                     dispatch({ type: "FETCH_ADMIN_ORDER_SUCCESS", payload: res.data.data });
                 } catch (err) {
-                    console.log(err);
                     dispatch({ type: "FETCH_ADMIN_ORDER_FAILURE", payload: err });
             }
         }

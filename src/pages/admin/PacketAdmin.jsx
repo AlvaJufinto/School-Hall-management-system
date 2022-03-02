@@ -48,10 +48,6 @@ const AddCardContainer = styled.div`
 const Packet = () => {
     const { isLoading: isAdminDataLoading, packet } = useContext(AdminOrderContext);
     const [isShowAdd, setIsShowAdd] = useState(false);
-    
-    useEffect(() => {
-        console.log(packet);
-    }, [])
 
     return (
         <PacketContainer>

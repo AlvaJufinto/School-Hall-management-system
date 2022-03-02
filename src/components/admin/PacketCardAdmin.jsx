@@ -86,7 +86,6 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
     }, [packet])
 
     const orderDeleteHandler = async (paketId) => {
-        console.log(paketId);
         if(accessToken) {
             dispatch({ type: 'DELETE_ADMIN_PACKET_START'});
             try {
@@ -95,6 +94,7 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
                 dispatch({ type: 'DELETE_ADMIN_PACKET_SUCCESS', payload: paketId})
             } catch (err) {
                 console.log(err);
+                alert(err.response.message)
             }
         }
     }
