@@ -5,6 +5,7 @@ import { CreateOutlined, DeleteOutlineOutlined, RemoveRedEyeOutlined } from '@mu
 import CircularProgress from '@mui/material/CircularProgress';
 
 import AddForm from "./AddPacketFormAdmin";
+import Snackbar from "../Snackbar";
 import { GlobalMeasurements, GlobalColors, GlobalFonts } from '../../globals';
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 
@@ -74,11 +75,11 @@ const CardTitle = styled(Card.Title)`
 `
 
 const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacket, deskripsi, price, priceAula }) => {
-    const { isLoading: packetIsLoading, dispatch, order, packet } = useContext(AdminOrderContext);
+    const { isLoading: packetIsLoading, dispatch, order, packet, errorMessage } = useContext(AdminOrderContext);
     const [isFormShown, setIsFormShown] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     let accessToken = localStorage.getItem("accessToken");
-
+    
     useEffect(() =>{
         if(packet.length === 1) {
             setIsButtonDisabled(true);
@@ -90,17 +91,26 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
             dispatch({ type: 'DELETE_ADMIN_PACKET_START'});
             try {
                 const res = await adminDataApi.deletePacket({ params: paketId, accessToken: accessToken });
+                console.log(res)
+                
+                if(res?.data?.ok === true) {
+                    dispatch({ type: 'DELETE_ADMIN_PACKET_SUCCESS', payload: paketId });
+                } else {
+                    dispatch({ type: 'DELETE_ADMIN_PACKET_FAILURE', payload: res.data.message });
+                }
 
-                dispatch({ type: 'DELETE_ADMIN_PACKET_SUCCESS', payload: paketId})
             } catch (err) {
-                console.log(err);
-                alert(err.response.message)
+                // console.log(err.toJSON());
+                // alert(err.toJSON().message);
             }
         }
     }
     
     return (
         <>
+            {errorMessage &&
+                <Snackbar type="error" message={errorMessage} />
+            }
             <SmallCard>
                 { isFormShown ? 
                     <AddForm 

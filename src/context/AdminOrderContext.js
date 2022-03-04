@@ -1,6 +1,4 @@
 import { createContext, useEffect, useReducer } from "react";
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 import { adminDataApi } from './../api/api';
 
 const INITIAL_STATE = {
@@ -119,6 +117,14 @@ const AuthReducer = (state, action) => {
                 isLoading: false,
                 errorMessage: null, 
             }
+        case "DELETE_ADMIN_PACKET_FAILURE":
+            return {
+                active: state.active,
+                order: state.order,
+                packet: state.packet,
+                isLoading: false,
+                errorMessage: action.payload,
+            }
         case "EDIT_ADMIN_PACKET_START":
             return {
                 active: state.active,
@@ -143,14 +149,13 @@ const AuthReducer = (state, action) => {
                 isLoading: false,
                 errorMessage: action.payload, 
             }
-        default: 
+            default: 
             return state;
+        }
     }
-}
-
-export const AdminOrderContextProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
     
+export const AdminOrderContextProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);    
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
 
@@ -167,7 +172,7 @@ export const AdminOrderContextProvider = ({ children }) => {
         }
         })();
     }, [refreshToken]);
-
+    
     return (
         <AdminOrderContext.Provider
             value={{

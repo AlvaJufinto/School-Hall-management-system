@@ -116,8 +116,8 @@ const Dashboard = () => {
     return (
         <>
         { isLoading ? 
-            <LoadingComponent />     
-        : 
+            <LoadingComponent />      
+        :  
             <DashboardContainer>
                 <StyledNavbarAdmin />
                 <AdminStyledSection>
@@ -172,7 +172,7 @@ const Dashboard = () => {
                     </DetailPreview>
                 </AdminStyledSection>
             </DashboardContainer>
-        } 
+        }  
         </>
     )
 }
