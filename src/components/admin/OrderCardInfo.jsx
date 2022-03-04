@@ -104,7 +104,7 @@ const OrderCardComponent = ({ atasNama, namaAcara, orderId, tanggal, tipeOrder, 
                 }} />
                 {email}
             </div>
-            <a className="w-100 buttonWrapper" target="_blank" href={`https://api.whatsapp.com/send?phone=${whatsapp}&text=Saya%20mau%20tanya%20tentang%20PKI?`}>
+            <a className="w-100 buttonWrapper" target="_blank" href={`https://api.whatsapp.com/send?phone=${whatsapp}&text=Saya%20adalah%20admin%20sewa%20aula,%20hubungi%20saya%20jika%20ingin%20mengkonfirmasi%20pesanan`}>
                 <StyledButton 
                     variant="success"
                     background={GlobalColors.green}

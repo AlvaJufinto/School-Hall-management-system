@@ -70,7 +70,7 @@ const Login = () => {
 
     const LoginHandler =  async (e) => {
         e.preventDefault();
-        // dispatch({ type: "LOGIN_START" });
+        dispatch({ type: "LOGIN_START" });
         try {
             const { username, password } = formState;
 
@@ -78,7 +78,7 @@ const Login = () => {
             let { accessToken, refreshToken } = res.data;
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
-            
+
             let getUserCredentials = await authApi.loggedIn({ refreshToken: refreshToken });
             dispatch({ type: "LOGIN_SUCCESS", payload: getUserCredentials });
             navigate("/admin/dashboard", { replace: true });

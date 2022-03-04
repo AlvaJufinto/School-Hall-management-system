@@ -65,7 +65,7 @@ export const AuthContextProvider = ({ children }) => {
     
     useEffect(() => {
         (async () => {
-            dispatch({ type: "LOGIN_START" });
+            // dispatch({ type: "LOGIN_START" });
             if (refreshToken) {
                 try {
                     const res = await authApi.loggedIn({ refreshToken: refreshToken});

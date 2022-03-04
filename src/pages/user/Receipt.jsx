@@ -218,7 +218,7 @@ const FormOrder = () => {
                     fontSize: '1.5rem'
                 }}>*HARAP SCRENSHOOT STRUK INI</p>
                 <Buttons>
-                    <a target="_blank" href="https://api.whatsapp.com/send?phone=89601943530&text=Saya%20ingin%20tanya%20tentang%20penyewaan%20aula" >
+                    <a target="_blank" href="https://api.whatsapp.com/send?phone=089601943030&text=Saya%20ingin%20tanya%20tentang%20penyewaan%20aula" >
                         <StyledButton 
                             variant="success"
                             background={GlobalColors.green}
