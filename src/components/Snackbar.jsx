@@ -1,15 +1,11 @@
-import { useState, useEffect } from 'react';
-import { CircularProgress, Snackbar, Alert } from '@mui/material';
+import { useState, useEffect, useContext } from 'react';
+import { Snackbar, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import { AdminOrderContext } from "./../context/AdminOrderContext";
 
 const useSnackbar = ({ type, message }) => {
-    const [openSnackbar, setOpenSnackbar] = useState(true);
-    const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     setOpenSnackbar(false)
-    // }, [navigate])
+    const { isLoading: packetIsLoading, dispatch, order, packet, errorMessage } = useContext(AdminOrderContext);
+    const [openSnackbar, setOpenSnackbar] = useState(errorMessage ? true : false);
 
     return ( 
         <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={e => setOpenSnackbar(false)}>

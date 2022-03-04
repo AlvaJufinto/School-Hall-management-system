@@ -56,7 +56,7 @@ const StyledForm = styled.form`
 `;
 
 const Login = () => {
-    const { display, isLoading, dispatch, errorMessage, user } = useContext(AuthContext);
+    const { display, isLoading, dispatch, errorMessage } = useContext(AuthContext);
     const navigate = useNavigate();
     const [formState, setFormState] = useState({
         username: "",
@@ -70,7 +70,7 @@ const Login = () => {
 
     const LoginHandler =  async (e) => {
         e.preventDefault();
-        dispatch({ type: "LOGIN_START" });
+        // dispatch({ type: "LOGIN_START" });
         try {
             const { username, password } = formState;
 
@@ -83,7 +83,8 @@ const Login = () => {
             dispatch({ type: "LOGIN_SUCCESS", payload: getUserCredentials });
             navigate("/admin/dashboard", { replace: true });
         } catch (err) {
-            dispatch({ type: "LOGIN_FAILURE", payload: err.response });
+            console.log(err.response.data.message);
+            dispatch({ type: "LOGIN_FAILURE", payload: err.response.data.message });
         }
     }
 

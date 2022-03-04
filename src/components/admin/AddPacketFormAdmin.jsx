@@ -5,7 +5,6 @@ import { CreateOutlined, Check, Close } from '@mui/icons-material';
 import { CircularProgress } from '@mui/material';
 import useDraggableScroll from 'use-draggable-scroll';
 import Snackbar from "../Snackbar";
-
 import { adminDataApi } from '../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { StyledButton } from '../../ReuseableComponents/ReuseableComponents';
