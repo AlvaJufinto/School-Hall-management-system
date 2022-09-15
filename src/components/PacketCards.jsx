@@ -30,6 +30,7 @@ const PacketCards = () => {
             setIsLoading(true);
             try {
                 const res = await clientDataApi.allPackets();
+                console.log(res);
                 setPackets(res.data.data.paket);
                 setIsLoading(false);
             } catch (err) {
@@ -51,7 +52,7 @@ const PacketCards = () => {
                             title={packet?.namaPaket}
                             deskripsi={packet?.deskripsi}
                             packet={packet?.detailCatering && packet?.detailCatering?.detailPaketCatering}
-                            price={packet?.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
+                            price={packet?.detailCatering ? packet.detailCatering.hargaPerBuah : packet?.hargaAula}
                             cardVariant="small"
                             className="h-100"
                         />

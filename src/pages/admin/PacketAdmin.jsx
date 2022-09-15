@@ -1,15 +1,10 @@
 import { useContext, useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
-import { Form, InputGroup, FormControl } from "react-bootstrap";
 import { AddRounded, Check, Close } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
-import useDraggableScroll from 'use-draggable-scroll';
-
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import CardComponent from "./../../components/admin/PacketCardAdmin";
 import AddForm from "./../../components/admin/AddPacketFormAdmin";
-import { adminDataApi } from '../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton, AdminDetailSection } from '../../ReuseableComponents/ReuseableComponents';
 
@@ -66,8 +61,8 @@ const Packet = () => {
                                 title={packet?.namaPaket}
                                 deskripsi={packet?.deskripsi}
                                 packet={packet?.detailCatering && packet?.detailCatering?.detailPaketCatering}
-                                price={packet?.detailCatering ? packet.detailCatering.hargaPerBuah : '0'}
-                                priceAula={packet?.hargaAula}
+                                price={packet?.detailCatering ? packet.detailCatering?.hargaPerBuah : packet?.hargaAula}
+                                // priceAula={packet?.hargaAula}
                                 cardVariant="small"
                                 className="h-100" 
                                 packetIsLoading={isAdminDataLoading} />

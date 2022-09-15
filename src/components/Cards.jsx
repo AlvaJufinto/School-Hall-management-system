@@ -91,7 +91,7 @@ const CardComponent = ({ packetPlain, deskripsi, image, title, packet, price, ca
                             <p key={i}>{packet}</p>
                         ))}
                     </Card.Text>
-                    <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {price == 0 ? '' : '/orang'}</h2>
+                    <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {packetPlain === true ? '/jam' : '/orang'}</h2>
                 </div>
             </SmallCard>
         )

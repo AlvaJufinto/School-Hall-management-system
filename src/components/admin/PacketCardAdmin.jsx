@@ -139,7 +139,7 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
                                         ))}
                                 </Card.Text>
                         </div>
-                        <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {price == 0 ? '' : '/orang'}</h2>
+                        <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {packetPlain === true ? "/jam" : '/orang'}</h2>
                         <div className="Options">
                                 <StyledButton 
                                     variant="success"
