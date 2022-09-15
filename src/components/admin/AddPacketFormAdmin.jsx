@@ -167,7 +167,6 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
                         <InputGroup.Text className="Harga">Rp. </InputGroup.Text>
                         <FormControl 
                             variant="info"
-                            type="text"
                             value={hargaAula}
                             onChange={e => setHargaAula(e.target.value.replace(/[.,\s]/g, ""))}
                             className="Harga"
@@ -181,7 +180,6 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
                             <InputGroup.Text className="Harga">Rp. </InputGroup.Text>
                             <FormControl 
                                 variant="info"
-                                type="text"
                                 value={hargaPaket}
                                 onChange={e => setHargaPaket(e.target.value.replace(/[.,\s]/g, ""))}
                                 type="number"
