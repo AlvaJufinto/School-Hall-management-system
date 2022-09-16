@@ -102,6 +102,14 @@ const ProfileContainer = styled.div`
         word-break: break-all;
         white-space: normal;
     }
+
+    img {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
 `
 
 const StyledNavbarAdmin = () => {
