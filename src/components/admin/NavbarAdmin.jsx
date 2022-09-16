@@ -179,7 +179,7 @@ const StyledNavbarAdmin = () => {
                         }}>Paket</StyledLink>
                 </div>
                 <ProfileContainer>
-                    <img src={Chad} alt="" />
+                    <img src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"} alt="" />
                     <p>{user && user.username}</p>
                     <StyledButton 
                         variant="danger"
