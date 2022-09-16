@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = "https://school-hall-backend.herokuapp.com/"; 
+export const baseUrl = "https://school-hall-backend.herokuapp.com"; 
 // export const baseUrl = "http://localhost:8800"; 
 
 //request interceptor to add the auth token header to requests
