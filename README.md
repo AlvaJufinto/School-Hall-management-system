@@ -14,6 +14,15 @@ There are some bugs on this system, especially on the admin side. Pull reqs and 
 
 
 
+## Tech Stack
+
+<p float="left">
+  <img src="https://media.discordapp.net/attachments/1021751620331126865/1021757798259888240/node-logo.png" width="100" />
+  <img src="https://media.discordapp.net/attachments/1021751620331126865/1021757797475561542/js-logo.png) ![react](https://media.discordapp.net/attachments/1021751620331126865/1021757798612217927/react-logo.png" width="100" />
+  <img src="https://media.discordapp.net/attachments/1021751620331126865/1021757798612217927/react-logo.png" width="100" /> 
+  <img src="https://media.discordapp.net/attachments/1021751620331126865/1021758896152518666/unknown.png" width="100" />
+</p>
+
 ## Getting started
 
 To use this repo run :
@@ -35,7 +44,6 @@ To use this repo run :
 
 - [Packet Page](https://school-hall-management.vercel.app/) - Fill out the form
 ![alt text](https://media.discordapp.net/attachments/1021751620331126865/1021752773001347193/unknown.png?width=825&height=415)
-
 
 - [Payment Page](https://school-hall-management.vercel.app/) - Here's the payment bill
 ![alt text](https://media.discordapp.net/attachments/1021751620331126865/1021753334660612146/unknown.png?width=605&height=415)
