@@ -18,7 +18,7 @@ There are some bugs on this system, especially on the admin side. Pull reqs and 
 
 <p float="left">
   <img src="https://media.discordapp.net/attachments/1021751620331126865/1021757798259888240/node-logo.png" width="100" />
-  <img src="https://media.discordapp.net/attachments/1021751620331126865/1021757797475561542/js-logo.png) ![react](https://media.discordapp.net/attachments/1021751620331126865/1021757798612217927/react-logo.png" width="100" />
+  <img src="https://media.discordapp.net/attachments/1021751620331126865/1021757798612217927/react-logo.png" width="100" />
   <img src="https://media.discordapp.net/attachments/1021751620331126865/1021757798612217927/react-logo.png" width="100" /> 
   <img src="https://media.discordapp.net/attachments/1021751620331126865/1021758896152518666/unknown.png" width="100" />
 </p>
