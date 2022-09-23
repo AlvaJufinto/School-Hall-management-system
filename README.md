@@ -1,4 +1,3 @@
-
 # School Hall Management System
 
 Frontend side of this [School Hall Management system](https://school-hall-management.vercel.app/) system. It used to be closed source but cancelled midway. 
