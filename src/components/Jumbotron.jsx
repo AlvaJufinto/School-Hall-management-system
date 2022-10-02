@@ -3,7 +3,7 @@ import { Container, Button } from 'react-bootstrap';
 import { GlobalMeasurements, GlobalFonts, GlobalColors } from '../globals';
 import { StyledLink, StyledButton } from "../ReuseableComponents/ReuseableComponents";
 
-import JumbotronImg from "../assets/img/jumbotron-img.png";
+import JumbotronImg from "../assets/img/gambar-aula-jumbotron.jpg";
 
 const JumbotronDescription = styled.p`
     font-family: ${GlobalFonts.secondary};
@@ -18,19 +18,19 @@ const JumbotronDescription = styled.p`
 const Jumbotron = () => {
     return (
         <div class="container-fluid text-light" style={{
-            backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 64%), rgba(196, 196, 196, 0%)), url(${JumbotronImg})`,
+            backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 84%), rgba(196, 196, 196, 0%)), url(${JumbotronImg})`,
             height: '530px',
             fontFamily: GlobalFonts.primary,
             color: GlobalColors.white,
             display: 'flex',
             alignItems: 'center',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center ',
             backgroundRepeat: 'no-repeat',
         }}>
             <Container>
-                <h1 class="display-4">Lorem ipsum </h1>
-                <JumbotronDescription class="py-2">Dolor sit amet, consectetur adipiscing elit. Diam proin ut orci sem nunc. Fermentum pulvinar urna malesuada amet ornare. Enim erat sit maecenas diam auctor viverra vitae sed. </JumbotronDescription>
+                <h1 class="display-4">AULA SMKN 26 Jakarta </h1>
+                <JumbotronDescription class="py-2">Sistem penyewaan aula untuk SMK Negeri 26 Jakarta.</JumbotronDescription>
                 <StyledLink to="/" >
                     <StyledButton 
                         color={GlobalColors.white}
@@ -39,7 +39,7 @@ const Jumbotron = () => {
                         width="205"
                         fontSize="1.5"
                         borderRadius="15">
-                            Lorem
+                            Info Lanjut
                     </StyledButton>
                 </StyledLink>
             </Container>

@@ -5,24 +5,24 @@ import { Carousel } from 'react-bootstrap';
 import { StyledTitle } from "../ReuseableComponents/ReuseableComponents";
 
 import { GlobalMeasurements, GlobalColors } from '../globals';
-import PreviewImg from "../assets/img/preview-img.png";
+import JumbotronImg from "../assets/img/gambar-aula-jumbotron.jpg";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const PreviewSection = () => {
     const data = [
         {
-            image: require('./../assets/img/preview-img.png'), 
+            image: "https://timur.jakarta.go.id/v15/assets/images/content/news/1564990032.jpeg", 
             caption:"Caption 1",
             description:"Description 1 Here"
         },
         {
-            image: require('./../assets/img/preview-img.png'), 
+            image: "https://www.indonesiana.id/images/all/2019/11/12/f201911121656044.jpg", 
             caption:"Caption 2",
             description:"Description 2 Here"
         },
         {
-            image: require('./../assets/img/preview-img.png'), 
+            image: JumbotronImg, 
             caption:"Caption 3",
             description:"Description 2 Here"
         }
@@ -43,7 +43,7 @@ const PreviewSection = () => {
             }}>Preview Aula</StyledTitle>
             <Carousel activeIndex={index} onSelect={handleSelect} style={{
                 margin: '-10px 0',
-                maxHeight: '530px',
+                maxHeight: '600px',
             }}>
                 {data.map((slide, i) => {
                     return (

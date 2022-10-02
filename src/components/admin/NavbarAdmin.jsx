@@ -26,7 +26,6 @@ const StyledNavbar = styled.div`
     justify-content: space-between;
     background: ${GlobalColors.hardGrey};
     padding: 20px 6vw;
-
     h2 {
         font-size: 2rem;
     }
@@ -65,20 +64,17 @@ const NavbarAdmin = styled.nav`
         text-align: center;
         color: ${GlobalColors.green};
     }
-
     .NavbarLinkContainer {
         display: flex;
         flex-direction: column;
         font-size: 1.25rem;
         width: 100%; 
-
         ${StyledLink} {
             padding: 10px;
             width: 100%;
             text-align: center;
         }
     }
-
     @media (max-width: 768px) {
         width: 50%;
         /* align-items: flex-start; */
@@ -101,6 +97,12 @@ const ProfileContainer = styled.div`
         font-family: ${GlobalFonts.secondary};
         word-break: break-all;
         white-space: normal;
+    }
+    img {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        object-fit: cover;
     }
 `
 
@@ -179,7 +181,7 @@ const StyledNavbarAdmin = () => {
                         }}>Paket</StyledLink>
                 </div>
                 <ProfileContainer>
-                    <img src={Chad} alt="" />
+                    <img src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"} alt="" />
                     <p>{user && user.username}</p>
                     <StyledButton 
                         variant="danger"

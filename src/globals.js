@@ -16,7 +16,7 @@ export const GlobalStyles = createGlobalStyle`
 export const GlobalColors = {
     blue: "#63DAFF",
     violet: "#6369FF",
-    hardGrey: "#393E46",
+    hardGrey: "#00296b",
     grey: "#E5E5E5",
     lightGrey: "#C4C4C4",
     white: "#FFF",
@@ -33,6 +33,6 @@ export const GlobalMeasurements = {
 
 export const GlobalFonts = {
     primary: 'Bebas Neue',
-    secondary: 'Poppins',
+    secondary: 'Quicksand',
 }
 
