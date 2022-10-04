@@ -7,7 +7,7 @@ import { GlobalMeasurements, GlobalFonts, GlobalColors } from '../globals';
 
 
 export const StyledLink = styled(Link)`
-    color: ${GlobalColors.white};
+    color: ${GlobalColors.hardGrey};
     font-family: ${GlobalFonts.primary};
     text-decoration: none;
 
@@ -16,7 +16,7 @@ export const StyledLink = styled(Link)`
     }
 
     &:hover {
-        color: white;
+        color: ${GlobalColors.violet};
     }
 `
 

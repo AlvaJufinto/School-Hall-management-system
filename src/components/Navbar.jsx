@@ -5,14 +5,17 @@ import { StyledLink } from "../ReuseableComponents/ReuseableComponents";
 
 const NavbarBrand = styled(Navbar.Brand)`
     font-size: ${GlobalMeasurements.navbarFontSize}rem !important;
+    color: ${GlobalColors.hardGrey};
+
 `
 
 const StyledNavbar = () => {
     return (
-        <Navbar variant="dark" expand="lg" style={{
+        <Navbar variant="light" expand="lg" style={{
             padding: `5px 20px`, 
             fontSize: `${GlobalMeasurements.navbarFontSize}rem`,
-            backgroundColor: GlobalColors.hardGrey,            
+            // backgroundColor: GlobalColors.grey,  
+            boxShadow: '0px 5px 100px rgba(0, 0, 0, 0.15)'
         }}>
             <Container>
                 <StyledLink to="/">

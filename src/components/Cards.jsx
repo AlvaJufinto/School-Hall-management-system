@@ -6,10 +6,13 @@ import { GlobalMeasurements, GlobalColors, GlobalFonts } from '../globals';
 
 const DefaultCard = styled(Card)`
     border-radius: 20px;
-    background: ${GlobalColors.hardGrey};
+    /* background: ${GlobalColors.hardGrey}; */
+    border: none !important;
     padding: 18px;
     height: 100%;
-    color: white;
+    color: black;
+    box-shadow: 0px 5px 100px rgba(0, 0, 0, 0.15) !important; 
+
 
     img {
         object-fit: cover;

@@ -5,7 +5,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Menu } from '@mui/icons-material';
 import useWindowDimensions from './../../hooks/useWindowDimensions';
 
-import { Navbar, Container, Nav } from 'react-bootstrap';
 import { GlobalMeasurements, GlobalColors, GlobalFonts } from '../../globals';
 
 import { StyledLink, StyledButton } from "../../ReuseableComponents/ReuseableComponents";
@@ -49,7 +48,9 @@ const NavbarAdmin = styled.nav`
     left: 0;
     overflow-x: hidden;
     padding: 50px 0px;
-    background: ${GlobalColors.hardGrey};
+    background: ${GlobalColors.white};
+    color: ${GlobalColors.hardGrey};
+    box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,7 +93,7 @@ const ProfileContainer = styled.div`
     
     p {
         font-size: 20px;
-        color: white;
+        /* color: white; */
         margin: 5px 0 20px 0;
         font-family: ${GlobalFonts.secondary};
         word-break: break-all;
@@ -145,7 +146,7 @@ const StyledNavbarAdmin = () => {
                     }} onClick={() => setIsHidden(!isHidden)} />
                     <StyledLink to="/admin/dashboard">
                         <h2>SEWA AULA</h2>
-                        <p>{user.role}</p>
+                        <p>{user?.role}</p>
                     </StyledLink>
                     <div style={{ width: '35px', }}></div>
                     {/* </Container> */}
@@ -155,34 +156,39 @@ const StyledNavbarAdmin = () => {
                 { windowWidth > 768 &&
                     <StyledLink to="/admin/dashboard">
                         <h2>SEWA AULA</h2>
-                        <p>ADMIN</p>
+                        <p>{user?.role}</p>
                     </StyledLink>
                 }
                 <div className="NavbarLinkContainer">
                     <StyledLink to="/admin/dashboard" 
                         style={{ 
                             backgroundColor: location.pathname == '/admin/dashboard' ? GlobalColors.violet : '', 
+                            color: location.pathname == '/admin/dashboard' ? GlobalColors.white : '', 
                         }}>Dashboard</StyledLink>
                     <StyledLink to="/admin/order-queue"
                          style={{ 
-                            backgroundColor: location.pathname == '/admin/order-queue' ? GlobalColors.violet : '', 
+                            backgroundColor: location.pathname == '/admin/order-queue' ? GlobalColors.violet : '',
+                            color: location.pathname == '/admin/order-queue' ? GlobalColors.white : '', 
                         }}>Order Antrean</StyledLink>
                     <StyledLink to="/admin/order-done"
                          style={{ 
                             backgroundColor: location.pathname == '/admin/order-done' ? GlobalColors.violet : '', 
+                            color: location.pathname == '/admin/order-done' ? GlobalColors.white : '', 
                         }}>Order Selesai</StyledLink>
                     <StyledLink to="/admin/order-cancel"
                          style={{ 
                             backgroundColor: location.pathname == '/admin/order-cancel' ? GlobalColors.violet : '', 
+                            color: location.pathname == '/admin/order-cancel' ? GlobalColors.white : '', 
                         }}>Order Batal</StyledLink>
                     <StyledLink to="/admin/packet"
                          style={{ 
                             backgroundColor: location.pathname == '/admin/packet' ? GlobalColors.violet : '', 
+                            color: location.pathname == '/admin/packet' ? GlobalColors.white : '', 
                         }}>Paket</StyledLink>
                 </div>
                 <ProfileContainer>
                     <img src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"} alt="" />
-                    <p>{user && user.username}</p>
+                    <p>{user?.username}</p>
                     <StyledButton 
                         variant="danger"
                         color={GlobalColors.white}

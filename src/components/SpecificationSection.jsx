@@ -47,10 +47,6 @@ const SpecificationSection = () => {
                         <td>Proyektor</td>
                         <td>2 Buah</td>
                     </tr>
-                    <tr>
-                        <td>Harga</td>
-                        <td>Rp. 300.000,00/Hari</td>
-                    </tr>
                 </tbody>
             </TableStyled>
         </StyledSection>

@@ -84,6 +84,7 @@ const Dashboard = () => {
             <StyledLink to={`/admin/${route}`} >
                 <div style={{
                     background: color,
+                    color: 'white',
                     width: '300px',
                     height: '200px',
                     display: 'flex',

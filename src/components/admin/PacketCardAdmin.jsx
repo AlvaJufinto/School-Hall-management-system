@@ -16,9 +16,10 @@ import DummyImgPlain from "./../../assets/img/dummy-img-3.png";
 
 const DefaultCard = styled(Card)`
     border-radius: 20px;
-    background: ${GlobalColors.hardGrey};
+    /* background: ${GlobalColors.hardGrey}; */
     padding: 18px;
-    color: white;
+    border: none;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15) !important;
 
     img {
         object-fit: cover;

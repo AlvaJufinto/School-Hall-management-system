@@ -11,9 +11,10 @@ const FooterSection = styled.div`
     padding: 50px 0px;
     height: 400px;
     width: 100%; 
-    background-color: ${GlobalColors.hardGrey};
+    /* background-color: ${GlobalColors.hardGrey}; */
     display: flex;
     align-items: center;
+    box-shadow: 0px 5px 100px rgba(0, 0, 0, 0.15);
     
     .Icon {
         margin: 0 10px 0 0;
@@ -32,7 +33,7 @@ const FooterSection = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        /* background: red; */
+        color: ${GlobalColors.hardGrey};
 
         .MobileView {
             display: none;

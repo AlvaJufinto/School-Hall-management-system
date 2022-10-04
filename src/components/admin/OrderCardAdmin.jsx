@@ -13,8 +13,9 @@ import { AdminOrderContext } from "../../context/AdminOrderContext";
 
 const OrderCard = styled.div`
     border-radius: 20px;
-    color: white;
-    background-color: ${GlobalColors.hardGrey};
+    color: black;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15) !important;
+
     max-width: 400px;
     width: 100%;
     overflow: hidden;

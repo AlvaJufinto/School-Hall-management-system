@@ -51,7 +51,7 @@ const AvailableDateContainer = styled.div`
 `
 
 const Schedule = () => {
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
     const date = new Date();
     const [isAvailableDateLoading, setIsAvailableDateLoading] = useState(true);
     const [availableDate, setAvailableDate] = useState([]);
@@ -130,7 +130,7 @@ const Schedule = () => {
                         style={{
                             borderRadius: '30px',
                             fontSize: '1.5rem',
-                            background: GlobalColors.violet,
+                            background: GlobalColors.hardGrey,
                             color: 'white',
                             padding: '10px 20px',
                         }}>
@@ -144,7 +144,7 @@ const Schedule = () => {
                         style={{
                             borderRadius: '30px',
                             fontSize: '1.5rem',
-                            background: GlobalColors.violet,
+                            background: GlobalColors.hardGrey,
                             color: 'white',
                             padding: '10px 20px',
                         }}>
