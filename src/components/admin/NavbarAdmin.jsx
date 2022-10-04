@@ -11,8 +11,6 @@ import { StyledLink, StyledButton } from "../../ReuseableComponents/ReuseableCom
 import { AuthContext } from "../../context/AuthContext";
 import { authApi } from "./../../api/api";
 
-import Chad from "./../../assets/img/chad.png";
-
 const StyledNavbar = styled.div`
     position: fixed;
     width: 100%;
@@ -34,6 +32,10 @@ const StyledNavbar = styled.div`
         font-size: 1.5rem;
         text-align: center;
         color: ${GlobalColors.green};
+    }
+
+    ${StyledLink} {
+        color: ${GlobalColors.white};
     }
 `
 
