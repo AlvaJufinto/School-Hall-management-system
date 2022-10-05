@@ -57,7 +57,9 @@ const WideCard = styled(DefaultCard)`
     height: 150px;
     flex-direction: row;
     justify-content: space-between;
-    
+    background-color: ${GlobalColors.hardGrey};
+    color: ${GlobalColors.white};
+
     .CardLeft {
         display: flex;
         gap: 20px;

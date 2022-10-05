@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Container, Button } from 'react-bootstrap';
-import { GlobalMeasurements, GlobalFonts, GlobalColors } from '../globals';
+import { GlobalFonts, GlobalColors } from '../globals';
 import { StyledLink, StyledButton } from "../ReuseableComponents/ReuseableComponents";
 
 import JumbotronImg from "../assets/img/gambar-aula-jumbotron.jpg";

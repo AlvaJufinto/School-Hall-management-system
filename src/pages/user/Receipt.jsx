@@ -31,6 +31,11 @@ const ReceiptInformation = styled.div`
         font-size: 1.5rem;
     }
 `
+
+const CustomCardComponent = styled(CardComponent)`
+    background-color: ${GlobalColors.hardGrey};
+`
+
 export const Details = styled.div`
     margin: 50px 0 30px 0;
     padding: 0 20px;
