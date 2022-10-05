@@ -30,6 +30,10 @@ const OrderDone = () => {
     const [orderDone, setOrderDone] = useState([]);
     
     useEffect(() => {
+        document.title = 'Admin | Order Done';
+    }, [])
+
+    useEffect(() => {
         setOrderDone(order.filter((item) => item.status === 'selesai'));
     }, [order]);
 

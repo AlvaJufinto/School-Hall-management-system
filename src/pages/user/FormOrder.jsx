@@ -113,6 +113,7 @@ const StyledForm = styled.form`
 const FormOrder = () => {
     useEffect(()=>  {
         window.scrollTo(0, 0);
+        document.title = 'Form Order';
     }, []);
 
     const packetId = useParams();

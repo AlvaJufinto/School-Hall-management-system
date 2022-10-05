@@ -49,26 +49,10 @@ const Dashboard = () => {
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
 
-    // useEffect(() => {
-    //     if(accessToken) {
-    //         (async () => {
-    //             try {
-    //                 const res = await adminDataApi.allData({ accessToken: accessToken });
-    //                 console.log(res.data.data);
-    //                 console.log("sdasdasd")
-    //                 setActiveOrder(res.data.data.active);
-    //                 setOrders(res.data.data.order);
-                    
-    //                 setPackets(res.data.data.paket);
-    //                 setisLoading(!isLoading);
-    //             } catch (err) {
-    //                 console.error(err.response);
-    //                 setisLoading(!isLoading);
-    //             }
-    //         })();
-    //     }
-    // }, [accessToken, refreshToken]);
-    
+    useEffect(() => {
+        document.title = 'Admin | Dashboard';
+    }, [])
+
     useEffect(() => {
         setActivePacket(packet?.filter(item => item._id === active[0]?.paketId))
     }, [order, packet])

@@ -44,6 +44,10 @@ const Packet = () => {
     const { isLoading: isAdminDataLoading, packet } = useContext(AdminOrderContext);
     const [isShowAdd, setIsShowAdd] = useState(false);
     
+    useEffect(() => {
+        document.title = 'Admin | Paket';
+    }, [])
+
     return (
         <PacketContainer>
             <StyledNavbarAdmin />

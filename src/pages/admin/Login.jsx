@@ -64,6 +64,10 @@ const Login = () => {
         display: "show",
     });
 
+    useEffect(() => {
+        document.title = 'Admin | Login';
+    }, [])
+
     const handleChange = (e) => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
     };
