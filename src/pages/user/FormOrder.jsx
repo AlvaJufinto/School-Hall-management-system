@@ -197,7 +197,7 @@ const FormOrder = () => {
                             title={packet?.namaPaket}
                             deskripsi={packet?.deskripsi}
                             packet={!packet.paketPlain && packet.detailCatering.detailPaketCatering}
-                            price={!packet.paketPlain ? packet.detailCatering.hargaPerBuah : '0'}
+                            price={!packet.paketPlain ? packet.detailCatering.hargaPerBuah : packet.hargaAula}
                             cardVariant="small"
                             className="h-100"
                         />}

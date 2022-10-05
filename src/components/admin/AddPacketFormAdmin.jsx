@@ -180,7 +180,7 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
                     </InputGroup>
                     { tipePaket === 'order' &&
                         <InputGroup className="mb-3">
-                            <InputGroup.Text className="Harga">Rp. s</InputGroup.Text>
+                            <InputGroup.Text className="Harga">Rp. </InputGroup.Text>
                             <FormControl 
                                 variant="info"
                                 value={hargaPaket}
