@@ -6,13 +6,10 @@ import useDraggableScroll from 'use-draggable-scroll';
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import OrderCardInfo from "../../components/admin/OrderCardInfo"; 
 import LoadingComponent from "../../components/admin/LoadingComponent";
-import { adminDataApi } from './../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton } from '../../ReuseableComponents/ReuseableComponents';
 
-import { AuthContext } from "../../context/AuthContext";
 import { AdminOrderContext } from "../../context/AdminOrderContext";
-import { authApi } from "./../../api/api";
 import Icon from "./../../assets/svg/icon.svg"
 
 const DashboardContainer = styled.div`
@@ -65,7 +62,9 @@ const Dashboard = () => {
 
     const PreviewCard = ({ color, text, route, data, isLoading, total }) => {
         return (
-            <StyledLink to={`/admin/${route}`} >
+            <StyledLink to={`/admin/${route}`} style={{
+                userSelect: 'none',
+            }}>
                 <div style={{
                     background: color,
                     color: 'white',
@@ -77,7 +76,7 @@ const Dashboard = () => {
                     borderRadius: '20px',
                     padding: '20px',
                     fontFamily: GlobalFonts.secondary,
-                    overflow: 'hidden'
+                    overflow: 'hidden',
                 }}>
                     <h3>{text}</h3>
                     <div style={{

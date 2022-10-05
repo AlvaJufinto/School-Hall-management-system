@@ -117,6 +117,9 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
                 newPackets.splice(findIndex, 0, detail);
 
                 dispatch({ type: "EDIT_ADMIN_PACKET_SUCCESS", payload: newPackets })
+
+                console.log(newPackets);
+
                 setIsFormShown(false);
             } catch (err) {
                 dispatch({ type: "EDIT_ADMIN_PACKET_FAILURE", payload: err.response });
@@ -177,7 +180,7 @@ const AddFormContainer = ({ isAddForm, setIsShowAdd, setIsFormShown, packetInfo 
                     </InputGroup>
                     { tipePaket === 'order' &&
                         <InputGroup className="mb-3">
-                            <InputGroup.Text className="Harga">Rp. </InputGroup.Text>
+                            <InputGroup.Text className="Harga">Rp. s</InputGroup.Text>
                             <FormControl 
                                 variant="info"
                                 value={hargaPaket}
