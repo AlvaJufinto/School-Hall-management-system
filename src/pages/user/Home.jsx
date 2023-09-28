@@ -13,6 +13,11 @@ const HomeContainer = styled.div`
 `
 
 const Home = () => {
+    
+    useEffect(() => {
+        document.title = 'AULA SMKN 26 Jakarta  ';
+    }, [])
+
     return (
         <HomeContainer>
             <StyledNavbar />

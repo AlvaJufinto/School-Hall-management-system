@@ -31,6 +31,10 @@ const OrderQueue = () => {
     const [orderFuture, setOrderFuture] = useState([]);
 
     useEffect(() => {
+        document.title = 'Admin | Order Cancel';
+    }, [])
+
+    useEffect(() => {
         setOrderFuture(order.filter(item => item.status == 'paid' || item.status == 'order'))
     }, [order, packet])
     

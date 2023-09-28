@@ -113,6 +113,7 @@ const StyledForm = styled.form`
 const FormOrder = () => {
     useEffect(()=>  {
         window.scrollTo(0, 0);
+        document.title = 'Form Order';
     }, []);
 
     const packetId = useParams();
@@ -196,7 +197,7 @@ const FormOrder = () => {
                             title={packet?.namaPaket}
                             deskripsi={packet?.deskripsi}
                             packet={!packet.paketPlain && packet.detailCatering.detailPaketCatering}
-                            price={!packet.paketPlain ? packet.detailCatering.hargaPerBuah : '0'}
+                            price={!packet.paketPlain ? packet.detailCatering.hargaPerBuah : packet.hargaAula}
                             cardVariant="small"
                             className="h-100"
                         />}

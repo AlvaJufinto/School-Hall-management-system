@@ -27,14 +27,14 @@ const StyledNavbar = () => {
                     className=" justify-content-end">
                     <Nav className="justify-content-end">
                         <Nav.Link className="mr-5">
-                            <StyledLink to="/">HOME</StyledLink>
+                            <StyledLink to="/">Home</StyledLink>
                         </Nav.Link>
                         <Nav.Link className="mr-5">
                             <StyledLink to="/schedule">Jadwal</StyledLink>
                         </Nav.Link>
-                        <Nav.Link>
+                        {/* <Nav.Link>
                             <StyledLink to="/contact">CONTACT</StyledLink>
-                        </Nav.Link>
+                        </Nav.Link> */}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

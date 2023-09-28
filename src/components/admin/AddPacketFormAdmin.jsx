@@ -39,11 +39,11 @@ const AddForm = styled.form`
     .Deskripsi {
       margin: 10px 0;
       height: 100px;
-    }
 
-    .Harga {
-      color: ${GlobalColors.green};
-      font-size: 1.5rem;
+      .Harga {
+        color: ${GlobalColors.green};
+        font-size: 1.5rem;
+      }
     }
   }
 `;

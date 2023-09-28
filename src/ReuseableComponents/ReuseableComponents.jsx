@@ -10,6 +10,7 @@ export const StyledLink = styled(Link)`
     color: ${GlobalColors.hardGrey};
     font-family: ${GlobalFonts.primary};
     text-decoration: none;
+    user-select: none;
 
     &:focus, &:hover, &:visited, &:link, &:active {
         text-decoration: none;

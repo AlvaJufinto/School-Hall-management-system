@@ -67,6 +67,10 @@ const OrderDone = () => {
     const accessToken = localStorage.getItem('accessToken');
 
     useEffect(() => {
+        document.title = 'Admin | Order Detail';
+    }, [])
+
+    useEffect(() => {
         setViewOrder(order.filter(item => item._id === orderId));
     }, [orderId, order, packet]);
     

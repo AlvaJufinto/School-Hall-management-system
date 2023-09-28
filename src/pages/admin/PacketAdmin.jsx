@@ -44,6 +44,11 @@ const Packet = () => {
     const { isLoading: isAdminDataLoading, packet } = useContext(AdminOrderContext);
     const [isShowAdd, setIsShowAdd] = useState(false);
     
+    useEffect(() => {
+        console.log(packet)
+        document.title = 'Admin | Paket';
+    }, [])
+
     return (
         <PacketContainer>
             <StyledNavbarAdmin />
@@ -62,7 +67,7 @@ const Packet = () => {
                                 deskripsi={packet?.deskripsi}
                                 packet={packet?.detailCatering && packet?.detailCatering?.detailPaketCatering}
                                 price={packet?.detailCatering ? packet.detailCatering?.hargaPerBuah : packet?.hargaAula}
-                                // priceAula={packet?.hargaAula}
+                                priceAula={packet?.hargaAula}
                                 cardVariant="small"
                                 className="h-100" 
                                 packetIsLoading={isAdminDataLoading} />

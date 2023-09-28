@@ -64,6 +64,11 @@ const Schedule = () => {
     const [activeOrder, setActiveOrder] = useState();
     const [queueOrder, setQueueOrder] = useState();
 
+    useEffect(() => {
+        document.title = 'Schedule';
+    }, [])
+    
+
     useEffect(async () => {
         setIsAvailableDateLoading(true);
         try {

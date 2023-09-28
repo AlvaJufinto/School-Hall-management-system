@@ -80,11 +80,13 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
     const [isFormShown, setIsFormShown] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     let accessToken = localStorage.getItem("accessToken");
-    
+
+
     useEffect(() =>{
         if(packet.length === 1) {
             setIsButtonDisabled(true);
         }
+        console.log(priceAula);
     }, [packet])
 
     const orderDeleteHandler = async (paketId) => {
@@ -133,14 +135,14 @@ const CardComponent = ({ paketId, packetPlain, image, title, packet: activePacke
                     <>
                         <img variant="top" src={image} />
                         <div className="CardBody">
-                                <CardTitle>{title}</CardTitle>
-                                <Card.Text>
-                                    {packetPlain ? deskripsi : activePacket?.map((packet, i) => (
-                                        <p key={i}>{packet}</p>
-                                        ))}
-                                </Card.Text>
+                            <CardTitle>{title}</CardTitle>
+                            <Card.Text>
+                                {packetPlain ? deskripsi : activePacket?.map((packet, i) => (
+                                    <p key={i}>{packet}</p>
+                                    ))}
+                            </Card.Text>
                         </div>
-                        <h2>Rp. {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {packetPlain === true ? "/jam" : '/orang'}</h2>
+                        <h2>Rp. {packetPlain === true ? priceAula?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") :  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {packetPlain === true ? "/jam" : '/orang'}</h2>
                         <div className="Options">
                                 <StyledButton 
                                     variant="success"

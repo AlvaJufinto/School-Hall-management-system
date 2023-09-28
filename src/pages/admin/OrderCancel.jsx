@@ -30,6 +30,10 @@ const OrderCancel = () => {
     const [orderCancel, setOrderCancel] = useState([]);
 
     useEffect(() => {
+        document.title = 'Admin | Order Cancel';
+    }, [])
+
+    useEffect(() => {
         setOrderCancel(order.filter((item) => item.status === 'batal'));
     }, [order]);
 

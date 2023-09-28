@@ -6,13 +6,10 @@ import useDraggableScroll from 'use-draggable-scroll';
 import StyledNavbarAdmin from '../../components/admin/NavbarAdmin';
 import OrderCardInfo from "../../components/admin/OrderCardInfo"; 
 import LoadingComponent from "../../components/admin/LoadingComponent";
-import { adminDataApi } from './../../api/api';
 import { GlobalColors, GlobalFonts } from "../../globals";
 import { AdminStyledSection, StyledLink, StyledButton } from '../../ReuseableComponents/ReuseableComponents';
 
-import { AuthContext } from "../../context/AuthContext";
 import { AdminOrderContext } from "../../context/AdminOrderContext";
-import { authApi } from "./../../api/api";
 import Icon from "./../../assets/svg/icon.svg"
 
 const DashboardContainer = styled.div`
@@ -49,26 +46,10 @@ const Dashboard = () => {
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
 
-    // useEffect(() => {
-    //     if(accessToken) {
-    //         (async () => {
-    //             try {
-    //                 const res = await adminDataApi.allData({ accessToken: accessToken });
-    //                 console.log(res.data.data);
-    //                 console.log("sdasdasd")
-    //                 setActiveOrder(res.data.data.active);
-    //                 setOrders(res.data.data.order);
-                    
-    //                 setPackets(res.data.data.paket);
-    //                 setisLoading(!isLoading);
-    //             } catch (err) {
-    //                 console.error(err.response);
-    //                 setisLoading(!isLoading);
-    //             }
-    //         })();
-    //     }
-    // }, [accessToken, refreshToken]);
-    
+    useEffect(() => {
+        document.title = 'Admin | Dashboard';
+    }, [])
+
     useEffect(() => {
         setActivePacket(packet?.filter(item => item._id === active[0]?.paketId))
     }, [order, packet])
@@ -81,7 +62,9 @@ const Dashboard = () => {
 
     const PreviewCard = ({ color, text, route, data, isLoading, total }) => {
         return (
-            <StyledLink to={`/admin/${route}`} >
+            <StyledLink to={`/admin/${route}`} style={{
+                userSelect: 'none',
+            }}>
                 <div style={{
                     background: color,
                     color: 'white',
@@ -93,7 +76,7 @@ const Dashboard = () => {
                     borderRadius: '20px',
                     padding: '20px',
                     fontFamily: GlobalFonts.secondary,
-                    overflow: 'hidden'
+                    overflow: 'hidden',
                 }}>
                     <h3>{text}</h3>
                     <div style={{
