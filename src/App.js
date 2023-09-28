@@ -1,10 +1,12 @@
-import { useContext, useState, useEffect } from 'react';
+/** @format */
+
+import { useContext, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-  useLocation 
+  useLocation,
 } from "react-router-dom";
 
 import { GlobalStyles } from "./globals";
@@ -27,10 +29,9 @@ import Packet from "./pages/admin/PacketAdmin";
 import NotFound from "./pages/NotFound";
 
 import { AuthContext } from "./context/AuthContext";
-import api from "./api/api";
 
 function App() {
-  const { isLoggedIn, isLoading, dispatch } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <Router>
@@ -44,13 +45,46 @@ function App() {
           <Route path="/receipt/:receiptId" element={<Receipt />} />
 
           {/* Admin */}
-          <Route path="/admin/login" element={isLoggedIn ? <Navigate to="/admin/dashboard" /> : <Login />} />
-          <Route path="/admin/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/admin/login" /> } />
-          <Route path="/admin/order-queue" element={isLoggedIn ? <OrderQueue /> : <Navigate to="/admin/login" /> } />
-          <Route path="/admin/order-done" element={isLoggedIn ? <OrderDone /> : <Navigate to="/admin/login" /> } />
-          <Route path="/admin/order-cancel" element={isLoggedIn ? <OrderCancel /> : <Navigate to="/admin/login"/> } /> 
-          <Route path="/admin/order/:orderId" element={isLoggedIn ? <OrderView /> : <Navigate to="/admin/login" /> } />
-          <Route path="/admin/packet" element={isLoggedIn ? <Packet /> : <Navigate to="/admin/login" /> } />
+          <Route
+            path="/admin/login"
+            element={
+              isLoggedIn ? <Navigate to="/admin/dashboard" /> : <Login />
+            }
+          />
+          <Route
+            path="/admin/dashboard"
+            element={
+              isLoggedIn ? <Dashboard /> : <Navigate to="/admin/login" />
+            }
+          />
+          <Route
+            path="/admin/order-queue"
+            element={
+              isLoggedIn ? <OrderQueue /> : <Navigate to="/admin/login" />
+            }
+          />
+          <Route
+            path="/admin/order-done"
+            element={
+              isLoggedIn ? <OrderDone /> : <Navigate to="/admin/login" />
+            }
+          />
+          <Route
+            path="/admin/order-cancel"
+            element={
+              isLoggedIn ? <OrderCancel /> : <Navigate to="/admin/login" />
+            }
+          />
+          <Route
+            path="/admin/order/:orderId"
+            element={
+              isLoggedIn ? <OrderView /> : <Navigate to="/admin/login" />
+            }
+          />
+          <Route
+            path="/admin/packet"
+            element={isLoggedIn ? <Packet /> : <Navigate to="/admin/login" />}
+          />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
