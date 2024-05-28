@@ -162,7 +162,7 @@ const Footer = () => {
                     <p><YouTubeIcon className="Icon" /> smkn26jktofficial</p>
                     <p><Twitter className="Icon" /> smkn26jktofficial</p>
                     <p><Instagram className="Icon" /> smkn26jktofficial</p>
-                    <a target="_blank" href="https://api.whatsapp.com/send?phone=89601943530&text=Saya%20ingin%20tanya%20tentang%20penyewaan%20aula">
+                    <a target="_blank" href="https://api.whatsapp.com/send?phone=89291829110&text=Saya%20ingin%20tanya%20tentang%20penyewaan%20aula">
                         <StyledButton 
                             variant="success"
                             background={GlobalColors.green}
